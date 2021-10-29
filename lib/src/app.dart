@@ -26,6 +26,7 @@ class _ApplicationState extends State<Application> {
     return GetMaterialApp(
       home: const HomeScreen(),
       translations: AppTranslations(),
+      locale: Get.deviceLocale,
       supportedLocales: AppTranslations().supportedLocales,
       theme: ThemeConfigs.getTheme(),
     );
