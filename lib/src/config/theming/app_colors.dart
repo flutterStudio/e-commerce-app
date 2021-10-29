@@ -9,7 +9,7 @@ class AppColors {
 
   static const CustomColorScheme darkColorScheme = CustomColorScheme(
     primary: darkGrey,
-    brightness: Brightness.light,
+    brightness: Brightness.dark,
     primaryVariant: darkGrey,
     secondaryVariant: orange,
     secondary: orange,
@@ -23,6 +23,25 @@ class AppColors {
     onSurface: white,
     icon: white,
     activeIcon: white,
+    inactiveIcon: white,
+  );
+
+  static const CustomColorScheme lightColorScheme = CustomColorScheme(
+    primary: white,
+    brightness: Brightness.light,
+    primaryVariant: white,
+    secondaryVariant: orange,
+    secondary: orange,
+    background: white,
+    error: orange,
+    onBackground: darkGrey,
+    onError: orange,
+    onPrimary: darkGrey,
+    onSecondary: darkGrey,
+    surface: white,
+    onSurface: darkGrey,
+    icon: darkGrey,
+    activeIcon: orange,
     inactiveIcon: white,
   );
 }

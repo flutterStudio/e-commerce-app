@@ -28,7 +28,8 @@ class _ApplicationState extends State<Application> {
       translations: AppTranslations(),
       locale: Get.deviceLocale,
       supportedLocales: AppTranslations().supportedLocales,
-      theme: ThemeConfigs.getTheme(),
+      theme: ThemeConfigs.getTheme(themeMode: ThemeMode.light),
+      themeMode: ThemeMode.light,
     );
   }
 }

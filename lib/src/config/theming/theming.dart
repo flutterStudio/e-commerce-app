@@ -9,15 +9,18 @@ export 'text_themes.dart' hide AppTextTheme, TextStyles;
 class ThemeConfigs {
   static final Map<ThemeMode, ColorScheme> _themesColorSchemes = {
     ThemeMode.dark: AppColors.darkColorScheme,
-    ThemeMode.light: AppColors.darkColorScheme,
+    ThemeMode.light: AppColors.lightColorScheme,
   };
-  static ThemeData changeTheme(BuildContext context) {
-    return getTheme(theme: Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+  static void changeTheme() {
+    ThemeData theme =
+        getTheme(themeMode: Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+    Get.changeTheme(theme);
   }
 
-  static ThemeData getTheme({ThemeMode theme = ThemeMode.system}) {
+  static ThemeData getTheme({ThemeMode themeMode = ThemeMode.system}) {
     return ThemeData.from(
-        colorScheme: _themesColorSchemes[theme] ?? AppColors.darkColorScheme,
-        textTheme: AppTextTheme.getTextTheme(theme));
+        colorScheme:
+            _themesColorSchemes[themeMode] ?? AppColors.darkColorScheme,
+        textTheme: AppTextTheme.getTextTheme(themeMode));
   }
 }
