@@ -12,7 +12,12 @@ class HomeScreen extends GetView<HomeScreenController> {
       appBar: AppBar(
         title: Text("appTitle".tr),
       ),
-      body: Center(child: Obx(() => Text("${controller.counter}"))),
+      body: Center(
+          child: Obx(() => Text(
+                "${controller.counter}",
+                style: Theme.of(context).textTheme.headline5?.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground),
+              ))),
       floatingActionButton: FloatingActionButton(
         onPressed: controller.increaseCounter,
         tooltip: 'Increment',
