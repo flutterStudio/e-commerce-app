@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_template/src/config/app.config.dart';
 import 'package:flutter_template/src/config/theming/theming.dart';
-import 'package:flutter_template/src/view/home_screen.dart';
+import 'package:flutter_template/src/view/home.screen.dart';
 import 'package:get/route_manager.dart';
 
 class Application extends StatefulWidget {

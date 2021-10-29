@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../size_config.dart';
+import '../size.config.dart';
 
 class AppTextTheme {
   static TextTheme getTextTheme(ThemeMode theme) {
