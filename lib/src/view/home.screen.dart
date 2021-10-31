@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/src/config/theming/theming.dart';
-import 'package:flutter_template/src/controller/home_screen.controller.dart';
+import 'package:e_commerce/src/config/theming/theming.dart';
+import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_utils/get_utils.dart';

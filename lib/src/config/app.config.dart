@@ -1,4 +1,4 @@
-import 'package:flutter_template/src/controller/home_screen.controller.dart';
+import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:get/get.dart';
 
 class AppConfig {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/src/config/app.config.dart';
-import 'package:flutter_template/src/config/routing/app_routes.dart';
-import 'package:flutter_template/src/config/theming/theming.dart';
-import 'package:flutter_template/src/config/translations/translations.dart';
+import 'package:e_commerce/src/config/app.config.dart';
+import 'package:e_commerce/src/config/routing/app_routes.dart';
+import 'package:e_commerce/src/config/theming/theming.dart';
+import 'package:e_commerce/src/config/translations/translations.dart';
 import 'package:get/route_manager.dart';
 
 class Application extends StatefulWidget {
