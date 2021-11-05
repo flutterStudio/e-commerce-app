@@ -1,0 +1,35 @@
+import 'package:e_commerce/src/controller/product_list.controller.dart';
+import 'package:e_commerce/src/view/shared/product_item.widget.dart';
+import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+
+class ProductsListScreen extends GetView<ProductListcontroller> {
+  const ProductsListScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () => Get.back(),
+        ),
+      ),
+      body: Obx(
+        () => GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, childAspectRatio: .8),
+            itemCount: controller.products?.value.length,
+            itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    Get.toNamed(
+                        "/product/${Get.find<MainRepo>().productRepo.demoProducts[index].id}");
+                  },
+                  child: ProductCard(
+                    product: controller.products!.value[index]!,
+                  ),
+                )),
+      ),
+    );
+  }
+}

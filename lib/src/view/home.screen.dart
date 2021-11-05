@@ -1,37 +1,78 @@
+import 'package:e_commerce/src/view/shared/product_item.widget.dart';
+import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:e_commerce/src/config/theming/theming.dart';
-import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_utils/get_utils.dart';
 
-class HomeScreen extends GetView<HomeScreenController> {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("appTitle".tr),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                ThemeConfigs.changeTheme();
-              },
-              icon: Icon(Get.isDarkMode ? Icons.wb_sunny : Icons.nightlight))
-        ],
-      ),
-      body: Center(
-          child: Obx(() => Text(
-                "${controller.counter}",
-                style: Theme.of(context).textTheme.headline5?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground),
-              ))),
-      floatingActionButton: FloatingActionButton(
-        onPressed: controller.increaseCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            Get.toNamed("/products/1");
+                          },
+                          child: Image.asset("assets/images/sale_gaming.png")),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Get.toNamed("/products/0");
+                          },
+                          child: Image.asset("assets/images/sale_purse.png")),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Get.toNamed("/products/1");
+                          },
+                          child: Image.asset("assets/images/sale_backbag.png")),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemExtent: 100,
+                            itemCount: Get.find<MainRepo>()
+                                .productRepo
+                                .demoProducts
+                                .length,
+                            itemBuilder: (context, index) => GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(
+                                        '/product/${Get.find<MainRepo>().productRepo.demoProducts[index].id}');
+                                  },
+                                  child: ProductCard(
+                                      product: Get.find<MainRepo>()
+                                          .productRepo
+                                          .demoProducts[index]),
+                                )),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
