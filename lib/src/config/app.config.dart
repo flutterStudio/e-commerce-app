@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:get/get.dart';
 
@@ -12,5 +13,6 @@ class AppConfig {
 
   Future<void> _initControllers() async {
     Get.put<HomeScreenController>(HomeScreenController());
+    Get.put<CartScreenController>(CartScreenController());
   }
 }

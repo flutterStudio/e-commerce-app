@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
 
 import '/src/config/routing/app_paths.dart';
@@ -39,6 +40,10 @@ class AppRoutes {
 
         return ProductListcontroller(type);
       }),
+    ),
+    GetPage(
+      name: AppPaths.cart,
+      page: () => const CartScreen(),
     ),
   ];
 }
