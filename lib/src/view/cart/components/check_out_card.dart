@@ -1,7 +1,6 @@
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class CheckoutCard extends GetView<CartScreenController> {
