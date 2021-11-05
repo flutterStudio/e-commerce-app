@@ -4,8 +4,9 @@ import 'package:flutter/widgets.dart';
 
 class AppColors {
   static const Color darkGrey = Color(0xFF212121);
-  static const Color orange = Color(0xFFDD2C00);
+  static const Color orange = Color(0xFFFF7643);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color lightOrange = Color(0xFFFFECDF);
 
   static const CustomColorScheme darkColorScheme = CustomColorScheme(
     primary: darkGrey,
@@ -27,16 +28,16 @@ class AppColors {
   );
 
   static const CustomColorScheme lightColorScheme = CustomColorScheme(
-    primary: white,
+    primary: orange,
     brightness: Brightness.light,
     primaryVariant: white,
-    secondaryVariant: orange,
-    secondary: orange,
+    secondaryVariant: lightOrange,
+    secondary: darkGrey,
     background: white,
-    error: orange,
+    error: darkGrey,
     onBackground: darkGrey,
-    onError: orange,
-    onPrimary: darkGrey,
+    onError: white,
+    onPrimary: white,
     onSecondary: darkGrey,
     surface: white,
     onSurface: darkGrey,
