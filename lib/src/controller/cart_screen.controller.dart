@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/model/cart_item.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/utils/network.utils.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -34,6 +35,11 @@ class CartScreenController extends GetxController {
     }
     this.total.value = total;
     update();
+  }
+
+  void checkout() {
+    NetworkUtils.openwhatsapp(
+        "Customer ordered ${items.value.length} products with a total price ${total.value}");
   }
 
   void remove(int id, int count) {
