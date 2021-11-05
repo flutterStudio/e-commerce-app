@@ -18,6 +18,7 @@ class ProductScreen extends GetView<ProductController> {
         leading: BackButton(
           onPressed: () => Get.back(),
         ),
+        title: Obx(() => Text(controller.product!.value!.title ?? "")),
       ),
       body: ListView(
         children: [
