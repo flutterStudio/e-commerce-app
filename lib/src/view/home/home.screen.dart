@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                           onTap: () {
-                            Get.toNamed("/products/1");
+                            Get.toNamed("/products/3");
                           },
                           child: Image.asset("assets/images/sale_gaming.png")),
                       const SizedBox(
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                           onTap: () {
-                            Get.toNamed("/products/0");
+                            Get.toNamed("/products/1");
                           },
                           child: Image.asset("assets/images/sale_purse.png")),
                       const SizedBox(
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                           onTap: () {
-                            Get.toNamed("/products/1");
+                            Get.toNamed("/products/2");
                           },
                           child: Image.asset("assets/images/sale_backbag.png")),
                       const SizedBox(
