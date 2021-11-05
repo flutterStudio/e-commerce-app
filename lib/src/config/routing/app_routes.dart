@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/view/home.screen.dart';
+import 'package:e_commerce/src/view/home/home.screen.dart';
 
 import '/src/config/routing/app_paths.dart';
 import '/src/controller/product.controller.dart';

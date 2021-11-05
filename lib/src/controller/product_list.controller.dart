@@ -12,10 +12,36 @@ class ProductListcontroller extends GetxController {
 
   @override
   void onInit() {
-    if (type == 0) {
-      products?.value = Get.find<MainRepo>().productRepo.demoProducts;
-    } else {
-      products?.value = Get.find<MainRepo>().productRepo.purses;
+    // Fake data
+    switch (type) {
+      case 0:
+        {
+          products?.value =
+              Get.find<MainRepo>().productRepo.demoProducts.sublist(0, 4);
+          break;
+        }
+      case 1:
+        {
+          products?.value =
+              Get.find<MainRepo>().productRepo.demoProducts.sublist(10, 14);
+          break;
+        }
+      case 2:
+        {
+          products?.value =
+              Get.find<MainRepo>().productRepo.demoProducts.sublist(4, 8);
+          break;
+        }
+      case 3:
+        {
+          products?.value =
+              Get.find<MainRepo>().productRepo.demoProducts.sublist(8, 10);
+          break;
+        }
+      default:
+        {
+          products?.value = Get.find<MainRepo>().productRepo.demoProducts;
+        }
     }
 
     super.onInit();

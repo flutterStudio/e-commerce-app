@@ -77,11 +77,158 @@ class ProductRepo {
       rating: 4.1,
       isFavourite: true,
     ),
-  ];
-
-  List<Product> purses = [
+    // backbags 5->8
     Product(
-      id: 1,
+      id: 5,
+      images: [
+        "assets/images/backbag1.png",
+      ],
+      colors: [
+        const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title:
+          "XQXA Travel backpack, 45L large capacity waterproof hiking backpack 17.3 inch laptop backpack male female trekking backpack for sports outdoor camping camping",
+      price: 35.99,
+      description: """
+    CONVENIENT USB & HEADSET PORT DESIGN:USB interface with built-in cable design,great convenience for charging your electronic devices by connecting your own power bank. Jack design for listening music helps you relax yourself while travelling.
+Anti-theft design: travel backpack with hidden anti-theft pocket on the back protects your passport, wallet, phone and other valuable items safe and convenient. No need to worry theft easily open your backpack when you travel or stand in line.
+DURABLE MATERIAL:This travel laptop backpack is made of high quality tear and abrasion resistant and rainproof slightly thicker ox-forward material, delivers long-lasting durability against daily activities. Breathable mesh shoulder straps with plentiful sponge padding help relieve the stress from your shoulder. """,
+      rating: 4,
+      isFavourite: true,
+      isPopular: true,
+    ),
+    Product(
+      id: 6,
+      images: [
+        "assets/images/backbag2.png",
+      ],
+      colors: [
+        const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title:
+          "Vintage Laptop Backpack 15.6 Inch for Men/Women, Bag for School/Work/Travel ",
+      price: 16,
+      description: """
+    Material: waterproof polyester fabric, protects the items from drizzle.
+    Excellent gifts for women/men back to school, work, business, weekend getaways, travel, etc.
+    Dimension:11.8 * 6.7 * 17.7 inch (L * W * H), The main compartment has a padded laptop sleeve for loading a 15.6 inch laptop.
+    Safe design: flap over design with reinforced magnetic push button for your safety.
+    Comfortable: padded and adjustable shoulder straps for added comfort and ventilation.
+      """,
+      rating: 29.99,
+      isPopular: true,
+    ),
+    Product(
+      id: 7,
+      images: [
+        "assets/images/backbag3.png",
+      ],
+      colors: [
+        const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title:
+          "EverVanz Outdoor Canvas Backpack, Waterproof Travel Hiking Camping Backpack Bag, Large Casual Daypack, College School Backpack, Shoulder Bag for 15 Laptop Tablets ",
+      price: 37.99,
+      description: """
+     HIGH QUALITY & WATERPROOF - Thick Canvas made of quality cotton and leather cassettes makes the backpack soft and durable. Extra tear-resistant nylon rain protection protects the backpack from scratches and dirt and keeps the backpack dry in snow and rain.
+PRACTICAL - This backpack is perfect for everyday use such as school or work, travel, hiking mountaineering and camping. Ideal for men and women.
+ LARGE CAPACITY - Large compartment for your daily essentials. Inner pockets including 2 open pockets, 1 padded compartment for tablet or laptop. 1 front pocket, 2 side pockets, and 1 back pocket with vertical zipper for small items, like your phone. Dimensions:18.5"H*11.8"L*6.3"W/ 47H*30L*16W cm. CAPACITY: 23L. Inner pocket for 15" tablet or laptop. 
+      """,
+      rating: 4,
+      isFavourite: true,
+      isPopular: true,
+    ),
+    Product(
+      id: 8,
+      images: [
+        "assets/images/backbag4.png",
+        "assets/images/backbag4-1.png",
+        "assets/images/backbag4-2.png",
+        "assets/images/backbag4-3.png",
+      ],
+      colors: [
+        const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title:
+          "SKYSPER Hiking Backpack for Men and Women, 30 Litres, Waterproof Travel Backpack, Multifunctional Camping Backpack, Foldable Light, Outdoor Daypack ",
+      price: 36.99,
+      description: """
+    Lightweight and comfortable: the backpack has an ergonomically shaped, breathable mesh shoulder straps and a large amount of sponge padding to relieve shoulder pressure. The widened and thick adjustable shoulder straps and the highly elastic and breathable back support reduce the weight when walking and travelling.
+Breathable and waterproof: the back uses a three-dimensional breathable mesh, which has good ventilation and sweat function and keeps the back dry, the use of high-quality tear-resistant waterproof 210D nylon material, durable metal zips and support points are reinforced to extend the service life.
+【Large capacity】There is a 30 litre storage space, a computer compartment inside and elastic mesh pockets on the side for easy insertion and recovery. The storage compartment has a reasonable layout and is practical for sorting and storing items. Sufficient space can be used for 1-3 days for hiking rides. """,
+      rating: 4.1,
+      isFavourite: true,
+    ),
+
+    // gaming 9->10
+    Product(
+      id: 9,
+      images: [
+        "assets/images/console.png",
+        "assets/images/console1.png",
+        "assets/images/console2.png",
+      ],
+      colors: [
+        const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title:
+          "Nintendo Switch with Neon Blue and Neon Red Joy‑Con - HAC-001(-01) ",
+      price: 324.00,
+      description: """
+     3 Play Styles: TV Mode, Tabletop Mode, Handheld Mode
+6.2-inch, multi-touch capacitive touch screen
+4.5-9+ Hours of Battery Life will vary depending on software usage conditions
+Connects over Wi-Fi for multiplayer gaming; Up to 8 consoles can be connected for local wireless multiplayer
+Model number: HAC-001(-01) """,
+      rating: 5,
+      isFavourite: true,
+      isPopular: true,
+    ),
+    Product(
+      id: 10,
+      images: [
+        "assets/images/vr.png",
+        "assets/images/vr1.png",
+        "assets/images/vr2.png",
+      ],
+      colors: [
+        const Color(0xFFF6625E),
+        const Color(0xFF836DB8),
+        const Color(0xFFDECB9C),
+        Colors.white,
+      ],
+      title: "Oculus Quest All-in-one VR Gaming Headset – 64GB ",
+      price: 269.90,
+      description: """
+    
+    All-in-one VR: Simply set up the device with your Oculus mobile app and Oculus Quest has everything you need to explore VR, right out of the box
+    Insight tracking: Oculus Insight tracking system instantly reflects your movements in VR without the need for any external accessories
+    Touch controllers: Oculus Touch controllers precisely recreate your hands, their gestures and interactions, so every game is real enough to reach out and touch
+    Beyond room-scale: Oculus Quest works with your environment, so you can play standing or sitting, in spaces big or small
+    Oculus Quest requires your Facebook account to log in, making it easy to meet up with friends in VR and discover communities around the world.
+
+      """,
+      rating: 4,
+      isPopular: true,
+    ),
+    // purses 11 -> 14
+    Product(
+      id: 11,
       images: [
         "assets/images/purse1.jpg",
       ],
@@ -106,7 +253,7 @@ class ProductRepo {
       isPopular: true,
     ),
     Product(
-      id: 2,
+      id: 12,
       images: [
         "assets/images/purse2.jpg",
       ],
@@ -129,7 +276,7 @@ class ProductRepo {
       isPopular: true,
     ),
     Product(
-      id: 3,
+      id: 13,
       images: [
         "assets/images/purse3.jpg",
       ],
@@ -154,7 +301,7 @@ class ProductRepo {
       isPopular: true,
     ),
     Product(
-      id: 4,
+      id: 14,
       images: [
         "assets/images/purse4.jpg",
         "assets/images/purse4-1.jpg",
