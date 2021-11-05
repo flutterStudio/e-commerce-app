@@ -22,7 +22,9 @@ class AppRoutes {
       page: () => const ProductScreen(),
       binding: BindingsBuilder.put(() {
         String? id = Get.parameters['id'];
-        return ProductController(id);
+        return ProductController(int.tryParse(
+          id ?? " ",
+        ));
       }),
     ),
     GetPage(

@@ -1,6 +1,5 @@
 import 'package:e_commerce/src/controller/product_list.controller.dart';
 import 'package:e_commerce/src/view/shared/product_item.widget.dart';
-import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -23,7 +22,7 @@ class ProductsListScreen extends GetView<ProductListcontroller> {
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
                     Get.toNamed(
-                        "/product/${Get.find<MainRepo>().productRepo.demoProducts[index].id}");
+                        "/product/${controller.products!.value[index]?.id}");
                   },
                   child: ProductCard(
                     product: controller.products!.value[index]!,
