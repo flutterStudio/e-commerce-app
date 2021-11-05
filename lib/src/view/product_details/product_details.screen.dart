@@ -3,6 +3,7 @@ import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/product_details/components/product_description.dart';
 import 'package:e_commerce/src/view/product_details/components/product_images.dart';
 import 'package:e_commerce/src/view/product_details/components/top_rounded_container.dart';
+import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -55,10 +56,14 @@ class ProductScreen extends GetView<ProductController> {
                             bottom: getProportionateScreenWidth(40),
                             top: getProportionateScreenWidth(15),
                           ),
-                          // child: DefaultButton(
-                          //   text: "Add To Cart",
-                          //   press: () {},
-                          // ),
+                          child: Obx(() {
+                            return DefaultButton(
+                              text: "Add To Cart ${controller.count}",
+                              press: () {
+                                controller.addToCart();
+                              },
+                            );
+                          }),
                         ),
                       ),
                     ],

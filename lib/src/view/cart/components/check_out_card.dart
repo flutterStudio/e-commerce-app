@@ -1,8 +1,10 @@
+import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class CheckoutCard extends StatelessWidget {
+class CheckoutCard extends GetView<CartScreenController> {
   const CheckoutCard({
     Key? key,
   }) : super(key: key);
@@ -59,17 +61,21 @@ class CheckoutCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text.rich(
-                  TextSpan(
-                    text: "Total:\n",
-                    children: [
-                      TextSpan(
-                        text: "\$337.15",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
+                Obx(() {
+                  return Text.rich(
+                    TextSpan(
+                      text: "Total:\n",
+                      children: [
+                        TextSpan(
+                          text:
+                              "\$${controller.total.value.truncateToDouble()}",
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
