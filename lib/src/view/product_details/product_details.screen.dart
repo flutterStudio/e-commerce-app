@@ -1,8 +1,8 @@
 import 'package:e_commerce/src/controller/product.controller.dart';
-import 'package:e_commerce/src/view/product/components/color_dots.dart';
-import 'package:e_commerce/src/view/product/components/product_description.dart';
-import 'package:e_commerce/src/view/product/components/product_images.dart';
-import 'package:e_commerce/src/view/product/components/top_rounded_container.dart';
+import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
+import 'package:e_commerce/src/view/product_details/components/product_description.dart';
+import 'package:e_commerce/src/view/product_details/components/product_images.dart';
+import 'package:e_commerce/src/view/product_details/components/top_rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';

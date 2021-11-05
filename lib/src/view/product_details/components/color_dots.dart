@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/model/product.model.dart';
-import 'package:e_commerce/src/view/product/components/rounded_icon_btn.dart';
+import 'package:e_commerce/src/view/product_details/components/rounded_icon_btn.dart';
 import 'package:flutter/material.dart';
 
 class ColorDots extends StatelessWidget {
