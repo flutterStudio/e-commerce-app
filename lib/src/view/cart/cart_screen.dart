@@ -22,14 +22,20 @@ class CartScreen extends GetView<CartScreenController> {
     return AppBar(
       title: Column(
         children: [
-          const Text(
+          Text(
             "Cart",
-            style: TextStyle(color: Colors.black),
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary),
           ),
           Obx(() {
             return Text(
               "${controller.items.value.length} items",
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context)
+                  .textTheme
+                  .caption!
+                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
             );
           }),
         ],
