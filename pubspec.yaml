@@ -22,7 +22,13 @@ dev_dependencies:
 
   flutter_lints: ^1.0.0
 flutter:
-
+  assets:
+    - assets/images/  
+    - assets/icons/  
+  fonts:
+    - family: Muli
+      fonts:
+        - asset: assets/fonts/muli/Muli.ttf
   uses-material-design: true
 
 
