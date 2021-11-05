@@ -15,7 +15,10 @@ class HomeScreen extends StatelessWidget {
           Get.toNamed("/cart");
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(Icons.shop),
+        child: Icon(
+          Icons.shopping_bag,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
       body: SafeArea(
         child: Padding(
