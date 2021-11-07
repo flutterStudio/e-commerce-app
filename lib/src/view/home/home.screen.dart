@@ -1,5 +1,4 @@
-import 'package:e_commerce/src/view/shared/product_item.widget.dart';
-import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/view/sales/sales.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -20,67 +19,45 @@ class HomeScreen extends StatelessWidget {
           color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              {
+                Get.toNamed("/");
+                break;
+              }
+            case 1:
+              {
+                Get.toNamed("/products");
+                break;
+              }
+            case 2:
+              {
+                Get.toNamed("/cart");
+                break;
+              }
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.table_rows_rounded),
+            label: "Sales",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.production_quantity_limits),
+              label: "Our Products"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_basket), label: "Cart"),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
           ),
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Get.toNamed("/products/3");
-                          },
-                          child: Image.asset("assets/images/sale_gaming.png")),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Get.toNamed("/products/1");
-                          },
-                          child: Image.asset("assets/images/sale_purse.png")),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      GestureDetector(
-                          onTap: () {
-                            Get.toNamed("/products/2");
-                          },
-                          child: Image.asset("assets/images/sale_backbag.png")),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemExtent: 100,
-                            itemCount: Get.find<MainRepo>()
-                                .productRepo
-                                .demoProducts
-                                .length,
-                            itemBuilder: (context, index) => GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(
-                                        '/product/${Get.find<MainRepo>().productRepo.demoProducts[index].id}');
-                                  },
-                                  child: ProductCard(
-                                      product: Get.find<MainRepo>()
-                                          .productRepo
-                                          .demoProducts[index]),
-                                )),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
+          child: PageView(
+            children: const [SalesScreen()],
           ),
         ),
       ),
