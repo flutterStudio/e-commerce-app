@@ -13,11 +13,24 @@ import 'package:get/route_manager.dart';
 class AppRoutes {
   static List<GetPage> pages = [
     GetPage(
-      name: AppPaths.home,
+      name: AppPaths.root,
       page: () => const HomeScreen(),
       participatesInRootNavigator: true,
       preventDuplicates: true,
     ),
+    GetPage(
+        name: AppPaths.home,
+        page: () => const HomeScreen(),
+        participatesInRootNavigator: true,
+        preventDuplicates: true,
+        children: [
+          GetPage(
+            name: AppPaths.homeProducts,
+            page: () => const HomeScreen(),
+            participatesInRootNavigator: true,
+            preventDuplicates: true,
+          ),
+        ]),
     GetPage(
       name: AppPaths.productDetails,
       page: () => const ProductScreen(),
