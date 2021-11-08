@@ -1,66 +1,76 @@
+import 'package:e_commerce/src/controller/home_screen.controller.dart';
+import 'package:e_commerce/src/view/cart/cart_screen.dart';
+import 'package:e_commerce/src/view/discover/discover.screen.dart';
 import 'package:e_commerce/src/view/sales/sales.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed("/cart");
-        },
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: Icon(
-          Icons.shopping_bag,
-          color: Theme.of(context).colorScheme.onPrimary,
+        body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: PersistentTabView(
+          context,
+          controller: controller.pageController,
+          screens: const [
+            SalesScreen(),
+            CartScreen(),
+            DiscoverScreen(),
+          ],
+          items: [
+            PersistentBottomNavBarItem(
+              icon: const Icon(Icons.table_rows_rounded),
+              title: "Sales",
+              activeColorPrimary: Theme.of(context).colorScheme.primary,
+              inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
+            ),
+            PersistentBottomNavBarItem(
+                onPressed: (context) {
+                  Get.toNamed("/cart");
+                },
+                activeColorPrimary: Theme.of(context).colorScheme.primary,
+                inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
+                inactiveColorSecondary:
+                    Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+                icon: const Icon(Icons.shopping_bag_sharp),
+                title: "Cart"),
+            PersistentBottomNavBarItem(
+                icon: const Icon(Icons.production_quantity_limits),
+                activeColorPrimary: Theme.of(context).colorScheme.primary,
+                inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
+                title: "Our Products"),
+          ],
+          confineInSafeArea: true,
+          backgroundColor: Colors.white,
+          handleAndroidBackButtonPress: true,
+          resizeToAvoidBottomInset: true,
+          stateManagement: true,
+          hideNavigationBarWhenKeyboardShows: true,
+          decoration: NavBarDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.white,
+          ),
+          popAllScreensOnTapOfSelectedTab: false,
+          popActionScreens: PopActionScreensType.once,
+          itemAnimationProperties: const ItemAnimationProperties(
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: const ScreenTransitionAnimation(
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle: NavBarStyle.style12,
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              {
-                Get.toNamed("/");
-                break;
-              }
-            case 1:
-              {
-                Get.toNamed("/products");
-                break;
-              }
-            case 2:
-              {
-                Get.toNamed("/cart");
-                break;
-              }
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.table_rows_rounded),
-            label: "Sales",
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.production_quantity_limits),
-              label: "Our Products"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket), label: "Cart"),
-        ],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
-          child: PageView(
-            children: const [SalesScreen()],
-          ),
-        ),
-      ),
-    );
+    ));
   }
 }

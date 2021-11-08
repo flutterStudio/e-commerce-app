@@ -14,6 +14,7 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   get: 
+  persistent_bottom_nav_bar: any
   flutter_svg: ^0.23.0+1
   url_launcher:
 

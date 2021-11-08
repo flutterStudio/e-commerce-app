@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
 
@@ -8,7 +9,7 @@ import '../../view/product_details/product_details.screen.dart';
 import '../../view/products_list/product_list.screen.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class AppRoutes {
   static List<GetPage> pages = [
@@ -19,18 +20,19 @@ class AppRoutes {
       preventDuplicates: true,
     ),
     GetPage(
-        name: AppPaths.home,
-        page: () => const HomeScreen(),
-        participatesInRootNavigator: true,
-        preventDuplicates: true,
-        children: [
-          GetPage(
-            name: AppPaths.homeProducts,
-            page: () => const HomeScreen(),
-            participatesInRootNavigator: true,
-            preventDuplicates: true,
-          ),
-        ]),
+      name: AppPaths.homePages,
+      page: () => const HomeScreen(),
+      participatesInRootNavigator: true,
+      preventDuplicates: true,
+      binding: BindingsBuilder(() {
+        var controller = Get.find<HomeScreenController>();
+        String? page = Get.parameters['page'];
+        controller.goToPage(int.tryParse(
+              page ?? " ",
+            ) ??
+            0);
+      }),
+    ),
     GetPage(
       name: AppPaths.productDetails,
       page: () => const ProductScreen(),
