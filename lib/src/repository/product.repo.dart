@@ -1,8 +1,17 @@
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/service/api.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ProductRepo {
+  final ApiService _apiService;
+  ProductRepo({required ApiService apiService}) : _apiService = apiService;
+
+  Future<Product?> getProduct() async {
+    var p = _apiService.getRequest<Product>("/product");
+    return p;
+  }
+
   List<Product> demoProducts = [
     Product(
       id: 1,
