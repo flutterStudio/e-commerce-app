@@ -1,6 +1,5 @@
+import 'package:e_commerce/src/middleware/model_serilizer.middleware.dart';
+
 abstract class Model {
-  factory Model.fromJson(Map<String, dynamic> json) {
-    throw UnimplementedError();
-  }
-  Map<String, dynamic> toJson();
+  ModelSerializer serilizer();
 }
