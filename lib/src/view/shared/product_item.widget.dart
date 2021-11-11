@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   const ProductCard({
     Key? key,
     this.width = 140,
@@ -13,12 +13,18 @@ class ProductCard extends StatelessWidget {
 
   final double width, aspectRetio;
   final Product product;
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
       child: SizedBox(
-        width: getProportionateScreenWidth(width),
+        width: getProportionateScreenWidth(widget.width),
         child: GestureDetector(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,14 +38,14 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Hero(
-                    tag: product.id.toString(),
-                    child: Image.asset(product.images![0]),
+                    tag: widget.product.id.toString(),
+                    child: Image.asset(widget.product.images![0]),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                product.title!,
+                widget.product.title!,
                 style: const TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
@@ -47,7 +53,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price}",
+                    "\$${widget.product.price}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -62,7 +68,7 @@ class ProductCard extends StatelessWidget {
                       height: getProportionateScreenWidth(28),
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
-                        color: product.isFavourite!
+                        color: widget.product.isFavourite!
                             ? Theme.of(context)
                                 .colorScheme
                                 .primary
@@ -72,7 +78,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon.svg",
-                        color: product.isFavourite!
+                        color: widget.product.isFavourite!
                             ? const Color(0xFFFF4848)
                             : const Color(0xFFDBDEE4),
                       ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:flutter/material.dart';
@@ -5,11 +7,22 @@ import 'package:flutter/widgets.dart';
 
 class ProductRepo {
   final ApiService _apiService;
-  ProductRepo({required ApiService apiService}) : _apiService = apiService;
 
-  Future<Product?> getProduct() async {
-    var p = _apiService.getRequest<Product>("/product");
-    return p;
+  static const String activeProductsUrl = "Product/activeProduc";
+  ProductRepo({required ApiService apiService}) : _apiService = apiService {
+    getActiveProducts();
+  }
+
+  Future<Product?> getActiveProducts() async {
+    _apiService.getRequest<List<Product>>(
+        "Product/activeProduct?page=1&pageSize=10", (response) {
+      var productsData = jsonDecode(response.bodyString!)["products"] as List;
+      List<Product> products = [];
+      for (var product in productsData) {
+        products.add(Product().serilizer().fromJson(product));
+      }
+      return products;
+    });
   }
 
   List<Product> demoProducts = [

@@ -1,5 +1,8 @@
-import 'package:e_commerce/src/model/model.dart';
+import 'package:e_commerce/src/utils/exceptions.utils.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
+
+typedef ModelDecoder<T> = T Function(Response);
 
 class ApiService extends GetConnect {
   String token =
@@ -8,11 +11,20 @@ class ApiService extends GetConnect {
     baseUrl = "http://10.0.2.2:5000/api/";
   }
 
-  Future<T?> getRequest<T extends Model>(String url,
+  Future<T?> getRequest<T>(String url, ModelDecoder<T> decoder,
       {Map<String, dynamic>? query}) async {
-    Response<T> result = await super.get<T>(url,
-        query: query, decoder: (response) => Model.fromJson(response) as T);
+    Response result = await super.get(
+      url,
+      query: query,
+    );
+    if (result.isOk) {
+      return decoder(result);
+    }
+    _processResponseError(result.statusCode!);
+  }
 
-    return result.body;
+  void _processResponseError(int code) {
+    throw NetworkException(
+        message: "error-network".tr + ", " + "error-$code".tr);
   }
 }
