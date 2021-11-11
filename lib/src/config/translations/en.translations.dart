@@ -9,6 +9,7 @@ Map<String, String> _english = {
   ..addAll(_messages);
 
 Map<String, String> _errors = {
+  "error-network": "Network error",
   "error-400": "Bad Request",
   "error-401": "Unauthorized",
   "error-403": "Forbidden",
@@ -16,7 +17,6 @@ Map<String, String> _errors = {
   "error-408": "Request Timeout",
   "error-409": "Operation Denied",
   "error-500": "Server Error",
-  "error-network": "",
 };
 
 Map<String, String> _messages = {
