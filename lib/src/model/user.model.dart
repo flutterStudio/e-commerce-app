@@ -7,14 +7,6 @@ class User implements Model {
   String? token;
 
   User({this.id, this.token});
-
-  User.fromJson(Map<String, dynamic> json) {}
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {"id": id, "token": token};
-  }
-
   @override
   ModelSerializer<User> serilizer() {
     return _UserSerializer(this);
