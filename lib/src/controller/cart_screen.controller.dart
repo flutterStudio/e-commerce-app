@@ -15,26 +15,8 @@ class CartScreenController extends GetxController {
     super.onInit();
   }
 
-  void add(int id, int count) {
-    CartItem item = items.value.firstWhere(
-        (element) => element.product.id == id,
-        orElse: () => CartItem(
-            product: _mainRepo!.productRepo.demoProducts
-                .firstWhere((element) => element.id == id),
-            count: 0));
-    item.count += count;
-    items.value.removeWhere((element) => element.product.id == id);
-    items.value.add(item);
-    calculateTotal();
-  }
-
-  void calculateTotal() {
-    double total = 0;
-    for (CartItem item in items.value) {
-      total += item.product.price ?? 0.0 * item.count;
-    }
-    this.total.value = total;
-    update();
+  void add(int id, int count) async {
+    await _mainRepo!.productRepo.addToCart(id, count);
   }
 
   void checkout() {
@@ -42,14 +24,5 @@ class CartScreenController extends GetxController {
         "Customer ordered ${items.value.length} products with a total price ${total.value}");
   }
 
-  void remove(int id, int count) {
-    CartItem item =
-        items.value.firstWhere((element) => element.product.id == id);
-    if (item.count - count > 0) item.count - count;
-    if (item.count == 0) {
-      items.value.removeWhere((element) => element.product.id == id);
-    }
-    items.value.removeWhere((element) => element.product.id == id);
-    items.value.add(item);
-  }
+  void remove(int id, int count) {}
 }

@@ -19,7 +19,7 @@ class CartBody extends GetView<CartScreenController> {
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Dismissible(
-              key: Key(controller.items.value[index].product.id.toString()),
+              key: Key(controller.items.value[index].product!.id.toString()),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) {
                 controller.items.value.removeAt(index);

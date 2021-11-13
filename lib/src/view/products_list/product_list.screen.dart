@@ -18,14 +18,14 @@ class ProductsListScreen extends GetView<ProductListcontroller> {
         () => GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, childAspectRatio: .8),
-            itemCount: controller.products?.value.length,
+            itemCount: controller.products?.value.data!.length,
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
                     Get.toNamed(
-                        "/product/${controller.products!.value[index]?.id}");
+                        "/product/${controller.products!.value.data![index]?.id}");
                   },
                   child: ProductCard(
-                    product: controller.products!.value[index]!,
+                    product: controller.products!.value.data![index]!,
                   ),
                 )),
       ),

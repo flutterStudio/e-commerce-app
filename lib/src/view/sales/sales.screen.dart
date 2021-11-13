@@ -1,5 +1,3 @@
-import 'package:e_commerce/src/repository/main.repo.dart';
-import 'package:e_commerce/src/view/shared/product_item.widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -39,24 +37,24 @@ class SalesScreen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemExtent: 100,
-                      itemCount:
-                          Get.find<MainRepo>().productRepo.demoProducts.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                            onTap: () {
-                              Get.toNamed(
-                                  '/product/${Get.find<MainRepo>().productRepo.demoProducts[index].id}');
-                            },
-                            child: ProductCard(
-                                product: Get.find<MainRepo>()
-                                    .productRepo
-                                    .demoProducts[index]),
-                          )),
-                )
+                // SizedBox(
+                //   height: 200,
+                //   child: ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       itemExtent: 100,
+                //       itemCount:
+                //           Get.find<MainRepo>().productRepo.demoProducts.length,
+                //       itemBuilder: (context, index) => GestureDetector(
+                //             onTap: () {
+                //               Get.toNamed(
+                //                   '/product/${Get.find<MainRepo>().productRepo.demoProducts[index].id}');
+                //             },
+                //             child: ProductCard(
+                //                 product: Get.find<MainRepo>()
+                //                     .productRepo
+                //                     .demoProducts[index]),
+                //           )),
+                // )
               ],
             ),
           ),

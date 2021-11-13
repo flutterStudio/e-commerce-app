@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -14,11 +13,11 @@ class ProductController extends GetxController {
 
   @override
   void onInit() {
-    var p = Get.find<MainRepo>()
+    Get.find<MainRepo>()
         .productRepo
-        .demoProducts
-        .firstWhere((element) => element.id == id);
-    product?.value = p;
+        .getProduct(id!)
+        .then((value) => product?.value = value.data);
+
     super.onInit();
   }
 
@@ -34,9 +33,9 @@ class ProductController extends GetxController {
 
   void addToCart() {
     if (count! > 0) {
-      Get.find<CartScreenController>()
-          .add(product!.value!.id ?? 0, count!.value);
-      Get.toNamed("/cart");
+      // Get.find<CartScreenController>()
+      //     .add(product!.value!.id ?? 0, count!.value);
+      // Get.toNamed("/cart");
     }
   }
 }

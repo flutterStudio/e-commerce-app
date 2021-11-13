@@ -3,10 +3,9 @@ import 'package:e_commerce/src/model/model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 
 class CartItem implements Model {
-  final Product product;
-  int count;
-
-  CartItem({required this.product, required this.count});
+  Product? product;
+  int? count;
+  double? orderPrice;
 
   @override
   ModelSerializer<CartItem> serilizer() {
@@ -19,10 +18,14 @@ class _CartSerializer extends ModelSerializer<CartItem> {
 
   @override
   fromJson(Map<String, dynamic> json) {
-    throw UnimplementedError();
+    model.product = Product().serilizer().fromJson(json["product"]);
+    model.orderPrice = json["orderPrice"];
+    model.count = json["quantity"];
+
+    return model;
   }
 
   @override
   Map<String, dynamic> toJson() =>
-      {"product": model.product.id, "count": model.count};
+      {"product": model.product!.id, "quantity ": model.count};
 }
