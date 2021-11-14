@@ -11,13 +11,11 @@ class ProductListcontroller extends GetxController {
 
   ProductListcontroller({this.type});
 
-  @override
-  void onInit() async {
+  Future<void> getCompanyProducts() async {
+    products.value = Data.inProgress();
     Data<List<Product>> companyProducts =
         await Get.find<MainRepo>().productRepo.getCompanyProducts();
 
     products.value = companyProducts;
-
-    super.onInit();
   }
 }

@@ -2,6 +2,7 @@ import 'package:e_commerce/src/model/product.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({
@@ -39,7 +40,11 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   child: Hero(
                     tag: widget.product.id.toString(),
-                    child: Image.asset(widget.product.images![0]),
+                    child: Image.network(
+                      widget.product.mainImage!,
+                      errorBuilder: (context, object, _) =>
+                          Text("message-error-loading-image".tr),
+                    ),
                   ),
                 ),
               ),

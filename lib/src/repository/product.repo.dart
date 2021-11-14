@@ -73,7 +73,6 @@ class ProductRepo {
 
         // Get pagination info if exists.
         data.data = _initProductData(response);
-
         return data;
       },
               query: {"page": page, "pageSize": pageSize}

@@ -112,6 +112,7 @@ class Data<T> {
   set data(data) {
     _hasData = data == null ? false : true;
     _data = data;
+    _status = DataStatus.succeed;
   }
 
   set status(s) => _status = s;
