@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'model.dart';
 
 class Product implements Model {
-  int? id;
+  late int? id;
   String? title, description, mainImage;
   List<String>? images;
   List<Color>? colors;
@@ -33,7 +33,7 @@ class _ProductSerializer extends ModelSerializer<Product> {
 
   @override
   Product fromJson(Map<String, dynamic> json) {
-    model.id = json["id"];
+    model.id = json["productId"];
     model.title = json["title"];
     model.description = json["description"];
     model.images = json["images"];

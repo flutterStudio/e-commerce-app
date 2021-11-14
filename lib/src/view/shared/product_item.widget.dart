@@ -27,6 +27,9 @@ class _ProductCardState extends State<ProductCard> {
       child: SizedBox(
         width: getProportionateScreenWidth(widget.width),
         child: GestureDetector(
+          onTap: () {
+            Get.toNamed("/product/${widget.product.id}");
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

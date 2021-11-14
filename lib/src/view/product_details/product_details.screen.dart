@@ -18,11 +18,11 @@ class ProductScreen extends GetView<ProductController> {
         leading: BackButton(
           onPressed: () => Get.back(),
         ),
-        title: Obx(() => Text(controller.product!.value!.title ?? "")),
+        title: Obx(() => Text(controller.product?.value?.title ?? "")),
       ),
       body: ListView(
         children: [
-          Obx(() => controller.product == null
+          Obx(() => controller.product?.value == null
               ? const Text("No images")
               : ProductImages(product: controller.product!.value!)),
           TopRoundedContainer(
@@ -31,7 +31,7 @@ class ProductScreen extends GetView<ProductController> {
               children: [
                 Obx(
                   () {
-                    return controller.product == null
+                    return controller.product?.value == null
                         ? const Text("No descripion")
                         : ProductDescription(
                             product: controller.product!.value!,
@@ -43,7 +43,7 @@ class ProductScreen extends GetView<ProductController> {
                   color: const Color(0xFFF6F7F9),
                   child: Column(
                     children: [
-                      controller.product == null
+                      controller.product?.value?.colors == null
                           ? const Text("No colors")
                           : ColorDots(
                               product: controller.product!.value!,
