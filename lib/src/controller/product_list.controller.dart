@@ -7,16 +7,16 @@ import 'package:get/get.dart';
 
 class ProductListcontroller extends GetxController {
   final int? type;
-  Rx<Data<List<Product?>>>? products = Rx<Data<List<Product?>>>(Data.empty());
+  Rx<Data<List<Product>>> products = Rx<Data<List<Product>>>(Data.empty());
 
-  ProductListcontroller(this.type);
+  ProductListcontroller({this.type});
 
   @override
   void onInit() async {
     Data<List<Product>> companyProducts =
         await Get.find<MainRepo>().productRepo.getCompanyProducts();
 
-    products?.value = companyProducts;
+    products.value = companyProducts;
 
     super.onInit();
   }

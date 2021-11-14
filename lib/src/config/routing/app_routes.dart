@@ -53,7 +53,7 @@ class AppRoutes {
       binding: BindingsBuilder.put(() {
         int type = int.tryParse(Get.parameters['type']!)!;
 
-        return ProductListcontroller(type);
+        return ProductListcontroller(type: type);
       }),
     ),
     GetPage(
