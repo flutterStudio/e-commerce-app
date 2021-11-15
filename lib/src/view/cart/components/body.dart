@@ -25,8 +25,10 @@ class CartBody extends GetView<CartScreenController> {
                 child: Dismissible(
                   key: Key(data.orderProducts![index].product!.id.toString()),
                   direction: DismissDirection.endToStart,
-                  onDismissed: (direction) {
-                    // controller.cart .value.data.orderProducts.removeAt(index);
+                  onDismissed: (direction) {},
+                  confirmDismiss: (direction) async {
+                    return await controller
+                        .remove(data.orderProducts![index].orderProductId!);
                   },
                   background: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),

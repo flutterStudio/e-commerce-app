@@ -13,6 +13,7 @@ class ProductRepo {
   static const String _activeProductsUrl = "Product/activeProduct";
   static const String _product = "Product";
   static const String _addTocart = "Order/addToCart";
+  static const String _removeFromTocart = "Order/RemoveFromCart";
   static const String _cartOrders = "Order/InCart";
   static const String _comapnyActiveProductsUrl = "Product/company/all";
 
@@ -61,6 +62,28 @@ class ProductRepo {
         data = Data.succeed(data: cart);
         return data;
       });
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  Future<Data<bool>> deleteProductfromcart(
+    int productOrderId,
+  ) async {
+    try {
+      Data<bool> data = await _apiService.deleteRequest<Data<bool>>(
+          _removeFromTocart + "/" + "$productOrderId", (response) {
+        Data<bool> data = Data.empty();
+
+        data = Data.succeed(data: true);
+        return data;
+      });
+
       return data;
     } on NetworkException catch (e) {
       return Data.faild(message: e.message);

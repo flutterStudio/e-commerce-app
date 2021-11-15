@@ -6,7 +6,8 @@ Map<String, String> _english = {
   "ar": "Arabic",
   ..._errors,
   ..._messages,
-  ..._text
+  ..._text,
+  ..._question
 };
 
 Map<String, String> _errors = {
@@ -32,4 +33,10 @@ Map<String, String> _text = {
   "min-amount": "Minimum amount",
   "available-amount": "Available amount",
   "total-price": "Total price",
+  "ok": "Ok",
+  "cancel": "Cancel",
+};
+
+Map<String, String> _question = {
+  "question-delete-cart-product": "Are you sure you want to delete ",
 };

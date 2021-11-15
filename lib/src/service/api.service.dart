@@ -36,6 +36,18 @@ class ApiService extends GetConnect {
     throw Exception("error-network".tr);
   }
 
+  Future<T> deleteRequest<T>(String url, ModelDecoder<T> decoder,
+      {Map<String, dynamic>? query}) async {
+    Response result = await super.delete(
+      url,
+    );
+    if (result.isOk) {
+      return decoder(result);
+    }
+    _processResponseError(result.statusCode);
+    throw Exception("error-network".tr);
+  }
+
   void _processResponseError(int? code) {
     throw NetworkException(
         message: "error-network".tr + ", " + "error-$code".tr);
