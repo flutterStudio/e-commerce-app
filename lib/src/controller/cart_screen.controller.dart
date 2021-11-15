@@ -16,7 +16,7 @@ class CartScreenController extends GetxController {
   }
 
   void add(int id, int count) async {
-    await _mainRepo!.productRepo.addToCart(id, count);
+    await _mainRepo?.productRepo.addToCart(id, count);
   }
 
   void checkout() {
