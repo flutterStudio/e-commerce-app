@@ -43,12 +43,12 @@ class CheckoutCard extends GetView<CartScreenController> {
                   return Text.rich(
                     TextSpan(
                       text: "total-price".tr,
+                      style: Theme.of(context).textTheme.bodyText2,
                       children: [
                         TextSpan(
                           text:
-                              ":\n\$${controller.total.value.truncateToDouble()}",
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.black),
+                              "\n\$ ${controller.cart.value.data?.finalPrice?.truncateToDouble() ?? 0}",
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                       ],
                     ),
@@ -57,7 +57,11 @@ class CheckoutCard extends GetView<CartScreenController> {
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
-                    child: const Text("Check out "),
+                    child: Text(
+                      "Check out",
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary),
+                    ),
                     press: () {
                       controller.checkout();
                     },
