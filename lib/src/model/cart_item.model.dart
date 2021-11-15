@@ -4,6 +4,7 @@ import 'package:e_commerce/src/model/product.model.dart';
 
 class CartItem implements Model {
   Product? product;
+  int? orderProductId;
   int? count;
   double? orderPrice;
 
@@ -21,6 +22,7 @@ class _CartSerializer extends ModelSerializer<CartItem> {
     model.product = Product().serilizer().fromJson(json["product"]);
     model.orderPrice = json["orderPrice"];
     model.count = json["quantity"];
+    model.orderProductId = json["orderProductId"];
 
     return model;
   }
