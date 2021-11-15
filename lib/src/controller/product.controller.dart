@@ -41,9 +41,7 @@ class ProductController extends GetxController {
 
   void addToCart() {
     if (count.value > 0) {
-      // Get.find<CartScreenController>()
-      //     .add(product!.value!.id ?? 0, count!.value);
-      // Get.toNamed("/cart");
+      Get.toNamed("/cart/${product.value?.id}/${count.value}");
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
@@ -59,6 +60,18 @@ class AppRoutes {
     GetPage(
       name: AppPaths.cart,
       page: () => const CartScreen(),
+    ),
+    GetPage(
+      name: AppPaths.addToCart,
+      page: () => const CartScreen(),
+      binding: BindingsBuilder(() {
+        int? id = int.tryParse(Get.parameters['id'] ?? " ");
+        int? count = int.tryParse(Get.parameters['count'] ?? " ");
+        if (id != null && count != null) {
+          var controller = Get.find<CartScreenController>();
+          controller.add(id, count);
+        }
+      }),
     ),
   ];
 }
