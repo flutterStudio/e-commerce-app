@@ -31,4 +31,5 @@ Map<String, String> _messages = {
 Map<String, String> _text = {
   "min-amount": "Minimum amount",
   "available-amount": "Available amount",
+  "total-price": "Total price",
 };

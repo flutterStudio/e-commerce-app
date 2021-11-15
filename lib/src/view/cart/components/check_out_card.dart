@@ -2,6 +2,7 @@ import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 
 class CheckoutCard extends GetView<CartScreenController> {
   const CheckoutCard({
@@ -15,7 +16,6 @@ class CheckoutCard extends GetView<CartScreenController> {
         vertical: getProportionateScreenWidth(15),
         horizontal: getProportionateScreenWidth(30),
       ),
-      // height: 174,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -35,27 +35,6 @@ class CheckoutCard extends GetView<CartScreenController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Row(
-            //   children: [
-            //     Container(
-            //       padding: const EdgeInsets.all(10),
-            //       height: getProportionateScreenWidth(40),
-            //       width: getProportionateScreenWidth(40),
-            //       decoration: BoxDecoration(
-            //         color: const Color(0xFFF5F6F9),
-            //         borderRadius: BorderRadius.circular(10),
-            //       ),
-            //       child: SvgPicture.asset("assets/icons/receipt.svg"),
-            //     ),
-            //     const Spacer(),
-            //     const Text("Add voucher code"),
-            //     const SizedBox(width: 10),
-            //     const Icon(
-            //       Icons.arrow_forward_ios,
-            //       size: 12,
-            //     )
-            //   ],
-            // ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,11 +42,11 @@ class CheckoutCard extends GetView<CartScreenController> {
                 Obx(() {
                   return Text.rich(
                     TextSpan(
-                      text: "Total:\n",
+                      text: "total-price".tr,
                       children: [
                         TextSpan(
                           text:
-                              "\$${controller.total.value.truncateToDouble()}",
+                              ":\n\$${controller.total.value.truncateToDouble()}",
                           style: const TextStyle(
                               fontSize: 16, color: Colors.black),
                         ),
