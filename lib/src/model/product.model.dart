@@ -8,8 +8,9 @@ class Product implements Model {
   String? title, description, mainImage;
   List<String>? images;
   List<Color>? colors;
-  double? rating, price;
-  bool? isFavourite, isPopular;
+  double? rating, price, discount;
+  int? minQuantity, availableQuantity;
+  bool? isFavourite, isPopular, isActive;
   Product({
     this.id,
     this.images,
@@ -39,6 +40,10 @@ class _ProductSerializer extends ModelSerializer<Product> {
     model.images = json["images"];
     model.colors = json["colors"];
     model.price = json["price"];
+    model.discount = json["discount"];
+    model.minQuantity = json["minQuantity"];
+    model.availableQuantity = json["availableQuantity"];
+    model.isActive = json["isActive"];
     model.mainImage = json["mainImage"]["downloadUrl"];
     _initImagesList(json);
     return model;
