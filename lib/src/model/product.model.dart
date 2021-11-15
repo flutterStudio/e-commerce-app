@@ -44,16 +44,16 @@ class _ProductSerializer extends ModelSerializer<Product> {
     model.minQuantity = json["minQuantity"];
     model.availableQuantity = json["availableQuantity"];
     model.isActive = json["isActive"];
-    model.mainImage = json["mainImage"]["downloadUrl"];
+    model.mainImage = json["mainImage"]?["downloadUrl"];
     _initImagesList(json);
     return model;
   }
 
   void _initImagesList(Map<String, dynamic> json) {
-    var attachments = json["productImagesList"] as List;
+    var attachments = json["productImagesList"] ?? [];
     List<String> images = [];
     for (var attachment in attachments) {
-      images.add(attachment["attachment"]["downloadUrl"]);
+      images.add(attachment["attachment"]?["downloadUrl"]);
     }
     model.images = images;
   }
