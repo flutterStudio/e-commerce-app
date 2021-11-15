@@ -2,6 +2,7 @@ import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/product_details/components/product_description.dart';
 import 'package:e_commerce/src/view/product_details/components/product_images.dart';
+import 'package:e_commerce/src/view/product_details/components/product_stats.dart';
 import 'package:e_commerce/src/view/product_details/components/top_rounded_container.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class ProductScreen extends GetView<ProductController> {
                           );
                   },
                 ),
+                Obx(() => ProductStats(product: controller.product?.value)),
                 TopRoundedContainer(
                   color: const Color(0xFFF6F7F9),
                   child: Column(

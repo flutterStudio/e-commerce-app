@@ -4,9 +4,10 @@ Map<String, String> _english = {
   "appTitle": "Flutter Template",
   "en": "English",
   "ar": "Arabic",
-}
-  ..addAll(_errors)
-  ..addAll(_messages);
+  ..._errors,
+  ..._messages,
+  ..._text
+};
 
 Map<String, String> _errors = {
   "error-network": "Network error",
@@ -24,4 +25,9 @@ Map<String, String> _messages = {
   "message-empty-response": "No data found",
   "message-no-products": "No products found",
   "message-error-loading-image": "Could not load image",
+};
+
+Map<String, String> _text = {
+  "min-amount": "Minimum amount",
+  "available-amount": "Available amount",
 };
