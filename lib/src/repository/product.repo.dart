@@ -5,6 +5,7 @@ import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/utils/exceptions.utils.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:get/get.dart';
 
 class ProductRepo {
   final ApiService _apiService;
@@ -50,15 +51,24 @@ class ProductRepo {
   }
 
   Future<Data<Cart>> addToCart(int productId, int count) async {
-    Data<Cart> data = await _apiService.postRequest<Data<Cart>>(
-        _addTocart, {"productId": productId, "quantity": count}, (response) {
-      Data<Cart> data = Data.empty();
+    try {
+      Data<Cart> data = await _apiService.postRequest<Data<Cart>>(
+          _addTocart, {"productId": productId, "quantity": count}, (response) {
+        Data<Cart> data = Data.empty();
 
-      Cart cart = Cart().serilizer().fromJson(jsonDecode(response.bodyString!));
-      data = Data.succeed(data: cart);
+        Cart cart =
+            Cart().serilizer().fromJson(jsonDecode(response.bodyString!));
+        data = Data.succeed(data: cart);
+        return data;
+      });
       return data;
-    });
-    return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
   }
 
   Future<Data<List<Product>>> _getProducts(String url,
