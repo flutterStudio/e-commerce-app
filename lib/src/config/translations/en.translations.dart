@@ -24,6 +24,7 @@ Map<String, String> _messages = {
   "message-error": "An Error occured",
   "message-empty-response": "No data found",
   "message-no-products": "No products found",
+  "message-no-product-images": "This products has no images",
   "message-error-loading-image": "Could not load image",
 };
 

@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
@@ -21,13 +22,18 @@ class _ProductImagesState extends State<ProductImages> {
       children: [
         SizedBox(
           width: 238,
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Hero(
-              tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images![selectedImage]),
-            ),
-          ),
+          child: widget.product.images!.isEmpty
+              ? Text("message-no-product-images".tr)
+              : AspectRatio(
+                  aspectRatio: 1,
+                  child: Hero(
+                    tag: widget.product.id.toString(),
+                    child: Image.network(
+                      widget.product.images![selectedImage],
+                      errorBuilder: (context, _, __) => const Icon(Icons.error),
+                    ),
+                  ),
+                ),
         ),
         // SizedBox(height: 20),
         Row(

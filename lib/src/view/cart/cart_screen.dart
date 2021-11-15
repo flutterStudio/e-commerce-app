@@ -31,7 +31,7 @@ class CartScreen extends GetView<CartScreenController> {
           ),
           Obx(() {
             return Text(
-              "${controller.items.value.length} items",
+              "${controller.cart.value.data?.orderProducts?.length ?? 0} items",
               style: Theme.of(context)
                   .textTheme
                   .caption!

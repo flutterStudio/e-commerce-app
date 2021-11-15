@@ -26,8 +26,7 @@ class _CartSerializer extends ModelSerializer<Cart> {
     model.finalPrice = json['finalPrice'];
     List<CartItem> items = [];
     for (var item in json['orderProducts']) {
-      var orderedProduct = item["product"];
-      CartItem cartItem = CartItem().serilizer().fromJson(orderedProduct);
+      CartItem cartItem = CartItem().serilizer().fromJson(item);
       items.add(cartItem);
     }
     model.orderProducts = items;
