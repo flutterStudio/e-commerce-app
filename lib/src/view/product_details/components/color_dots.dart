@@ -10,7 +10,7 @@ class ColorDots extends GetView<ProductController> {
     required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final Product? product;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class ColorDots extends GetView<ProductController> {
       child: Row(
         children: [
           ...List.generate(
-            product.colors?.length ?? 0,
+            product?.colors?.length ?? 0,
             (index) => ColorDot(
-              color: product.colors![index],
+              color: product!.colors![index],
               isSelected: index == selectedColor,
             ),
           ),

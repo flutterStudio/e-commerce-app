@@ -43,11 +43,9 @@ class ProductScreen extends GetView<ProductController> {
                   color: const Color(0xFFF6F7F9),
                   child: Column(
                     children: [
-                      controller.product?.value?.colors == null
-                          ? const Text("No colors")
-                          : ColorDots(
-                              product: controller.product!.value!,
-                            ),
+                      ColorDots(
+                        product: controller.product?.value,
+                      ),
                       TopRoundedContainer(
                         color: Colors.white,
                         child: Padding(
