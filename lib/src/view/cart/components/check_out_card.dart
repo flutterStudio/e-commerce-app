@@ -78,7 +78,7 @@ class CheckoutCard extends GetView<CartScreenController> {
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
-                    text: "Check out ",
+                    child: const Text("Check out "),
                     press: () {
                       controller.checkout();
                     },

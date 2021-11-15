@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
     Key? key,
-    this.text,
     this.press,
     this.color,
+    required this.child,
   }) : super(key: key);
-  final String? text;
+  final Widget child;
   final Function? press;
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
       height: 56,
       child: TextButton(
         style: TextButton.styleFrom(
@@ -24,9 +23,7 @@ class DefaultButton extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
         onPressed: press as void Function()?,
-        child: Text(
-          text!,
-        ),
+        child: child,
       ),
     );
   }

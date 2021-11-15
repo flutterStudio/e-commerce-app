@@ -19,34 +19,34 @@ class ProductScreen extends GetView<ProductController> {
         leading: BackButton(
           onPressed: () => Get.back(),
         ),
-        title: Obx(() => Text(controller.product?.value?.title ?? "")),
+        title: Obx(() => Text(controller.product.value?.title ?? "")),
       ),
       body: ListView(
         children: [
-          Obx(() => controller.product?.value == null
+          Obx(() => controller.product.value == null
               ? const Text("No images")
-              : ProductImages(product: controller.product!.value!)),
+              : ProductImages(product: controller.product.value!)),
           TopRoundedContainer(
             color: Colors.white,
             child: Column(
               children: [
                 Obx(
                   () {
-                    return controller.product?.value == null
+                    return controller.product.value == null
                         ? const Text("No descripion")
                         : ProductDescription(
-                            product: controller.product!.value!,
+                            product: controller.product.value!,
                             pressOnSeeMore: () {},
                           );
                   },
                 ),
-                Obx(() => ProductStats(product: controller.product?.value)),
+                Obx(() => ProductStats(product: controller.product.value)),
                 TopRoundedContainer(
                   color: const Color(0xFFF6F7F9),
                   child: Column(
                     children: [
                       ColorDots(
-                        product: controller.product?.value,
+                        product: controller.product.value,
                       ),
                       TopRoundedContainer(
                         color: Colors.white,
@@ -58,11 +58,30 @@ class ProductScreen extends GetView<ProductController> {
                             top: getProportionateScreenWidth(15),
                           ),
                           child: Obx(() {
-                            return DefaultButton(
-                              text: "Add To Cart ${controller.count}",
-                              press: () {
-                                controller.addToCart();
-                              },
+                            return Row(
+                              children: [
+                                Text(
+                                  "${controller.count.value}/${controller.price.value}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline4
+                                      ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                ),
+                                Text(
+                                  " USD",
+                                  style: Theme.of(context).textTheme.headline4,
+                                ),
+                                const Spacer(),
+                                DefaultButton(
+                                  child: const Icon(Icons.shopping_bag),
+                                  press: () {
+                                    controller.addToCart();
+                                  },
+                                ),
+                              ],
                             );
                           }),
                         ),
