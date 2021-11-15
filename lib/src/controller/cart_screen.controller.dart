@@ -12,7 +12,7 @@ class CartScreenController extends GetxController {
   @override
   void onInit() {
     _mainRepo = Get.find<MainRepo>();
-
+    getCart();
     super.onInit();
   }
 
@@ -23,7 +23,7 @@ class CartScreenController extends GetxController {
   }
 
   Future<void> getCart() async {
-    cart.value.status = Data.inProgress();
+    cart.value = Data.inProgress();
     cart.value = await _mainRepo?.productRepo.getMyCart() ?? Data.empty();
   }
 
