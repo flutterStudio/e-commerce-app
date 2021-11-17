@@ -16,6 +16,7 @@ dependencies:
   get: 
   persistent_bottom_nav_bar: any
   flutter_svg: ^0.23.0+1
+  carousel_slider:
   url_launcher:
 
 dev_dependencies:

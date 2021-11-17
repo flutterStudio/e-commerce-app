@@ -44,7 +44,7 @@ class _ProductSerializer extends ModelSerializer<Product> {
     model.minQuantity = json["minQuantity"];
     model.availableQuantity = json["availableQuantity"];
     model.isActive = json["isActive"];
-    model.mainImage = json["mainImage"]?["downloadUrl"];
+    model.mainImage = _emulatorImage(json["mainImage"]?["downloadUrl"]);
     _initImagesList(json);
     return model;
   }
@@ -53,9 +53,13 @@ class _ProductSerializer extends ModelSerializer<Product> {
     var attachments = json["productImagesList"] ?? [];
     List<String> images = [];
     for (var attachment in attachments) {
-      images.add(attachment["attachment"]?["downloadUrl"]);
+      images.add(_emulatorImage(attachment["attachment"]?["downloadUrl"]));
     }
     model.images = images;
+  }
+
+  String _emulatorImage(String url) {
+    return url.replaceFirst("https://127.0.0.1:5001", "http://10.0.2.2:5000");
   }
 
   @override

@@ -25,7 +25,7 @@ class _ScreenItemModelSerializer extends ModelSerializer<ScreenItem> {
   @override
   ScreenItem fromJson(Map<String, dynamic> json) {
     model.screenItemId = json["screenItemId"];
-    model.image = json["image"]["downloadUrl"];
+    model.image = _emulatorImage(json["image"]["downloadUrl"]);
     model.externalLink = json["externalLink"];
     model.orderNumber = json["orderNumber"];
 
@@ -48,6 +48,10 @@ class _ScreenItemModelSerializer extends ModelSerializer<ScreenItem> {
     }
 
     return model;
+  }
+
+  String _emulatorImage(String url) {
+    return url.replaceFirst("https://127.0.0.1:5001", "http://10.0.2.2:5000");
   }
 
   List<Product> _initInternalContents(Map<String, dynamic> json) {
