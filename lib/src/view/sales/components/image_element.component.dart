@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/route_manager.dart';
 
 class ImageItem extends StatelessWidget {
   final ScreenItem item;
@@ -11,7 +12,7 @@ class ImageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          // Get.toNamed("/products/1");
+          Get.toNamed("/productsOffer/${item.screenItemId}");
         },
         child: CustomNetworkImage(url: item.image ?? ""));
   }

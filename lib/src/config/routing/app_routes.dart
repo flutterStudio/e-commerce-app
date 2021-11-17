@@ -73,5 +73,16 @@ class AppRoutes {
         }
       }),
     ),
+    GetPage(
+      name: AppPaths.productsOffer,
+      page: () => const ProductsListScreen(),
+      binding: BindingsBuilder(() {
+        int? offer = int.tryParse(Get.parameters['offer'] ?? " ");
+        if (offer != null) {
+          var controller = Get.find<ProductListcontroller>();
+          controller.getOfferProducts(offer);
+        }
+      }),
+    ),
   ];
 }

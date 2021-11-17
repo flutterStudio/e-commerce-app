@@ -28,14 +28,13 @@ class _ScreenItemModelSerializer extends ModelSerializer<ScreenItem> {
     model.image = json["image"]["downloadUrl"];
     model.externalLink = json["externalLink"];
     model.orderNumber = json["orderNumber"];
-    model.productScreenItems = json["productScreenItems"];
 
     try {
       model.actionType = Utils.enumFromString<ScreenItemActionType>(
           ScreenItemActionType.values, json["actionType"]);
 
       if (model.actionType == ScreenItemActionType.Internal) {
-        _initInternalContents(json);
+        model.productScreenItems = _initInternalContents(json);
       }
     } catch (e) {
       model.actionType = null;

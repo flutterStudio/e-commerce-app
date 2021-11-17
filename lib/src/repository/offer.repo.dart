@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 class OfferRepo {
   final ApiService _apiService;
 
-  static const String _allScreenItems = "ScreenItem/all";
+  static const String _allScreenItems = "ScreenItem/all/";
+  static const String _screenItem = "ScreenItem/";
 
   OfferRepo({required ApiService apiService}) : _apiService = apiService;
 
@@ -32,6 +33,29 @@ class OfferRepo {
       },
               query: {"page": page, "pageSize": pageSize}
                 ..removeWhere((key, value) => value == null));
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    }
+  }
+
+  Future<Data<ScreenItem>> getScreenItem(int id,
+      {int? page, int? pageSize}) async {
+    try {
+      Data<ScreenItem>? data = await _apiService.getRequest<Data<ScreenItem>>(
+          _screenItem + id.toString(), (response) {
+        Data<ScreenItem> data = Data.empty();
+
+        // Get pagination info if exists.
+        data.data =
+            ScreenItem().serilizer().fromJson(jsonDecode(response.bodyString!));
+        return data;
+      },
+          query: {"page": page, "pageSize": pageSize}
+            ..removeWhere((key, value) => value == null));
 
       return data;
     } on NetworkException catch (e) {
