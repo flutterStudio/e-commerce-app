@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,7 +70,9 @@ class _ProductImagesState extends State<ProductImages> {
                   .primary
                   .withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images![index]),
+        child: CustomNetworkImage(
+          url: widget.product.images![index],
+        ),
       ),
     );
   }
