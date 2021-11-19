@@ -20,6 +20,7 @@ class Categories extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: categories.length,
           itemBuilder: (context, index) => CategoryCard(
+            isActive: index == 2,
             icon: categories[index]["icon"],
             text: categories[index]["text"],
             press: () {},
@@ -31,11 +32,13 @@ class Categories extends StatelessWidget {
 }
 
 class CategoryCard extends StatelessWidget {
+  final bool? isActive;
   const CategoryCard({
     Key? key,
     required this.icon,
     required this.text,
     required this.press,
+    this.isActive = false,
   }) : super(key: key);
 
   final String? icon, text;
@@ -52,13 +55,18 @@ class CategoryCard extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFECDF),
+                color: isActive!
+                    ? Theme.of(context).colorScheme.primaryVariant
+                    : Theme.of(context).colorScheme.secondaryVariant,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
                 text!,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                    color: isActive!
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.secondary),
               ),
             ),
           ],

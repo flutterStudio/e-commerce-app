@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 class AppColors {
   static const Color darkGrey = Color(0xFF212121);
-  static const Color lightGrey = Color(0xAA212121);
+  static const Color lightGrey = Color(0x11212121);
   static const Color orange = Color(0xFFFF7643);
   static const Color white = Color(0xFFFFFFFF);
   static const Color lightOrange = Color(0xFFFFECDF);
@@ -39,7 +39,7 @@ class AppColors {
     onBackground: darkGrey,
     onError: white,
     onPrimary: white,
-    onSecondary: darkGrey,
+    onSecondary: lightGrey,
     surface: white,
     onSurface: darkGrey,
     icon: darkGrey,
