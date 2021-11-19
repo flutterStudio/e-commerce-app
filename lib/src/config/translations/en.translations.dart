@@ -35,6 +35,7 @@ Map<String, String> _text = {
   "total-price": "Total price",
   "ok": "Ok",
   "cancel": "Cancel",
+  "search-product": "Search product",
 };
 
 Map<String, String> _question = {

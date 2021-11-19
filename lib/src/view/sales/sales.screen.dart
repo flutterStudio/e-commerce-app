@@ -2,8 +2,11 @@ import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/view/request_handler.dart';
+import 'package:e_commerce/src/view/sales/components/categories.component.dart';
 import 'package:e_commerce/src/view/sales/components/image_element.component.dart';
 import 'package:e_commerce/src/view/sales/components/images_slider.component.dart';
+import 'package:e_commerce/src/view/sales/components/top_bar.component.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -15,16 +18,24 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
 
   Widget _salesScreenContentBuilder(BuildContext context) {
     return Center(
-      child: Obx(() {
-        return RequestHandler<List<ScreenItem>>(
-          data: controller.screenItems.value,
-          onSuccess: (BuildContext context, List<ScreenItem> items) =>
-              _itemsBuilder(
-            context,
-            items,
+      child: Column(
+        children: [
+          const TopBar(),
+          const Categories(),
+          Expanded(
+            child: Obx(() {
+              return RequestHandler<List<ScreenItem>>(
+                data: controller.screenItems.value,
+                onSuccess: (BuildContext context, List<ScreenItem> items) =>
+                    _itemsBuilder(
+                  context,
+                  items,
+                ),
+              );
+            }),
           ),
-        );
-      }),
+        ],
+      ),
     );
   }
 
