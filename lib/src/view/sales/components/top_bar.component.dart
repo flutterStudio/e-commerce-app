@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/view/sales/components/icon_btn_with_counter.dart';
-import 'package:e_commerce/src/view/shared/search_field.widget.dart';
+import 'package:e_commerce/src/view/shared/search_field/search_field.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
