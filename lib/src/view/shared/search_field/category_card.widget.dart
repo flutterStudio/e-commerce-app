@@ -5,7 +5,7 @@ class CategoryCard extends StatelessWidget {
   final bool? isActive;
   const CategoryCard({
     Key? key,
-    required this.icon,
+    this.icon,
     required this.text,
     required this.press,
     this.isActive = false,

@@ -88,7 +88,7 @@ class AppRoutes {
     ),
     GetPage(
         name: AppPaths.productSearch,
-        page: () => const SearchScreen(),
+        page: () => SearchScreen(),
         binding: BindingsBuilder.put(() => SearchController())),
   ];
 }
