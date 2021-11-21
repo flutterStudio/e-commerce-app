@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 class SearchField extends StatelessWidget {
   const SearchField({
     Key? key,
+    this.onTap,
   }) : super(key: key);
 
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,6 +17,7 @@ class SearchField extends StatelessWidget {
       ),
       child: TextField(
         onChanged: (value) => {},
+        onTap: onTap,
         style: Theme.of(context).textTheme.headline5,
         decoration: InputDecoration(
             contentPadding:
