@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/view/request_handler.dart';
@@ -16,7 +17,7 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
   @override
   Widget build(BuildContext context) => Scaffold(
       body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.all(SizeConfig.verticalSpace),
           child: _salesScreenContentBuilder(context)));
 
   Widget _salesScreenContentBuilder(BuildContext context) {
