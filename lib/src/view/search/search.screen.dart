@@ -1,8 +1,10 @@
+import 'package:e_commerce/src/controller/search_screen.controller.dart';
 import 'package:e_commerce/src/view/shared/search_field.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends GetView<SearchController> {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
@@ -12,8 +14,10 @@ class SearchScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: NestedScrollView(
             body: Container(),
-            headerSliverBuilder: (context, _) =>
-                const [Hero(tag: "search-field", child: SearchField())]),
+            headerSliverBuilder: (context, _) => const [
+                  (SliverToBoxAdapter(
+                      child: Hero(tag: "search-field", child: SearchField())))
+                ]),
       ),
     );
   }

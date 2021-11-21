@@ -2,6 +2,7 @@ import 'package:e_commerce/src/view/sales/components/icon_btn_with_counter.dart'
 import 'package:e_commerce/src/view/shared/search_field.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({Key? key}) : super(key: key);
@@ -13,8 +14,13 @@ class TopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(
-              flex: 8, child: Hero(tag: "search-tag", child: SearchField())),
+          Expanded(
+              flex: 8,
+              child: Hero(
+                  tag: "search-field",
+                  child: SearchField(onTap: () {
+                    Get.toNamed("/productSearch");
+                  }))),
           const Spacer(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",
