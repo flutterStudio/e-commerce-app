@@ -2,6 +2,7 @@ import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
+import 'package:e_commerce/src/view/search/search.screen.dart';
 
 import '/src/config/routing/app_paths.dart';
 import '/src/controller/product.controller.dart';
@@ -83,6 +84,10 @@ class AppRoutes {
           controller.getOfferProducts(offer);
         }
       }),
+    ),
+    GetPage(
+      name: AppPaths.productSearch,
+      page: () => const SearchScreen(),
     ),
   ];
 }

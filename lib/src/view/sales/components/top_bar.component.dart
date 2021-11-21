@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/view/sales/components/icon_btn_with_counter.dart';
-import 'package:e_commerce/src/view/sales/components/search_field.dart';
+import 'package:e_commerce/src/view/shared/search_field.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,8 @@ class TopBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(flex: 8, child: SearchField()),
+          const Expanded(
+              flex: 8, child: Hero(tag: "search-tag", child: SearchField())),
           const Spacer(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",

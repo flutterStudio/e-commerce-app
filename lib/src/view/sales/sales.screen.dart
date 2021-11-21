@@ -14,7 +14,10 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
   const SalesScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => _salesScreenContentBuilder(context);
+  Widget build(BuildContext context) => Scaffold(
+      body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: _salesScreenContentBuilder(context)));
 
   Widget _salesScreenContentBuilder(BuildContext context) {
     return Center(
