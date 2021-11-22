@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:e_commerce/src/model/cart.model.dart';
+import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
@@ -15,6 +16,7 @@ class ProductRepo {
   static const String _addTocart = "Order/addToCart";
   static const String _removeFromTocart = "Order/RemoveFromCart";
   static const String _cartOrders = "Order/InCart";
+  static const String _category = "Category";
   static const String _comapnyActiveProductsUrl = "Product/company/all";
 
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
@@ -29,6 +31,26 @@ class ProductRepo {
       {int? page, int? pageSize}) async {
     Data<List<Product>> data = await _getProducts(_activeProductsUrl);
     return data;
+  }
+
+  Future<Data<List<Category>>> getCategories() async {
+    try {
+      Data<List<Category>> data = await _apiService
+          .deleteRequest<Data<List<Category>>>(_category, (response) {
+        Data<List<Category>> data = Data.empty();
+
+        // data = Data.succeed(data: );
+        return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
   }
 
   Future<Data<Cart>> getMyCart() async {
