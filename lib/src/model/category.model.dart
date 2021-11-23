@@ -5,7 +5,7 @@ class Category extends Model {
   int? id;
   String? title;
 
-  Category(this.id, this.title);
+  Category({this.id, this.title});
 
   @override
   ModelSerializer<Category> serilizer() {

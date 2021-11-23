@@ -33,13 +33,25 @@ class ProductRepo {
     return data;
   }
 
+  ///
+  /// * brief:
+  ///
+  ///     Get all available categories in the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains either a list of categories, or an exception.
+  ///
   Future<Data<List<Category>>> getCategories() async {
     try {
       Data<List<Category>> data = await _apiService
-          .deleteRequest<Data<List<Category>>>(_category, (response) {
+          .getRequest<Data<List<Category>>>(_category, (response) {
         Data<List<Category>> data = Data.empty();
-
-        // data = Data.succeed(data: );
+        List<Category> categories = [];
+        categories = _initCategoriesData(response);
+        if (categories.isNotEmpty) {
+          return Data.succeed(data: categories);
+        }
         return data;
       });
 
@@ -206,5 +218,15 @@ class ProductRepo {
       products.add(Product().serilizer().fromJson(product));
     }
     return products;
+  }
+
+  /// Initalize categories response.
+  List<Category> _initCategoriesData(Response response) {
+    List<Category> categories = [];
+    var data = jsonDecode(response.bodyString!)["categories"] as List;
+    for (var product in data) {
+      categories.add(Category().serilizer().fromJson(product));
+    }
+    return categories;
   }
 }
