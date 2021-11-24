@@ -7,7 +7,8 @@ Map<String, String> _english = {
   ..._errors,
   ..._messages,
   ..._text,
-  ..._question
+  ..._question,
+  ..._textFields
 };
 
 Map<String, String> _errors = {
@@ -33,8 +34,21 @@ Map<String, String> _text = {
   "min-amount": "Minimum amount",
   "available-amount": "Available amount",
   "total-price": "Total price",
+  "login": "Login",
+  "login-with-email-password": "Login with your email and password",
+  "welcome-back": "Welcome Back",
+  "remember-me": "Remember me",
+  "forgot-password": "Forgot password",
   "ok": "Ok",
   "cancel": "Cancel",
+  "continue": "Continue",
+};
+
+Map<String, String> _textFields = {
+  "textField-password-label": "Password",
+  "textField-password-hint": "Enter your password",
+  "textField-email-label": "Email",
+  "textField-email-hint": "Enter your email",
 };
 
 Map<String, String> _question = {

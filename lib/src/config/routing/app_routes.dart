@@ -2,6 +2,7 @@ import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
+import 'package:e_commerce/src/view/login/login.screen.dart';
 
 import '/src/config/routing/app_paths.dart';
 import '/src/controller/product.controller.dart';
@@ -16,7 +17,7 @@ class AppRoutes {
   static List<GetPage> pages = [
     GetPage(
       name: AppPaths.root,
-      page: () => const HomeScreen(),
+      page: () => const LoginScreen(),
       participatesInRootNavigator: true,
       preventDuplicates: true,
     ),
