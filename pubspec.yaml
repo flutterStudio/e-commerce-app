@@ -17,6 +17,7 @@ dependencies:
   persistent_bottom_nav_bar: any
   flutter_svg: ^0.23.0+1
   url_launcher:
+  shared_preferences: ^2.0.9
 
 dev_dependencies:
   flutter_test:
