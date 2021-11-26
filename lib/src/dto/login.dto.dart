@@ -5,7 +5,7 @@ class LoginDto extends DTO {
   String? email;
   String? password;
   String? deviceToken;
-  LoginDto({this.email, this.password, this.deviceToken});
+  LoginDto({this.email, this.password, this.deviceToken = "TOKEN"});
   @override
   ModelSerializer<LoginDto> serializer() {
     return _LoginDtoSerializer(this);
