@@ -17,19 +17,15 @@ class _LoginFormState extends State<LoginForm> {
   bool? remember = false;
   final List<String?> errors = [];
 
-  void addError({String? error}) {}
-
-  void removeError({String? error}) {}
-
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          buildEmailFormField(),
+          _emailFormField(),
           const SizedBox(height: 30),
-          buildPasswordFormField(),
+          _passwordFormField(),
           const SizedBox(height: 30),
           Row(
             children: [
@@ -73,7 +69,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  TextFormField buildPasswordFormField() {
+  TextFormField _passwordFormField() {
     return TextFormField(
       obscureText: true,
       onSaved: (newValue) => password = newValue,
@@ -97,7 +93,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  TextFormField buildEmailFormField() {
+  TextFormField _emailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
