@@ -4,6 +4,7 @@ import 'package:e_commerce/src/dto/login.dto.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/user.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
+import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/utils/exceptions.utils.dart';
 import 'package:get/get.dart';
 
@@ -23,9 +24,13 @@ class UsersRepo {
         User userInfo =
             User().serilizer().fromJson(loginResponse["value"]["userDetails"]);
         userInfo.deviceToken = loginResponse["value"]["token"];
-
+        user.data = userInfo;
         return user;
       });
+      if (user.isSucceed && user.data != null) {
+        Get.find<AuthService>().saveUser(user.data!);
+        await Get.find<AuthService>().loadUser();
+      }
       return user;
     } on NetworkException catch (e) {
       return Data.faild(message: e.message);
