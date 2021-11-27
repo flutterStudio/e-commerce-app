@@ -13,6 +13,7 @@ class Application extends StatelessWidget {
     return GetMaterialApp(
       getPages: AppRoutes.pages,
       translations: AppTranslations(),
+      routingCallback: (routing) {},
       initialRoute: AppPaths.home,
       locale: Get.deviceLocale,
       supportedLocales: AppTranslations().supportedLocales,

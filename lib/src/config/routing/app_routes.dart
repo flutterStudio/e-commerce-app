@@ -25,7 +25,7 @@ class AppRoutes {
     GetPage(
       name: AppPaths.root,
       page: () => const HomeScreen(),
-      middlewares: [RoutingGuards()],
+      middlewares: [AuthGuard()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder.put(() {
@@ -34,8 +34,9 @@ class AppRoutes {
     ),
     GetPage(
       name: AppPaths.login,
+      middlewares: [AuthGuard()],
       page: () => const LoginScreen(),
-      participatesInRootNavigator: true,
+      participatesInRootNavigator: false,
       preventDuplicates: true,
       binding: BindingsBuilder.put(() {
         return LoginController();
@@ -44,7 +45,7 @@ class AppRoutes {
     GetPage(
       name: AppPaths.logout,
       page: () => const HomeScreen(),
-      middlewares: [RoutingGuards()],
+      middlewares: [AuthGuard()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder(() {
@@ -54,7 +55,7 @@ class AppRoutes {
     GetPage(
       name: AppPaths.homePages,
       page: () => const HomeScreen(),
-      middlewares: [RoutingGuards()],
+      middlewares: [AuthGuard()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder(() {
@@ -68,7 +69,7 @@ class AppRoutes {
     ),
     GetPage(
       name: AppPaths.productDetails,
-      middlewares: [RoutingGuards()],
+      middlewares: [AuthGuard()],
       page: () => const ProductScreen(),
       binding: BindingsBuilder.put(() {
         String? id = Get.parameters['id'];
@@ -78,13 +79,13 @@ class AppRoutes {
       }),
     ),
     GetPage(
-      middlewares: [RoutingGuards()],
       name: AppPaths.products,
+      middlewares: [AuthGuard()],
       page: () => const ProductsListScreen(),
     ),
     GetPage(
-      middlewares: [RoutingGuards()],
       name: AppPaths.productsType,
+      middlewares: [AuthGuard()],
       page: () => const ProductsListScreen(),
       binding: BindingsBuilder.put(() {
         int type = int.tryParse(Get.parameters['type']!)!;
@@ -94,12 +95,12 @@ class AppRoutes {
     ),
     GetPage(
       name: AppPaths.cart,
-      middlewares: [RoutingGuards()],
+      middlewares: [AuthGuard()],
       page: () => const CartScreen(),
     ),
     GetPage(
-      middlewares: [RoutingGuards()],
       name: AppPaths.addToCart,
+      middlewares: [AuthGuard()],
       page: () => const CartScreen(),
       binding: BindingsBuilder(() {
         int? id = int.tryParse(Get.parameters['id'] ?? " ");
@@ -113,6 +114,7 @@ class AppRoutes {
     GetPage(
       name: AppPaths.productsOffer,
       page: () => const ProductsListScreen(),
+      middlewares: [AuthGuard()],
       binding: BindingsBuilder(() {
         int? offer = int.tryParse(Get.parameters['offer'] ?? " ");
         if (offer != null) {
@@ -123,24 +125,28 @@ class AppRoutes {
     ),
     GetPage(
         name: AppPaths.productSearch,
+        middlewares: [AuthGuard()],
         page: () => SearchScreen(),
         binding: BindingsBuilder.put(() => SearchController())),
   ];
 }
 
-class RoutingGuards extends GetMiddleware {
+class AuthGuard extends GetMiddleware {
   final AuthService _service;
 
-  RoutingGuards()
+  AuthGuard()
       : _service = Get.find<AuthService>(),
         super();
 
   @override
-  RouteSettings redirect(String? route) {
-    if (_service.currentUser.value == null) {
-      return const RouteSettings(name: AppPaths.login);
+  RouteSettings? redirect(String? route) {
+    if (_service.currentUser.value == null && route != AppPaths.login) {
+      // Get.resetRootNavigator();
+      return const RouteSettings(
+        name: AppPaths.login,
+      );
     } else {
-      return RouteSettings(name: route ?? AppPaths.root);
+      return null;
     }
   }
 }

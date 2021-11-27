@@ -29,7 +29,7 @@ class UsersRepo {
       });
       if (user.isSucceed && user.data != null) {
         Get.find<AuthService>().saveUser(user.data!);
-        await Get.find<AuthService>().loadUser();
+        // await Get.find<AuthService>().loadUser();
       }
       return user;
     } on NetworkException catch (e) {

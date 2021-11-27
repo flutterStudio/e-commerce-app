@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class Body extends StatelessWidget {
               text: "logout".tr,
               icon: "assets/icons/Log out.svg",
               press: () {
-                Get.toNamed("Logout");
+                Get.toNamed(AppPaths.logout);
               }),
         ],
       ),

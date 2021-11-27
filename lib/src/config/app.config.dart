@@ -15,19 +15,25 @@ class AppConfig {
 
   Future<void> init() async {
     await _initServices();
+    await Get.putAsync<MainRepo>(
+        () async => MainRepo(apiService: ApiService()));
     await _initControllers();
-    Get.put<MainRepo>(MainRepo(apiService: ApiService()));
   }
 
   Future<void> _initControllers() async {
-    Get.put<HomeScreenController>(HomeScreenController());
-    Get.put<CartScreenController>(CartScreenController());
-    Get.put<ProductListcontroller>(ProductListcontroller());
-    Get.put<OfferScreenCopntroller>(OfferScreenCopntroller());
-    Get.put<ProfileController>(ProfileController());
+    await Get.putAsync<HomeScreenController>(
+        () async => HomeScreenController());
+    await Get.putAsync<CartScreenController>(
+        () async => CartScreenController());
+    await Get.putAsync<ProductListcontroller>(
+        () async => ProductListcontroller());
+    await Get.putAsync<OfferScreenCopntroller>(
+        () async => OfferScreenCopntroller());
+    await Get.putAsync<ProfileController>(() async => ProfileController());
   }
 
   Future<void> _initServices() async {
-    Get.put<AuthService>(AuthService());
+    var service = await Get.putAsync<AuthService>(() async => AuthService());
+    await service.loadUser();
   }
 }
