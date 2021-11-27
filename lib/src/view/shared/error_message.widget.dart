@@ -2,8 +2,8 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FormError extends StatelessWidget {
-  const FormError({
+class ErrorMessage extends StatelessWidget {
+  const ErrorMessage({
     Key? key,
     required this.errors,
   }) : super(key: key);
@@ -19,12 +19,12 @@ class FormError extends StatelessWidget {
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.error),
       child: Column(
         children: List.generate(errors.length,
-            (index) => formErrorText(context, error: errors[index]!)),
+            (index) => ErrorMessageText(context, error: errors[index]!)),
       ),
     );
   }
 
-  Row formErrorText(BuildContext context, {required String error}) {
+  Row ErrorMessageText(BuildContext context, {required String error}) {
     return Row(
       children: [
         SvgPicture.asset(

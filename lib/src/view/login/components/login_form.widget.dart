@@ -27,7 +27,7 @@ class LoginForm extends GetView<LoginController> {
                 onSuccess: (context, value) {
                   return const Text("Logged in successfully");
                 },
-                onFailed: (error) => FormError(errors: [error]),
+                onFailed: (error) => ErrorMessage(errors: [error]),
                 data: controller.loginStatus.value);
           }),
           Row(
