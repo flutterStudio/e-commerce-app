@@ -4,7 +4,7 @@ import 'package:e_commerce/src/model/user.model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
+class AuthService extends GetxService {
   static final AuthService _instance = AuthService._internal();
 
   factory AuthService() => _instance;

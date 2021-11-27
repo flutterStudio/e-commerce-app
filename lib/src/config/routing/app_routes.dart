@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/controller/login.controller.dart';
+import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
 import 'package:e_commerce/src/view/login/login.screen.dart';
@@ -18,7 +19,18 @@ class AppRoutes {
   static List<GetPage> pages = [
     GetPage(
       name: AppPaths.root,
+      page: () => const HomeScreen(),
+      middlewares: [RoutingGuards()],
+      participatesInRootNavigator: true,
+      preventDuplicates: true,
+      binding: BindingsBuilder.put(() {
+        return HomeScreenController();
+      }),
+    ),
+    GetPage(
+      name: AppPaths.login,
       page: () => const LoginScreen(),
+      middlewares: [RoutingGuards()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder.put(() {
@@ -28,6 +40,7 @@ class AppRoutes {
     GetPage(
       name: AppPaths.homePages,
       page: () => const HomeScreen(),
+      middlewares: [RoutingGuards()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder(() {
@@ -41,6 +54,7 @@ class AppRoutes {
     ),
     GetPage(
       name: AppPaths.productDetails,
+      middlewares: [RoutingGuards()],
       page: () => const ProductScreen(),
       binding: BindingsBuilder.put(() {
         String? id = Get.parameters['id'];
@@ -50,10 +64,12 @@ class AppRoutes {
       }),
     ),
     GetPage(
+      middlewares: [RoutingGuards()],
       name: AppPaths.products,
       page: () => const ProductsListScreen(),
     ),
     GetPage(
+      middlewares: [RoutingGuards()],
       name: AppPaths.productsType,
       page: () => const ProductsListScreen(),
       binding: BindingsBuilder.put(() {
@@ -64,9 +80,11 @@ class AppRoutes {
     ),
     GetPage(
       name: AppPaths.cart,
+      middlewares: [RoutingGuards()],
       page: () => const CartScreen(),
     ),
     GetPage(
+      middlewares: [RoutingGuards()],
       name: AppPaths.addToCart,
       page: () => const CartScreen(),
       binding: BindingsBuilder(() {
@@ -79,4 +97,22 @@ class AppRoutes {
       }),
     ),
   ];
+}
+
+class RoutingGuards extends GetMiddleware {
+  final AuthService _service;
+
+  RoutingGuards()
+      : _service = Get.find<AuthService>(),
+        super();
+
+  @override
+  GetPage? onPageCalled(GetPage? page) {
+    if (_service.currentUser.value == null) {
+      page?.copyWith(name: AppPaths.login);
+      return page;
+    } else {
+      return page;
+    }
+  }
 }
