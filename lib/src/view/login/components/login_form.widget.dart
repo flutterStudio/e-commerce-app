@@ -1,7 +1,7 @@
 import 'package:e_commerce/src/controller/login.controller.dart';
 import 'package:e_commerce/src/model/user.model.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
-import 'package:e_commerce/src/view/shared/form_error.dart';
+import 'package:e_commerce/src/view/shared/error_message.widget.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
@@ -49,7 +49,6 @@ class LoginForm extends GetView<LoginController> {
               )
             ],
           ),
-          FormError(errors: errors),
           const SizedBox(height: 20),
           DefaultButton(
             child: Text(
