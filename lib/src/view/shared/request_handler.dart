@@ -15,14 +15,14 @@ typedef OnSucess<T> = Widget Function(BuildContext, T data);
 class RequestHandler<T> extends StatelessWidget {
   final Data<T> _data;
   final OnSucess<T> _onSuccess;
-  final Widget? _onFailed;
+  final Widget Function(String? error)? _onFailed;
   final Widget? _inProgress;
   final Widget? _other;
 
   const RequestHandler(
       {Key? key,
       required OnSucess<T> onSuccess,
-      Widget? onFailed,
+      Widget Function(String? error)? onFailed,
       inProgress,
       other,
       required Data<T> data})
@@ -42,7 +42,9 @@ class RequestHandler<T> extends StatelessWidget {
         }
       case DataStatus.faild:
         {
-          return _onFailed ?? Text("${_data.message}");
+          return _onFailed != null
+              ? _onFailed!(_data.message)
+              : Text("${_data.message}");
         }
       case DataStatus.succeed:
         {
