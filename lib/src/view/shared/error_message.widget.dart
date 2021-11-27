@@ -19,12 +19,12 @@ class ErrorMessage extends StatelessWidget {
       decoration: BoxDecoration(color: Theme.of(context).colorScheme.error),
       child: Column(
         children: List.generate(errors.length,
-            (index) => ErrorMessageText(context, error: errors[index]!)),
+            (index) => _errorMessageText(context, error: errors[index]!)),
       ),
     );
   }
 
-  Row ErrorMessageText(BuildContext context, {required String error}) {
+  Row _errorMessageText(BuildContext context, {required String error}) {
     return Row(
       children: [
         SvgPicture.asset(
