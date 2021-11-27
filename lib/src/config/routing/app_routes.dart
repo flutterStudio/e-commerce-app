@@ -2,12 +2,14 @@ import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 
 import 'package:e_commerce/src/controller/login.controller.dart';
+import 'package:e_commerce/src/controller/profile.controller.dart';
 import 'package:e_commerce/src/controller/search_screen.controller.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
 import 'package:e_commerce/src/view/login/login.screen.dart';
 import 'package:e_commerce/src/view/search/search.screen.dart';
+import 'package:flutter/cupertino.dart';
 
 import '/src/config/routing/app_paths.dart';
 import '/src/controller/product.controller.dart';
@@ -33,11 +35,20 @@ class AppRoutes {
     GetPage(
       name: AppPaths.login,
       page: () => const LoginScreen(),
-      middlewares: [RoutingGuards()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder.put(() {
         return LoginController();
+      }),
+    ),
+    GetPage(
+      name: AppPaths.logout,
+      page: () => const HomeScreen(),
+      middlewares: [RoutingGuards()],
+      participatesInRootNavigator: true,
+      preventDuplicates: true,
+      binding: BindingsBuilder(() {
+        Get.find<ProfileController>().logOut();
       }),
     ),
     GetPage(
@@ -125,12 +136,11 @@ class RoutingGuards extends GetMiddleware {
         super();
 
   @override
-  GetPage? onPageCalled(GetPage? page) {
+  RouteSettings redirect(String? route) {
     if (_service.currentUser.value == null) {
-      page?.copyWith(name: AppPaths.login);
-      return page;
+      return const RouteSettings(name: AppPaths.login);
     } else {
-      return page;
+      return RouteSettings(name: route ?? AppPaths.root);
     }
   }
 }

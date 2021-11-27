@@ -2,6 +2,7 @@ import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/controller/product_list.controller.dart';
+import 'package:e_commerce/src/controller/profile.controller.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,7 @@ class AppConfig {
     Get.put<CartScreenController>(CartScreenController());
     Get.put<ProductListcontroller>(ProductListcontroller());
     Get.put<OfferScreenCopntroller>(OfferScreenCopntroller());
+    Get.put<ProfileController>(ProfileController());
   }
 
   Future<void> _initServices() async {
