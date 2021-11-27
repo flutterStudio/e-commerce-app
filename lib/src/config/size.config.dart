@@ -137,6 +137,7 @@ class SizeConfig {
 
   static const double verticalSpace = 8;
   static const double horizontalSpace = 8;
+  static const double buttonPadding = 12;
 }
 
 class ICONSIZE {
