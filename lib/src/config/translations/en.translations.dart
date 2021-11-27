@@ -7,7 +7,8 @@ Map<String, String> _english = {
   ..._errors,
   ..._messages,
   ..._text,
-  ..._question
+  ..._question,
+  ..._textFields
 };
 
 Map<String, String> _errors = {
@@ -19,10 +20,13 @@ Map<String, String> _errors = {
   "error-408": "Request Timeout",
   "error-409": "Operation Denied",
   "error-500": "Server Error",
+  "error-invalid-email": "Invalid Email",
 };
 
 Map<String, String> _messages = {
   "message-error": "An Error occured",
+  "message-error-invalid-email": "You enterd an invalid email",
+  "message-required-field": "This field is required",
   "message-empty-response": "No data found",
   "message-no-products": "No products found",
   "message-no-product-images": "This products has no images",
@@ -33,9 +37,22 @@ Map<String, String> _text = {
   "min-amount": "Minimum amount",
   "available-amount": "Available amount",
   "total-price": "Total price",
+  "login": "Login",
+  "login-with-email-password": "Login with your email and password",
+  "welcome-back": "Welcome Back",
+  "remember-me": "Remember me",
+  "forgot-password": "Forgot password",
   "ok": "Ok",
   "cancel": "Cancel",
   "search-product": "Search product",
+  "continue": "Continue",
+};
+
+Map<String, String> _textFields = {
+  "textField-password-label": "Password",
+  "textField-password-hint": "Enter your password",
+  "textField-email-label": "Email",
+  "textField-email-hint": "Enter your email",
 };
 
 Map<String, String> _question = {

@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
-import 'package:e_commerce/src/view/request_handler.dart';
+import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';

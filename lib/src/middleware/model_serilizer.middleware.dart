@@ -1,6 +1,4 @@
-import 'package:e_commerce/src/model/model.dart';
-
-abstract class ModelSerializer<T extends Model> {
+abstract class ModelSerializer<T> {
   T model;
   ModelSerializer(this.model);
   T fromJson(Map<String, dynamic> json);

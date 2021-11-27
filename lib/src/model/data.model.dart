@@ -8,6 +8,9 @@ class Data<T> {
   bool _hasData = false;
   bool _hasNext = false;
   bool _hasPrevious = false;
+  bool get isSucceed => _status == DataStatus.succeed;
+  bool get isFaild => _status == DataStatus.faild;
+
   Data({
     required T data,
     required DataStatus status,

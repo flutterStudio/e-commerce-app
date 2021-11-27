@@ -12,17 +12,17 @@ typedef OnSucess<T> = Widget Function(BuildContext, T data);
 /// [isDismissible] is a boolean variable that indicates if you want user to
 /// dismiss messages that shows upon the [mainContent] or not.
 /// [other] is the widget that appears when the [Data] status is not one of the previous statuses, [other] has a default value.
-class RequestHandler<T> extends StatefulWidget {
+class RequestHandler<T> extends StatelessWidget {
   final Data<T> _data;
   final OnSucess<T> _onSuccess;
-  final Widget? _onFailed;
+  final Widget Function(String? error)? _onFailed;
   final Widget? _inProgress;
   final Widget? _other;
 
   const RequestHandler(
       {Key? key,
       required OnSucess<T> onSuccess,
-      Widget? onFailed,
+      Widget Function(String? error)? onFailed,
       inProgress,
       other,
       required Data<T> data})
@@ -34,33 +34,25 @@ class RequestHandler<T> extends StatefulWidget {
         super(key: key);
 
   @override
-  _RequestHandlerState<T> createState() => _RequestHandlerState<T>();
-}
-
-class _RequestHandlerState<T> extends State<RequestHandler<T>> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    switch (widget._data.status) {
+    switch (_data.status) {
       case DataStatus.inProgress:
         {
-          return widget._inProgress ?? const CircularProgressIndicator();
+          return _inProgress ?? const CircularProgressIndicator();
         }
       case DataStatus.faild:
         {
-          return widget._onFailed ?? Text("${widget._data.message}");
+          return _onFailed != null
+              ? _onFailed!(_data.message)
+              : Text("${_data.message}");
         }
       case DataStatus.succeed:
         {
-          return widget._onSuccess(context, widget._data.data!);
+          return _onSuccess(context, _data.data!);
         }
       default:
         {
-          return widget._other ?? Container();
+          return _other ?? Container();
         }
     }
   }

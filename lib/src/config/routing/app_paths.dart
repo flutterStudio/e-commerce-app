@@ -1,6 +1,7 @@
 class AppPaths {
   static const String root = "/";
   static const String home = "/home";
+  static const String login = "/login";
   static const String homePages = "/home/:page";
   static const String products = "/products";
   static const String productsOffer = "/productsOffer/:offer";

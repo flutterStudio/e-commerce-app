@@ -6,6 +6,7 @@ class AppColors {
   static const Color darkGrey = Color(0xFF212121);
   static const Color lightGrey = Color(0x11212121);
   static const Color orange = Color(0xFFFF7643);
+  static const Color redOrange = Color(0xFFFF0043);
   static const Color white = Color(0xFFFFFFFF);
   static const Color lightOrange = Color(0xFFFFECDF);
 
@@ -16,9 +17,9 @@ class AppColors {
     secondaryVariant: orange,
     secondary: orange,
     background: darkGrey,
-    error: orange,
+    error: lightOrange,
     onBackground: white,
-    onError: white,
+    onError: redOrange,
     onPrimary: white,
     onSecondary: white,
     surface: darkGrey,
@@ -35,9 +36,9 @@ class AppColors {
     secondaryVariant: lightGrey,
     secondary: darkGrey,
     background: white,
-    error: darkGrey,
+    error: lightOrange,
     onBackground: darkGrey,
-    onError: white,
+    onError: redOrange,
     onPrimary: white,
     onSecondary: lightGrey,
     surface: white,
