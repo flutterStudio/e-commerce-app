@@ -40,4 +40,13 @@ class UsersRepo {
       return Data.faild(message: "message-error".tr);
     }
   }
+
+  ///
+  /// #### Brief
+  ///
+  ///     Removes saved user in shared preferencies.
+  ///
+  Future<void> logout() async {
+    Get.find<AuthService>().removeUser();
+  }
 }

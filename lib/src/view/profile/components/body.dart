@@ -22,10 +22,11 @@ class Body extends StatelessWidget {
             press: () {},
           ),
           ProfileMenu(
-            text: "logout".tr,
-            icon: "assets/icons/Log out.svg",
-            press: () {},
-          ),
+              text: "logout".tr,
+              icon: "assets/icons/Log out.svg",
+              press: () {
+                Get.toNamed("Logout");
+              }),
         ],
       ),
     );
