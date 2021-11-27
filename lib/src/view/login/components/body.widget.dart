@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                const LoginForm(),
+                LoginForm(),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
               ],
             ),

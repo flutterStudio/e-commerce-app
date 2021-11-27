@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,13 +12,19 @@ class FormError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(
-          errors.length, (index) => formErrorText(error: errors[index]!)),
+    return Container(
+      padding: const EdgeInsets.symmetric(
+          vertical: SizeConfig.verticalSpace * 2,
+          horizontal: SizeConfig.horizontalSpace),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.error),
+      child: Column(
+        children: List.generate(errors.length,
+            (index) => formErrorText(context, error: errors[index]!)),
+      ),
     );
   }
 
-  Row formErrorText({required String error}) {
+  Row formErrorText(BuildContext context, {required String error}) {
     return Row(
       children: [
         SvgPicture.asset(
@@ -28,7 +35,13 @@ class FormError extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        Text(error),
+        Text(
+          error,
+          style: Theme.of(context)
+              .textTheme
+              .caption
+              ?.copyWith(color: Theme.of(context).colorScheme.onError),
+        ),
       ],
     );
   }

@@ -20,10 +20,13 @@ Map<String, String> _errors = {
   "error-408": "Request Timeout",
   "error-409": "Operation Denied",
   "error-500": "Server Error",
+  "error-invalid-email": "Invalid Email",
 };
 
 Map<String, String> _messages = {
   "message-error": "An Error occured",
+  "message-error-invalid-email": "You enterd an invalid email",
+  "message-required-field": "This field is required",
   "message-empty-response": "No data found",
   "message-no-products": "No products found",
   "message-no-product-images": "This products has no images",

@@ -1,20 +1,15 @@
+import 'package:e_commerce/src/controller/login.controller.dart';
+import 'package:e_commerce/src/model/user.model.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/form_error.dart';
+import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import "package:get/get.dart";
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class LoginForm extends GetView<LoginController> {
+  LoginForm({Key? key}) : super(key: key);
 
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
-  bool? remember = false;
   final List<String?> errors = [];
 
   @override
@@ -27,17 +22,23 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 30),
           _passwordFormField(),
           const SizedBox(height: 30),
+          Obx(() {
+            return RequestHandler<User>(
+                onSuccess: (context, value) {
+                  return const Text("Logged in successfully");
+                },
+                onFailed: (error) => FormError(errors: [error]),
+                data: controller.loginStatus.value);
+          }),
           Row(
             children: [
-              Checkbox(
-                value: remember,
-                activeColor: Theme.of(context).colorScheme.primary,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
+              Obx(() => Checkbox(
+                    value: controller.remember.value,
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    onChanged: (value) {
+                      controller.remember.value = !controller.remember.value;
+                    },
+                  )),
               Text("remember-me".tr),
               const Spacer(),
               GestureDetector(
@@ -61,6 +62,7 @@ class _LoginFormState extends State<LoginForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                controller.login();
               }
             },
           ),
@@ -72,16 +74,17 @@ class _LoginFormState extends State<LoginForm> {
   TextFormField _passwordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => controller.password.value = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
         } else if (value.length >= 8) {}
       },
       validator: (value) {
-        if (value!.isEmpty) {
-          return "";
-        } else if (value.length < 8) {
-          return "";
+        if (value == null) {
+          return "message-required-field".tr;
+        }
+        if (value.isEmpty) {
+          return "message-required-field".tr;
         }
         return null;
       },
@@ -96,9 +99,13 @@ class _LoginFormState extends State<LoginForm> {
   TextFormField _emailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
-      onChanged: (value) {},
-      validator: (value) {},
+      onSaved: (newValue) => controller.email.value = newValue,
+      validator: (value) {
+        if (value != null) {
+          return GetUtils.isEmail(value) ? null : "error-invalid-email".tr;
+        }
+        return "message-required-field".tr;
+      },
       decoration: InputDecoration(
         labelText: "textField-email-label".tr,
         hintText: "textField-email-hint".tr,
