@@ -3,6 +3,8 @@ import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/controller/product_list.controller.dart';
 import 'package:e_commerce/src/controller/profile.controller.dart';
+import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +16,7 @@ class AppConfig {
   Future<void> init() async {
     await _initServices();
     await _initControllers();
+    Get.put<MainRepo>(MainRepo(apiService: ApiService()));
   }
 
   Future<void> _initControllers() async {
