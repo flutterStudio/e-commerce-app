@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
+import 'package:e_commerce/src/controller/login.controller.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
 import 'package:e_commerce/src/view/login/login.screen.dart';
@@ -20,6 +21,9 @@ class AppRoutes {
       page: () => const LoginScreen(),
       participatesInRootNavigator: true,
       preventDuplicates: true,
+      binding: BindingsBuilder.put(() {
+        return LoginController();
+      }),
     ),
     GetPage(
       name: AppPaths.homePages,
