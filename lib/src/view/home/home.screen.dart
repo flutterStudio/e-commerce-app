@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
 import 'package:e_commerce/src/view/discover/discover.screen.dart';
+import 'package:e_commerce/src/view/profile/profile_screen.dart';
 import 'package:e_commerce/src/view/sales/sales.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             SalesScreen(),
             CartScreen(),
             DiscoverScreen(),
+            ProfileScreen()
           ],
           items: [
             PersistentBottomNavBarItem(
@@ -46,6 +48,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                 activeColorPrimary: Theme.of(context).colorScheme.primary,
                 inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
                 title: "Our Products"),
+            PersistentBottomNavBarItem(
+                icon: const Icon(Icons.account_circle),
+                activeColorPrimary: Theme.of(context).colorScheme.primary,
+                inactiveColorPrimary: Theme.of(context).colorScheme.secondary,
+                title: "Profile"),
           ],
           confineInSafeArea: true,
           backgroundColor: Colors.white,

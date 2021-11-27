@@ -46,6 +46,9 @@ Map<String, String> _text = {
   "cancel": "Cancel",
   "search-product": "Search product",
   "continue": "Continue",
+  "notifications": "Notifications",
+  "logout": "Log Out",
+  "profile": "Profile",
 };
 
 Map<String, String> _textFields = {
