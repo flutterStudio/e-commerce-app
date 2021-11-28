@@ -4,6 +4,7 @@ import 'package:e_commerce/src/model/model.dart';
 class Size extends Model {
   int? id;
   String? sizeValue;
+  int? joiningId;
 
   Size({this.id, this.sizeValue});
 
@@ -20,6 +21,7 @@ class _SizeSerializer extends ModelSerializer<Size> {
   Size fromJson(Map<String, dynamic> json) {
     model.id = json["sizeId"];
     model.sizeValue = json["sizeValue"];
+    model.joiningId = (json["productSizeId"]);
     return model;
   }
 

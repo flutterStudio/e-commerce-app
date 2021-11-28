@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/middleware/model_serilizer.middleware.dart';
-import 'package:flutter/widgets.dart';
+import 'package:e_commerce/src/model/color.model.dart';
+import 'package:e_commerce/src/model/size.model.dart';
 
 import 'model.dart';
 
@@ -7,7 +8,8 @@ class Product implements Model {
   late int? id;
   String? title, description, mainImage;
   List<String>? images;
-  List<Color>? colors;
+  List<ColorModel>? colors;
+  List<Size>? sizes;
   double? rating, price, discount;
   int? minQuantity, availableQuantity;
   bool? isFavourite, isPopular, isActive;
@@ -38,14 +40,15 @@ class _ProductSerializer extends ModelSerializer<Product> {
     model.title = json["title"];
     model.description = json["description"];
     model.images = json["images"];
-    model.colors = json["colors"];
     model.price = json["price"];
     model.discount = json["discount"];
     model.minQuantity = json["minQuantity"];
     model.availableQuantity = json["availableQuantity"];
     model.isActive = json["isActive"];
     model.mainImage = _emulatorImage(json["mainImage"]?["downloadUrl"]);
+    _initColors(json["productColors"]);
     _initImagesList(json);
+    _initSizes(json["productSizes"]);
     return model;
   }
 
@@ -56,6 +59,22 @@ class _ProductSerializer extends ModelSerializer<Product> {
       images.add(_emulatorImage(attachment["attachment"]?["downloadUrl"]));
     }
     model.images = images;
+  }
+
+  void _initColors(Map<String, dynamic> json) {
+    List<ColorModel> colors = [];
+    for (var color in json as List) {
+      colors.add(ColorModel().serilizer().fromJson(color));
+    }
+    model.colors = colors;
+  }
+
+  void _initSizes(Map<String, dynamic> json) {
+    List<Size> sizes = [];
+    for (var color in json as List) {
+      sizes.add(Size().serilizer().fromJson(color));
+    }
+    model.sizes = sizes;
   }
 
   String _emulatorImage(String url) {

@@ -6,6 +6,7 @@ import 'package:e_commerce/src/utils/extensions/hexcolor.extension.dart';
 
 class ColorModel extends Model {
   int? id;
+  int? joiningId;
   Color? colorValue;
 
   ColorModel({this.id, this.colorValue});
@@ -23,6 +24,7 @@ class _ColorSerializer extends ModelSerializer<ColorModel> {
   ColorModel fromJson(Map<String, dynamic> json) {
     model.id = json["colorId"];
     model.colorValue = HexColor.fromHex((json["colorValue"]));
+    model.joiningId = (json["productColorId"]);
     return model;
   }
 
