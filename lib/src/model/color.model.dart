@@ -1,25 +1,28 @@
 import 'package:e_commerce/src/middleware/model_serilizer.middleware.dart';
 import 'package:e_commerce/src/model/model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:e_commerce/src/utils/extensions/hexcolor.extension.dart';
 
-class Color extends Model {
+class ColorModel extends Model {
   int? id;
-  String? colorValue;
+  Color? colorValue;
 
-  Color({this.id, this.colorValue});
+  ColorModel({this.id, this.colorValue});
 
   @override
-  ModelSerializer<Color> serilizer() {
+  ModelSerializer<ColorModel> serilizer() {
     return _ColorSerializer(this);
   }
 }
 
-class _ColorSerializer extends ModelSerializer<Color> {
-  _ColorSerializer(Color model) : super(model);
+class _ColorSerializer extends ModelSerializer<ColorModel> {
+  _ColorSerializer(ColorModel model) : super(model);
 
   @override
-  Color fromJson(Map<String, dynamic> json) {
+  ColorModel fromJson(Map<String, dynamic> json) {
     model.id = json["colorId"];
-    model.colorValue = json["colorValue"];
+    model.colorValue = HexColor.fromHex((json["colorValue"]));
     return model;
   }
 
