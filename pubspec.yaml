@@ -19,6 +19,7 @@ dependencies:
   carousel_slider:
   url_launcher:
   shared_preferences: ^2.0.9
+  flutter_rating_bar: ^4.0.0
 
 dev_dependencies:
   flutter_test:
