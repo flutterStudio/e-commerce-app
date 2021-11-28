@@ -23,7 +23,7 @@ class UsersRepo {
         var loginResponse = jsonDecode(response.bodyString!);
         User userInfo =
             User().serilizer().fromJson(loginResponse["value"]["userDetails"]);
-        userInfo.deviceToken = loginResponse["value"]["token"];
+        userInfo.token = loginResponse["value"]["token"];
         user.data = userInfo;
         return user;
       });

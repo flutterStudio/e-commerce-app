@@ -9,6 +9,7 @@ class User implements Model {
   String? email;
   String? lastName;
   String? password;
+  String? token;
 
   User({this.id, this.deviceToken});
   User.create(
