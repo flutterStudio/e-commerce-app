@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
 import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/model/evaluation.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/utils/exceptions.utils.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
@@ -18,6 +20,8 @@ class ProductRepo {
   static const String _cartOrders = "Order/InCart";
   static const String _category = "Category";
   static const String _comapnyActiveProductsUrl = "Product/company/all";
+  static const String _productEvaluations = "Evaluation/ProductEvaluation";
+  static const String _evaluations = "Evaluation";
 
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
 
@@ -202,6 +206,70 @@ class ProductRepo {
     }
   }
 
+  ///
+  /// #### brief
+  /// Get users evaluations on a specific product.
+  ///
+  ///
+  Future<Data<List<Evaluation>>> getProductEvaluations(int productId) async {
+    try {
+      Data<List<Evaluation>>? data =
+          await _apiService.getRequest<Data<List<Evaluation>>>(
+        _productEvaluations + "/$productId",
+        (response) {
+          Data<List<Evaluation>> data = Data.empty();
+
+          // Get pagination info if exists.
+          _initPaginationInfo(data, response);
+
+          // Get pagination info if exists.
+          data.data = _initEvaluationsData(response);
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    }
+  }
+
+  ///
+  /// #### brief
+  /// Get users evaluations on a specific product.
+  ///
+  ///
+  Future<Data<List<Evaluation>>> addProductEvaluations(
+      AddEvaluationDto dto) async {
+    try {
+      Data<List<Evaluation>>? data =
+          await _apiService.postRequest<Data<List<Evaluation>>>(
+        _evaluations,
+        dto.serializer().toJson(),
+        (response) {
+          Data<List<Evaluation>> data = Data.empty();
+
+          // Get pagination info if exists.
+          _initPaginationInfo(data, response);
+
+          // Get pagination info if exists.
+          data.data = _initEvaluationsData(response);
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    }
+  }
+
   /// Initalize pagination response.
   void _initPaginationInfo(Data data, Response response) {
     var paginationInfo = jsonDecode(response.bodyString!)["paginationInfo"];
@@ -228,5 +296,15 @@ class ProductRepo {
       categories.add(Category().serilizer().fromJson(product));
     }
     return categories;
+  }
+
+  /// Initalize valuations response.
+  List<Evaluation> _initEvaluationsData(Response response) {
+    List<Evaluation> evaluations = [];
+    var data = jsonDecode(response.bodyString!)["evaluations"] as List;
+    for (var product in data) {
+      evaluations.add(Evaluation().serilizer().fromJson(product));
+    }
+    return evaluations;
   }
 }
