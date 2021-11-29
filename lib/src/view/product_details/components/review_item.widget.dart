@@ -20,7 +20,9 @@ class ReviewItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(),
+              CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.background,
+              ),
               const Spacer(),
               Text("${review.user?.firstName} ${review.user?.lastName}"),
               const Spacer(
