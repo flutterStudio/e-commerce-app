@@ -2,7 +2,7 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
-import 'package:e_commerce/src/view/product_details/components/review_item.widget.dart';
+import 'package:e_commerce/src/view/evaluations/components/review_item.widget.dart';
 import 'package:e_commerce/src/view/shared/show_more.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,9 @@ class UserEvaluation extends GetView<ProductController> {
                           Icons.star_rate,
                           color: Theme.of(context).colorScheme.primary,
                         )),
-                    onRatingUpdate: (value) {},
+                    onRatingUpdate: (value) {
+                      controller.rate.value = value;
+                    },
                   )
                 ],
               ),
@@ -87,12 +89,18 @@ class UserEvaluation extends GetView<ProductController> {
   }
 
   Widget reviewField() => TextFormField(
+        onChanged: (value) {
+          controller.comment.value = value;
+        },
+        initialValue: controller.comment.value,
         decoration: InputDecoration(
           hintText: "textField-evaluation-hint".tr,
           fillColor: Get.theme.colorScheme.secondaryVariant,
           focusColor: Get.theme.colorScheme.secondaryVariant,
           suffix: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                controller.evaluateProduct();
+              },
               icon: Icon(
                 Icons.send,
                 color: Get.theme.colorScheme.primary,

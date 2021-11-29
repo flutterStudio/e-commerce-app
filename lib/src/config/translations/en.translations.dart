@@ -52,7 +52,8 @@ Map<String, String> _text = {
   "rate-this-product": "Rate this product",
   "app-ratings": "App ratings",
   "show-all-ratings": "Show all ratings",
-  "see-more-details": "See more details"
+  "see-more-details": "See more details",
+  "product-details": "Product details",
 };
 
 Map<String, String> _textFields = {

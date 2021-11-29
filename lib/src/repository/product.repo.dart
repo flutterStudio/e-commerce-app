@@ -242,15 +242,13 @@ class ProductRepo {
   /// Get users evaluations on a specific product.
   ///
   ///
-  Future<Data<List<Evaluation>>> addProductEvaluations(
-      AddEvaluationDto dto) async {
+  Future<Data<Evaluation>> addProductEvaluations(AddEvaluationDto dto) async {
     try {
-      Data<List<Evaluation>>? data =
-          await _apiService.postRequest<Data<List<Evaluation>>>(
+      Data<Evaluation>? data = await _apiService.postRequest<Data<Evaluation>>(
         _evaluations,
         dto.serializer().toJson(),
         (response) {
-          Data<List<Evaluation>> data = Data.empty();
+          Data<Evaluation> data = Data.empty();
 
           // Get pagination info if exists.
           _initPaginationInfo(data, response);
