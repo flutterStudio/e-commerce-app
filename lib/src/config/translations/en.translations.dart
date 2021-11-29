@@ -49,11 +49,13 @@ Map<String, String> _text = {
   "notifications": "Notifications",
   "logout": "Log Out",
   "profile": "Profile",
+  "rate-this-product": "Rate this product"
 };
 
 Map<String, String> _textFields = {
   "textField-password-label": "Password",
   "textField-password-hint": "Enter your password",
+  "textField-evaluation-hint": "Write a comment",
   "textField-email-label": "Email",
   "textField-email-hint": "Enter your email",
 };
