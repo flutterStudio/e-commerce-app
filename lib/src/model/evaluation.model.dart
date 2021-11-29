@@ -9,7 +9,7 @@ class Evaluation implements Model {
   double? rate;
   User? user;
 
-  Evaluation({this.id, this.comment});
+  Evaluation({this.id, this.comment, this.rate, this.user});
   Evaluation.create({
     required this.comment,
     required this.rate,
