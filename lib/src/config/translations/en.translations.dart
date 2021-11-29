@@ -49,7 +49,10 @@ Map<String, String> _text = {
   "notifications": "Notifications",
   "logout": "Log Out",
   "profile": "Profile",
-  "rate-this-product": "Rate this product"
+  "rate-this-product": "Rate this product",
+  "app-ratings": "App ratings",
+  "show-all-ratings": "Show all ratings",
+  "see-more-details": "See more details"
 };
 
 Map<String, String> _textFields = {

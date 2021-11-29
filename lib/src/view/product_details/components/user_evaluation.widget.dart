@@ -3,6 +3,7 @@ import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/product_details/components/review_item.widget.dart';
+import 'package:e_commerce/src/view/shared/show_more.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -16,7 +17,26 @@ class UserEvaluation extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: SizeConfig.verticalSpace * 2,
+        ),
+        Padding(
+            padding: const EdgeInsets.all(SizeConfig.horizontalSpace * 2),
+            child: Row(
+              children: [
+                Text(
+                  "app-ratings".tr,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                const Spacer(),
+                ShowMore(text: "show-all-ratings".tr)
+              ],
+            )),
+        const SizedBox(
+          height: SizeConfig.verticalSpace * 2,
+        ),
         ReviewItem(
             review: Evaluation(
                 user: Get.find<AuthService>().currentUser.value,

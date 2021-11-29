@@ -96,10 +96,10 @@ class ProductScreen extends GetView<ProductController> {
                                 }),
                               ),
                             ),
-                            const UserEvaluation()
                           ],
                         ),
                       ),
+                      const UserEvaluation()
                     ],
                   ),
                 ),
