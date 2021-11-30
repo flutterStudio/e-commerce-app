@@ -1,8 +1,8 @@
 import 'package:e_commerce/src/middleware/model_serilizer.middleware.dart';
 import 'package:e_commerce/src/model/model.dart';
+import 'package:e_commerce/src/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:e_commerce/src/utils/extensions/hexcolor.extension.dart';
 
 class ColorModel extends Model {
   int? id;
@@ -23,7 +23,7 @@ class _ColorSerializer extends ModelSerializer<ColorModel> {
   @override
   ColorModel fromJson(Map<String, dynamic> json) {
     model.id = json['color']["colorId"];
-    model.colorValue = HexColor.fromHex(json['color']["colorValue"]);
+    model.colorValue = CustomColor.fromHex(json['color']["colorValue"]);
     model.joiningId = json["productColorId"];
     return model;
   }
