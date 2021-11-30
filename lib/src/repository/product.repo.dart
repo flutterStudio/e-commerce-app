@@ -19,7 +19,7 @@ class ProductRepo {
   static const String _removeFromTocart = "Order/RemoveFromCart";
   static const String _cartOrders = "Order/InCart";
   static const String _category = "Category";
-  static const String _comapnyActiveProductsUrl = "Product/company/all";
+  static const String _comapnyActiveProductsUrl = "Product/company/active";
   static const String _productEvaluations = "Evaluation/ProductEvaluation";
   static const String _evaluations = "Evaluation";
 
