@@ -63,20 +63,19 @@ class ColorDot extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 2),
       padding: const EdgeInsets.all(8),
-      height: 40,
-      width: 40,
+      height: 50,
+      width: 50,
       decoration: BoxDecoration(
         color: Colors.transparent,
         border: Border.all(
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
                 : Colors.transparent),
-        shape: BoxShape.circle,
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: color,
-          shape: BoxShape.circle,
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
     );
