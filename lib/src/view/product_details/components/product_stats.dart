@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,16 @@ class ProductStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Column(
+      child: Row(
         children: [
-          _statsItem(
-              context, "min-amount".tr, product?.minQuantity.toString() ?? " "),
-          _statsItem(context, "available-amount".tr,
-              product?.availableQuantity.toString() ?? " "),
+          Expanded(
+            child: _statsItem(context, "min-amount".tr,
+                product?.minQuantity.toString() ?? " "),
+          ),
+          Expanded(
+            child: _statsItem(context, "available-amount".tr,
+                product?.availableQuantity.toString() ?? " "),
+          ),
         ],
       ),
     );
@@ -33,20 +38,23 @@ class ProductStats extends StatelessWidget {
       padding: EdgeInsets.only(
           right: getProportionateScreenWidth(20),
           top: getProportionateScreenWidth(20)),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                color: Theme.of(context).colorScheme.secondary.withAlpha(100)),
           ),
-          const Spacer(),
+          const SizedBox(
+            height: SizeConfig.verticalSpace * 2,
+          ),
           Text(
             value,
-            style: Theme.of(context).textTheme.headline6?.copyWith(
-                color: Theme.of(context).colorScheme.secondaryVariant),
+            style: Theme.of(context).textTheme.headline5?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.secondary),
           ),
-          const Spacer(),
         ],
       ),
     );
