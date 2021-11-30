@@ -1,5 +1,8 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:e_commerce/src/utils/extensions.dart';
 
 typedef OnSucess<T> = Widget Function(BuildContext, T data);
 
@@ -35,6 +38,12 @@ class RequestHandler<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Center(
+      child: _contentBuilder(context),
+    );
+  }
+
+  Widget _contentBuilder(BuildContext context) {
     switch (_data.status) {
       case DataStatus.inProgress:
         {
@@ -44,16 +53,60 @@ class RequestHandler<T> extends StatelessWidget {
         {
           return _onFailed != null
               ? _onFailed!(_data.message)
-              : Text("${_data.message}");
+              : _errorWidget(_data.message ?? "message-error".tr);
         }
       case DataStatus.succeed:
         {
-          return _onSuccess(context, _data.data!);
+          if (_data.data.isNullOrEmpty()) {
+            return _emptyResponseWidget("message-empty-response".tr);
+          } else {
+            return _onSuccess(context, _data.data!);
+          }
+        }
+      case DataStatus.none:
+        {
+          if (_data.data.isNullOrEmpty()) {
+            return _emptyResponseWidget("message-empty-response".tr);
+          } else {
+            return _onSuccess(context, _data.data!);
+          }
         }
       default:
         {
           return _other ?? Container();
         }
     }
+  }
+
+  Widget _errorWidget(String message) {
+    return Column(
+      children: [
+        Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
+        const SizedBox(
+          height: SizeConfig.verticalSpace,
+        ),
+        Text(
+          message,
+          style: Get.textTheme.headline5
+              ?.copyWith(color: Get.theme.colorScheme.primary),
+        )
+      ],
+    );
+  }
+
+  Widget _emptyResponseWidget(String message) {
+    return Column(
+      children: [
+        Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
+        const SizedBox(
+          height: SizeConfig.verticalSpace,
+        ),
+        Text(
+          message,
+          style: Get.textTheme.headline5
+              ?.copyWith(color: Get.theme.colorScheme.primary),
+        )
+      ],
+    );
   }
 }
