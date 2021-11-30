@@ -1,5 +1,7 @@
 import 'package:e_commerce/src/model/cart.model.dart';
+import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
+import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/utils/network.utils.dart';
 import 'package:e_commerce/src/view/shared/action.dialog.dart';
@@ -18,7 +20,7 @@ class CartScreenController extends GetxController {
     super.onInit();
   }
 
-  void add(int id, int count) async {
+  void add(int id, int count, {ColorModel? color, Size? size}) async {
     cart.value = Data.inProgress();
     cart.value =
         await _mainRepo?.productRepo.addToCart(id, count) ?? Data.empty();
