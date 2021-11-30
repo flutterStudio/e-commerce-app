@@ -22,8 +22,7 @@ class DiscoverScreen extends GetView<ProductListcontroller> {
             itemCount: data.length,
             itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: ProductCard(
-                    product: controller.products.value.data![index])),
+                child: ProductCard(product: data[index])),
           ),
           inProgress: const RefreshProgressIndicator(),
         ),

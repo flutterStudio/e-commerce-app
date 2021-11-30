@@ -23,7 +23,7 @@ class ColorDots extends GetView<ProductController> {
           ...List.generate(
             product?.colors?.length ?? 0,
             (index) => ColorDot(
-              color: product!.colors![index],
+              color: product!.colors![index].colorValue!,
               isSelected: index == selectedColor,
             ),
           ),

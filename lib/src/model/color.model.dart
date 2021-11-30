@@ -22,9 +22,9 @@ class _ColorSerializer extends ModelSerializer<ColorModel> {
 
   @override
   ColorModel fromJson(Map<String, dynamic> json) {
-    model.id = json["colorId"];
-    model.colorValue = HexColor.fromHex((json["colorValue"]));
-    model.joiningId = (json["productColorId"]);
+    model.id = json['color']["colorId"];
+    model.colorValue = HexColor.fromHex(json['color']["colorValue"]);
+    model.joiningId = json["productColorId"];
     return model;
   }
 

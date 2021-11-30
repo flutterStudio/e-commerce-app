@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/controller/product.controller.dart';
+import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/product_details/components/product_description.dart';
 import 'package:e_commerce/src/view/product_details/components/product_images.dart';
@@ -6,6 +7,7 @@ import 'package:e_commerce/src/view/product_details/components/product_stats.dar
 import 'package:e_commerce/src/view/product_details/components/top_rounded_container.dart';
 import 'package:e_commerce/src/view/product_details/components/user_evaluation.widget.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
+import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -20,7 +22,7 @@ class ProductScreen extends GetView<ProductController> {
         leading: BackButton(
           onPressed: () => Get.back(),
         ),
-        title: Obx(() => Text(controller.product.value?.title ?? "")),
+        title: Obx(() => Text(controller.product.value.data?.title ?? "")),
       ),
       body: Column(
         children: [
@@ -28,81 +30,90 @@ class ProductScreen extends GetView<ProductController> {
               child: SingleChildScrollView(
             child: Column(
               children: [
-                Obx(() => controller.product.value == null
-                    ? const Text("No images")
-                    : ProductImages(product: controller.product.value!)),
+                Obx(() => RequestHandler<Product>(
+                      data: controller.product.value,
+                      onSuccess: (context, data) =>
+                          ProductImages(product: data),
+                      inProgress: const RefreshProgressIndicator(),
+                    )),
                 TopRoundedContainer(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Obx(
-                        () {
-                          return controller.product.value == null
-                              ? const Text("No descripion")
-                              : ProductDescription(
-                                  product: controller.product.value!,
-                                  pressOnSeeMore: () {},
-                                );
-                        },
-                      ),
-                      Obx(() =>
-                          ProductStats(product: controller.product.value)),
-                      TopRoundedContainer(
-                        color: const Color(0xFFF6F7F9),
-                        child: Column(
-                          children: [
-                            ColorDots(
-                              product: controller.product.value,
-                            ),
-                            TopRoundedContainer(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.15,
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.15,
-                                  bottom: getProportionateScreenWidth(40),
-                                  top: getProportionateScreenWidth(15),
-                                ),
-                                child: Obx(() {
-                                  return Row(
-                                    children: [
-                                      Text(
-                                        "${controller.count.value}/${controller.price.value}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4
-                                            ?.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary),
-                                      ),
-                                      Text(
-                                        " USD",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4,
-                                      ),
-                                      const Spacer(),
-                                      DefaultButton(
-                                        child: const Icon(Icons.shopping_bag),
-                                        press: () {
-                                          controller.addToCart();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                }),
+                    color: Colors.white,
+                    child: Obx(() {
+                      return RequestHandler<Product>(
+                          data: controller.product.value,
+                          onSuccess: (context, data) => Column(
+                                children: [
+                                  ProductDescription(
+                                    product: data,
+                                    pressOnSeeMore: () {},
+                                  ),
+                                  ProductStats(product: data),
+                                  TopRoundedContainer(
+                                    color: const Color(0xFFF6F7F9),
+                                    child: Column(
+                                      children: [
+                                        ColorDots(
+                                          product: data,
+                                        ),
+                                        TopRoundedContainer(
+                                          color: Colors.white,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                              left: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.15,
+                                              right: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.15,
+                                              bottom:
+                                                  getProportionateScreenWidth(
+                                                      40),
+                                              top: getProportionateScreenWidth(
+                                                  15),
+                                            ),
+                                            child: Obx(() {
+                                              return Row(
+                                                children: [
+                                                  Text(
+                                                    "${controller.count.value}/${controller.price.value}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline4
+                                                        ?.copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .primary),
+                                                  ),
+                                                  Text(
+                                                    " USD",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline4,
+                                                  ),
+                                                  const Spacer(),
+                                                  DefaultButton(
+                                                    child: const Icon(
+                                                        Icons.shopping_bag),
+                                                    press: () {
+                                                      controller.addToCart();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            }),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const UserEvaluation()
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const UserEvaluation()
-                    ],
-                  ),
-                ),
+                          inProgress: const RefreshProgressIndicator());
+                    })),
               ],
             ),
           ))

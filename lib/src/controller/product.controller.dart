@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 class ProductController extends GetxController {
   final int? id;
-  Rx<Product?> product = Rx<Product?>(null);
+  Rx<Data<Product>> product = Rx<Data<Product>>(Data.empty());
   Rx<Data<List<Evaluation>>> productEvaluations =
       Rx<Data<List<Evaluation>>>(Data.empty());
   Rx<Data<Evaluation>> userEvaluations = Rx<Data<Evaluation>>(Data.empty());
@@ -23,7 +23,9 @@ class ProductController extends GetxController {
   final ProductRepo _productRepo = Get.find<MainRepo>().productRepo;
   @override
   void onInit() {
-    _productRepo.getProduct(id!).then((value) => product.value = value.data);
+    if (id != null) {
+      getProduct(id!);
+    }
 
     super.onInit();
   }
@@ -34,10 +36,10 @@ class ProductController extends GetxController {
   ///   * Updates the value of the observable 'productEvaluations'.
   ///
   void getProductEvaluations() async {
-    if (product.value != null) {
+    if (product.value.data != null) {
       productEvaluations.value = Data.inProgress();
       productEvaluations.value =
-          await _productRepo.getProductEvaluations(product.value!.id!);
+          await _productRepo.getProductEvaluations(product.value.data!.id!);
     }
   }
 
@@ -47,13 +49,22 @@ class ProductController extends GetxController {
   ///   * Updates the value of the observable 'userEvaluations'.
   ///
   void evaluateProduct() async {
-    if (product.value != null && !comment.isBlank! && !rate.isBlank!) {
+    if (product.value.data != null && !comment.isBlank! && !rate.isBlank!) {
       userEvaluations.value = Data.inProgress();
       await _productRepo.addProductEvaluations(AddEvaluationDto(
           comment: comment.value,
-          productId: product.value?.id,
+          productId: product.value.data?.id,
           rate: rate.value));
     }
+  }
+
+  ///
+  /// #### Brief
+  ///   * Fetch the product with the given [id].
+  ///
+  void getProduct(int id) async {
+    product.value = Data.inProgress();
+    product.value = await _productRepo.getProduct(id);
   }
 
   void increaseCount() {
@@ -69,13 +80,13 @@ class ProductController extends GetxController {
   }
 
   void calculatePrice() {
-    var p = (product.value?.price) ?? 0.0 * count.value.toDouble();
+    var p = (product.value.data?.price) ?? 0.0 * count.value.toDouble();
     price.value = p;
   }
 
   void addToCart() {
     if (count.value > 0) {
-      Get.toNamed("/cart/${product.value?.id}/${count.value}");
+      Get.toNamed("/cart/${product.value.data?.id}/${count.value}");
     }
   }
 }

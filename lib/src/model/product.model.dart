@@ -56,28 +56,34 @@ class _ProductSerializer extends ModelSerializer<Product> {
     var attachments = json["productImagesList"] ?? [];
     List<String> images = [];
     for (var attachment in attachments) {
-      images.add(_emulatorImage(attachment["attachment"]?["downloadUrl"]));
+      var image = _emulatorImage(attachment["attachment"]?["downloadUrl"]);
+      if (image != null) {
+        images.add(image);
+      }
     }
     model.images = images;
   }
 
-  void _initColors(Map<String, dynamic> json) {
+  void _initColors(dynamic json) {
+    if (json == null) return;
     List<ColorModel> colors = [];
-    for (var color in json as List) {
+    for (var color in json) {
       colors.add(ColorModel().serilizer().fromJson(color));
     }
     model.colors = colors;
   }
 
-  void _initSizes(Map<String, dynamic> json) {
+  void _initSizes(dynamic json) {
+    if (json == null) return;
     List<Size> sizes = [];
-    for (var color in json as List) {
+    for (var color in json) {
       sizes.add(Size().serilizer().fromJson(color));
     }
     model.sizes = sizes;
   }
 
-  String _emulatorImage(String url) {
+  String? _emulatorImage(String? url) {
+    if (url == null) return null;
     return url.replaceFirst("https://127.0.0.1:5001", "http://10.0.2.2:5000");
   }
 
