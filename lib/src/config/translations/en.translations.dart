@@ -24,7 +24,7 @@ Map<String, String> _errors = {
 };
 
 Map<String, String> _messages = {
-  "message-error": "An Error occured",
+  "message-error": "An error occured",
   "message-error-invalid-email": "You enterd an invalid email",
   "message-required-field": "This field is required",
   "message-empty-response": "No data found",

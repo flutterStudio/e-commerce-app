@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
@@ -31,7 +32,12 @@ class UserEvaluation extends GetView<ProductController> {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 const Spacer(),
-                ShowMore(text: "show-all-ratings".tr)
+                ShowMore(
+                  text: "show-all-ratings".tr,
+                  onClick: () {
+                    Get.toNamed(AppPaths.productEvaluations);
+                  },
+                )
               ],
             )),
         const SizedBox(

@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class Data<T> {
   T? _data;
   DataStatus _status;
@@ -113,9 +115,9 @@ class Data<T> {
   }
 
   set data(data) {
-    _hasData = data == null ? false : true;
+    _hasData = data == null || GetUtils.isNullOrBlank(data)! ? false : true;
     _data = data;
-    _status = DataStatus.succeed;
+    _status = _hasData ? DataStatus.succeed : DataStatus.none;
   }
 
   set status(s) => _status = s;
