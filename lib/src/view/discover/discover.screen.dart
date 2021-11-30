@@ -12,7 +12,7 @@ class DiscoverScreen extends GetView<ProductListcontroller> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getCompanyProducts();
+    controller.getProducts();
     return Scaffold(
       body: Center(
           child: Obx(
