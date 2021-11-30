@@ -1,7 +1,6 @@
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/shared/show_more.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ProductDescription extends StatelessWidget {
