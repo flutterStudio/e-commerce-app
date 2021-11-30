@@ -6,7 +6,6 @@ import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
-import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/utils/exceptions.utils.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:get/get.dart';
@@ -134,7 +133,9 @@ class ProductRepo {
   }
 
   Future<Data<List<Product>>> _getProducts(String url,
-      {int? page, int? pageSize}) async {
+      // ignore: unused_element
+      {int? page,
+      int? pageSize}) async {
     try {
       Data<List<Product>>? data =
           await _apiService.getRequest<Data<List<Product>>>(url, (response) {
@@ -146,7 +147,7 @@ class ProductRepo {
         // Get pagination info if exists.
         data.data = _initProductData(response);
         return data;
-      }, query: {"page": "1", "pageSize": pageSize ?? "20"});
+      }, query: {"page": "1", "pageSize": pageSize ?? "40"});
 
       return data;
     } on NetworkException catch (e) {
