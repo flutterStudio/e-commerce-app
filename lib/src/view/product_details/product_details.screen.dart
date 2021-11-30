@@ -4,10 +4,13 @@ import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/product_details/components/product_description.dart';
 import 'package:e_commerce/src/view/product_details/components/product_images.dart';
 import 'package:e_commerce/src/view/product_details/components/product_stats.dart';
+import 'package:e_commerce/src/view/product_details/components/sizes_list.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/top_rounded_container.dart';
 import 'package:e_commerce/src/view/product_details/components/user_evaluation.widget.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
+import 'package:e_commerce/src/view/shared/product_instances/product_instances.widget.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
+import 'package:e_commerce/src/view/shared/show_more.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -55,6 +58,7 @@ class ProductScreen extends GetView<ProductController> {
                                         ColorDots(
                                           product: data,
                                         ),
+                                        const SizesList(),
                                         TopRoundedContainer(
                                           color: Colors.white,
                                           child: Padding(
@@ -108,6 +112,12 @@ class ProductScreen extends GetView<ProductController> {
                                         ),
                                       ],
                                     ),
+                                  ),
+                                  ShowMore(
+                                    text: "Show product instances",
+                                    onClick: () {
+                                      Get.to(ProductInstances());
+                                    },
                                   ),
                                   const UserEvaluation()
                                 ],
