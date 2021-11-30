@@ -24,7 +24,7 @@ Map<String, String> _errors = {
 };
 
 Map<String, String> _messages = {
-  "message-error": "An Error occured",
+  "message-error": "An error occured",
   "message-error-invalid-email": "You enterd an invalid email",
   "message-required-field": "This field is required",
   "message-empty-response": "No data found",
@@ -49,11 +49,17 @@ Map<String, String> _text = {
   "notifications": "Notifications",
   "logout": "Log Out",
   "profile": "Profile",
+  "rate-this-product": "Rate this product",
+  "app-ratings": "App ratings",
+  "show-all-ratings": "Show all ratings",
+  "see-more-details": "See more details",
+  "product-details": "Product details",
 };
 
 Map<String, String> _textFields = {
   "textField-password-label": "Password",
   "textField-password-hint": "Enter your password",
+  "textField-evaluation-hint": "Write a comment",
   "textField-email-label": "Email",
   "textField-email-hint": "Enter your email",
 };

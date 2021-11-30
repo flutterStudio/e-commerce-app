@@ -1,6 +1,8 @@
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/view/shared/show_more.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
@@ -59,30 +61,11 @@ class ProductDescription extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
-            vertical: 10,
-          ),
-          child: GestureDetector(
-            onTap: () {},
-            child: Row(
-              children: [
-                Text(
-                  "See More Detail",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).colorScheme.primary),
-                ),
-                const SizedBox(width: 5),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ],
+            padding: EdgeInsets.symmetric(
+              horizontal: getProportionateScreenWidth(20),
+              vertical: 10,
             ),
-          ),
-        )
+            child: ShowMore(text: "see-more-details".tr))
       ],
     );
   }

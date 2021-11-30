@@ -9,6 +9,7 @@ class User implements Model {
   String? email;
   String? lastName;
   String? password;
+  String? token;
 
   User({this.id, this.deviceToken});
   User.create(
@@ -30,6 +31,7 @@ class _UserSerializer extends ModelSerializer<User> {
   User fromJson(Map<String, dynamic> json) {
     model.id = json["id"];
     model.deviceToken = json["deviceToken"];
+    model.token = json["token"];
     model.firstName = json["firstName"];
     model.lastName = json["lastName"];
     model.email = json["email"];
@@ -42,6 +44,7 @@ class _UserSerializer extends ModelSerializer<User> {
     return {
       "id": model.id,
       "deviceToken": model.deviceToken,
+      "token": model.token,
       "lastName": model.lastName,
       "firstName": model.firstName,
       "password": model.password,
