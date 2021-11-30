@@ -16,20 +16,17 @@ class ProductStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Row(
-        children: [
-          Expanded(
-            child: _statsItem(context, "min-amount".tr,
-                product?.minQuantity.toString() ?? " "),
-          ),
-          Expanded(
-            child: _statsItem(context, "available-amount".tr,
-                product?.availableQuantity.toString() ?? " "),
-          ),
-        ],
-      ),
+    return Row(
+      children: [
+        Expanded(
+          child: _statsItem(
+              context, "min-amount".tr, product?.minQuantity.toString() ?? " "),
+        ),
+        Expanded(
+          child: _statsItem(context, "available-amount".tr,
+              product?.availableQuantity.toString() ?? " "),
+        ),
+      ],
     );
   }
 

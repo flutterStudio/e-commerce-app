@@ -20,37 +20,6 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: Text(
-            product.title!,
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color: product.isFavourite!
-                  ? const Color(0xFFFFE6E6)
-                  : const Color(0xFFF5F6F9),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
-            child: SvgPicture.asset(
-              "assets/icons/Heart Icon.svg",
-              color: product.isFavourite!
-                  ? const Color(0xFFFF4848)
-                  : const Color(0xFFDBDEE4),
-              height: getProportionateScreenWidth(16),
-            ),
-          ),
-        ),
-        Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
             right: getProportionateScreenWidth(64),

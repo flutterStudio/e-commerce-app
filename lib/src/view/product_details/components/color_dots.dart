@@ -27,21 +27,21 @@ class ColorDots extends GetView<ProductController> {
               isSelected: index == selectedColor,
             ),
           ),
-          const Spacer(),
-          RoundedIconBtn(
-            icon: Icons.remove,
-            press: () {
-              controller.decreaseCount();
-            },
-          ),
-          const SizedBox(width: 10),
-          RoundedIconBtn(
-            icon: Icons.add,
-            showShadow: true,
-            press: () {
-              controller.increaseCount();
-            },
-          ),
+          // const Spacer(),
+          // RoundedIconBtn(
+          //   icon: Icons.remove,
+          //   press: () {
+          //     controller.decreaseCount();
+          //   },
+          // ),
+          // const SizedBox(width: 10),
+          // RoundedIconBtn(
+          //   icon: Icons.add,
+          //   showShadow: true,
+          //   press: () {
+          //     controller.increaseCount();
+          //   },
+          // ),
         ],
       ),
     );
