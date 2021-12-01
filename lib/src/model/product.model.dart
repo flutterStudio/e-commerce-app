@@ -13,6 +13,8 @@ class Product implements Model {
   double? rating, price, discount;
   int? minQuantity, availableQuantity;
   bool? isFavourite, isPopular, isActive;
+
+  List<String>? allImages() => [mainImage!, ...images!];
   Product({
     this.id,
     this.images,

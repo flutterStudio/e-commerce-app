@@ -23,14 +23,14 @@ class _ProductImagesState extends State<ProductImages> {
       children: [
         SizedBox(
           width: 238,
-          child: widget.product.images!.isEmpty
+          child: widget.product.allImages()!.isEmpty
               ? Text("message-no-product-images".tr)
               : AspectRatio(
                   aspectRatio: 1,
                   child: Hero(
                     tag: widget.product.id.toString(),
                     child: Image.network(
-                      widget.product.images![selectedImage],
+                      widget.product.allImages()![selectedImage],
                       errorBuilder: (context, _, __) => const Icon(Icons.error),
                     ),
                   ),
@@ -40,7 +40,7 @@ class _ProductImagesState extends State<ProductImages> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(widget.product.images?.length ?? 0,
+            ...List.generate(widget.product.allImages()?.length ?? 0,
                 (index) => buildSmallProductPreview(index)),
           ],
         )
@@ -71,7 +71,7 @@ class _ProductImagesState extends State<ProductImages> {
                   .withOpacity(selectedImage == index ? 1 : 0)),
         ),
         child: CustomNetworkImage(
-          url: widget.product.images![index],
+          url: widget.product.allImages()![index],
         ),
       ),
     );
