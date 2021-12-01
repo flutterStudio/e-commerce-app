@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/view/product_details/components/add_to_cart.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/product_details/components/product_description.dart';
 import 'package:e_commerce/src/view/product_details/components/product_images.dart';
@@ -59,36 +60,26 @@ class ProductScreen extends GetView<ProductController> {
                               title: "product-details",
                             ),
 
-                            _SectionWidget(
-                              child: ColorDots(
-                                product: data,
-                              ),
-                              title: "available-colors".tr,
-                            ),
-                            _SectionWidget(
-                              child: const SizesList(),
-                              title: "available-sizes".tr,
-                            ),
-                            DefaultButton(
-                              press: () {
-                                showMaterialModalBottomSheet(
-                                    context: context,
-                                    expand: false,
-                                    builder: (context) => AddToCartBottomModal(
-                                          product: data,
-                                        ));
-                              },
-                              child: Text(
-                                "add-to-cart".tr,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline4
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary),
-                              ),
-                            ),
+                            data.colors.isBlank!
+                                ? Container()
+                                : _SectionWidget(
+                                    child: ColorDots(
+                                      product: data,
+                                    ),
+                                    title: "available-colors".tr,
+                                  ),
+                            data.colors.isBlank!
+                                ? Container()
+                                : _SectionWidget(
+                                    child: const SizesList(),
+                                    title: "available-sizes".tr,
+                                  ),
+                            data.availableQuantity! > 0
+                                ? _SectionWidget(
+                                    child: AddToCart(data),
+                                    title: "add-to-cart".tr,
+                                  )
+                                : Container(),
                             const UserEvaluation()
                             // TopRoundedContainer(
                             //   color: Theme.of(context)
