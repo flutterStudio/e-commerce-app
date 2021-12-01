@@ -1,7 +1,9 @@
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
+import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
+import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/repository/product.repo.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -17,12 +19,28 @@ class ProductController extends GetxController {
 
   Rx<Data<Evaluation>> userEvaluations = Rx<Data<Evaluation>>(Data.empty());
 
+  // Products screen temporary info.
+
+  /// product available amount taking into consideration the selected count.
   Rx<int> availableAmount = Rx<int>(0);
 
+  /// Selected amount of the product.
   Rx<int> count = Rx<int>(0);
+
+  /// Users review comment.
   Rx<String?> comment = Rx<String?>(null);
+
+  /// Users review rate.
   Rx<double> rate = Rx<double>(0);
+
+  /// Products price according to the selected amount.
   Rx<double> price = Rx<double>(0);
+
+  /// Product's selected color.
+  Rx<ColorModel?> selectedColor = Rx<ColorModel?>(null);
+
+  /// Product's selected size.
+  Rx<Size?> selectedSize = Rx<Size?>(null);
 
   ProductController(this.id);
   final ProductRepo _productRepo = Get.find<MainRepo>().productRepo;
@@ -99,6 +117,37 @@ class ProductController extends GetxController {
   void addToCart() {
     if (count.value > 0) {
       Get.toNamed("/cart/${product.value.data?.id}/${count.value}");
+    } else {
+      Get.showSnackbar(GetBar(
+        message: "no-selected-items".tr,
+        backgroundColor: Get.theme.colorScheme.error,
+      ));
+    }
+  }
+
+  ///
+  /// #### Brief
+  ///   * Change the selected [color] in the product details screen.
+  ///
+  /// #### parameters
+  ///   * [color] the color to be selected.
+  ///
+  void selectColor(ColorModel color) {
+    if (selectedColor.value != color) {
+      selectedColor.value = color;
+    }
+  }
+
+  ///
+  /// #### Brief
+  ///   * Change the selected [size] in the product details screen.
+  ///
+  /// #### parameters
+  ///   * [size] the size to be selected.
+  ///
+  void selectSize(Size size) {
+    if (selectedSize.value != size) {
+      selectedSize.value = size;
     }
   }
 }

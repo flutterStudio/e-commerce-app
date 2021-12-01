@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:flutter/material.dart';
@@ -13,21 +14,25 @@ class ColorDots extends GetView<ProductController> {
 
   @override
   Widget build(BuildContext context) {
-    // Now this is fixed and only for demo
-    int selectedColor = 3;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        children: [
-          ...List.generate(
-            product?.colors?.length ?? 0,
-            (index) => ColorDot(
-              color: product!.colors![index].colorValue!,
-              isSelected: index == selectedColor,
+      child: Obx(() {
+        return Row(
+          children: [
+            ...List.generate(
+              product?.colors?.length ?? 0,
+              (index) => ColorDot(
+                onSelected: () {
+                  controller.selectedColor(product?.colors?[index]);
+                },
+                color: product!.colors![index].colorValue!,
+                isSelected: controller.selectedColor.value?.colorValue ==
+                    product?.colors?[index].colorValue,
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }
@@ -37,29 +42,34 @@ class ColorDot extends StatelessWidget {
     Key? key,
     required this.color,
     this.isSelected = false,
+    this.onSelected,
   }) : super(key: key);
 
   final Color color;
   final bool isSelected;
 
+  final VoidCallback? onSelected;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 2),
-      padding: const EdgeInsets.all(8),
-      height: 50,
-      width: 50,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(
-            color: isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Colors.transparent),
-      ),
-      child: DecoratedBox(
+    return GestureDetector(
+      onTap: onSelected,
+      child: Container(
+        margin: const EdgeInsets.only(right: SizeConfig.horizontalSpace),
+        height: isSelected ? 50 : 40,
+        width: isSelected ? 50 : 40,
+        clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          color: color,
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
+        ),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: color,
+          ),
+          child: isSelected
+              ? Icon(Icons.verified_sharp,
+                  color: Theme.of(context).colorScheme.primary)
+              : Container(),
         ),
       ),
     );
