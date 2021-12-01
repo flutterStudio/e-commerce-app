@@ -51,7 +51,8 @@ class _ScreenItemModelSerializer extends ModelSerializer<ScreenItem> {
   }
 
   String _emulatorImage(String url) {
-    return url.replaceFirst("https://127.0.0.1:5001", "http://10.0.2.2:5000");
+    return url.replaceFirst(
+        "https://127.0.0.1:5001", "http://94.242.58.41:5002");
   }
 
   List<Product> _initInternalContents(Map<String, dynamic> json) {

@@ -7,7 +7,7 @@ typedef ModelDecoder<T> = T Function(Response);
 
 class ApiService extends GetConnect {
   ApiService() {
-    baseUrl = "http://10.0.2.2:5000/api/";
+    baseUrl = "http://94.242.58.41:5002/api/";
   }
   String get _token =>
       "Bearer ${Get.find<AuthService>().currentUser.value?.token}";
