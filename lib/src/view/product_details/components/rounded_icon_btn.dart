@@ -7,12 +7,14 @@ class RoundedIconBtn extends StatelessWidget {
     required this.press,
     this.showShadow = false,
     this.color,
+    this.background,
   }) : super(key: key);
 
   final IconData icon;
   final GestureTapCancelCallback press;
   final bool showShadow;
   final Color? color;
+  final Color? background;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class RoundedIconBtn extends StatelessWidget {
       height: 40,
       width: 40,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
+        // shape: BoxShape.circle,
         boxShadow: [
           if (showShadow)
             BoxShadow(
@@ -34,9 +36,9 @@ class RoundedIconBtn extends StatelessWidget {
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
           primary: Theme.of(context).colorScheme.primary,
-          backgroundColor: Colors.white,
+          backgroundColor: background ?? Colors.white,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
         onPressed: press,
         child: Icon(

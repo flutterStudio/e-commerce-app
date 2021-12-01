@@ -59,6 +59,7 @@ Map<String, String> _text = {
   "available-colors": "Available colors",
   "product-sizes": "Product sizes",
   "available-sizes": "Available sizes",
+  "add-to-cart": "Add to cart"
 };
 
 Map<String, String> _textFields = {
