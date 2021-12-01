@@ -14,7 +14,7 @@ class AddToCartBottomModal extends StatelessWidget {
     return Column(
       children: [
         ColorDots(product: product),
-        const SizesList(), // RoundedIconBtn(
+        SizesList(product), // RoundedIconBtn(
 
         Row(
           children: [

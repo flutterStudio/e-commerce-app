@@ -96,7 +96,6 @@ class ProductController extends GetxController {
       count.value++;
       availableAmount.value--;
       calculatePrice();
-      update();
     }
   }
 
@@ -105,7 +104,6 @@ class ProductController extends GetxController {
       count.value--;
       availableAmount.value++;
       calculatePrice();
-      update();
     }
   }
 

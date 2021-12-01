@@ -68,7 +68,7 @@ class ProductScreen extends GetView<ProductController> {
                             data.colors.isBlank!
                                 ? Container()
                                 : _SectionWidget(
-                                    child: const SizesList(),
+                                    child: SizesList(data),
                                     title: "available-sizes".tr,
                                   ),
                             data.availableQuantity! > 0
