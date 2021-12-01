@@ -1,6 +1,5 @@
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
-import 'package:e_commerce/src/view/product_details/components/rounded_icon_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -27,21 +26,6 @@ class ColorDots extends GetView<ProductController> {
               isSelected: index == selectedColor,
             ),
           ),
-          // const Spacer(),
-          // RoundedIconBtn(
-          //   icon: Icons.remove,
-          //   press: () {
-          //     controller.decreaseCount();
-          //   },
-          // ),
-          // const SizedBox(width: 10),
-          // RoundedIconBtn(
-          //   icon: Icons.add,
-          //   showShadow: true,
-          //   press: () {
-          //     controller.increaseCount();
-          //   },
-          // ),
         ],
       ),
     );
