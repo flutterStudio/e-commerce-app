@@ -1,11 +1,20 @@
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/stories/components/stories_list.widget.dart';
 import 'package:e_commerce/src/view/shared/product_item.widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:story_view/widgets/story_view.dart';
 
 class SalesScreen extends StatelessWidget {
-  const SalesScreen({Key? key}) : super(key: key);
-
+  SalesScreen({Key? key}) : super(key: key);
+  final List<String> assets = [
+    "assets/images/backbag1.png",
+    "assets/images/backbag2.png",
+    "assets/images/backbag3.png",
+    "assets/images/backbag4-1.png",
+    "assets/images/backbag4-2.png",
+    "assets/images/backbag4-3.png",
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,6 +31,12 @@ class SalesScreen extends StatelessWidget {
                     child: Image.asset("assets/images/sale_gaming.png")),
                 const SizedBox(
                   height: 30,
+                ),
+                StoriesList(
+                  stories: assets
+                      .map((e) => StoryItem(Image.asset(e),
+                          duration: const Duration(seconds: 3)))
+                      .toList(),
                 ),
                 GestureDetector(
                     onTap: () {

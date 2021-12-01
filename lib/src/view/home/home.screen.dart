@@ -19,10 +19,10 @@ class HomeScreen extends GetView<HomeScreenController> {
         child: PersistentTabView(
           context,
           controller: controller.pageController,
-          screens: const [
+          screens: [
             SalesScreen(),
-            CartScreen(),
-            DiscoverScreen(),
+            const CartScreen(),
+            const DiscoverScreen(),
           ],
           items: [
             PersistentBottomNavBarItem(
