@@ -1,17 +1,14 @@
 import 'package:e_commerce/src/config/size.config.dart';
-import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/product_details/components/rounded_icon_btn.dart';
-import 'package:e_commerce/src/view/shared/add_to_cart_bottom_sheet.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/get.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class AddToCart extends GetView<CartScreenController> {
+class AddToCart extends GetView<ProductController> {
   const AddToCart(this.product, {Key? key}) : super(key: key);
 
   final Product product;
@@ -23,12 +20,7 @@ class AddToCart extends GetView<CartScreenController> {
         const Spacer(),
         DefaultButton(
           press: () {
-            showMaterialModalBottomSheet(
-                context: context,
-                expand: false,
-                builder: (context) => AddToCartBottomModal(
-                      product: product,
-                    ));
+            controller.addToCart();
           },
           child: Text(
             "add-to-cart".tr,

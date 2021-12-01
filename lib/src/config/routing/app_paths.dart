@@ -10,6 +10,7 @@ class AppPaths {
   static const String productDetails = "/product/:id";
   static const String productSearch = "/productSearch";
   static const String productEvaluations = "/productEvaluations";
+  // cart pahts
   static const String cart = "/cart";
-  static const String addToCart = "/cart/:id/:count";
+  static const String addToCart = "/addToCart";
 }

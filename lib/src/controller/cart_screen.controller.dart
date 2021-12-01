@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/dto/add_to_cart.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
@@ -22,8 +23,13 @@ class CartScreenController extends GetxController {
 
   void add(int id, int count, {ColorModel? color, Size? size}) async {
     cart.value = Data.inProgress();
-    cart.value =
-        await _mainRepo?.productRepo.addToCart(id, count) ?? Data.empty();
+    cart.value = await _mainRepo?.productRepo.addToCart(AddToCartDTO(
+          productColorId: color?.joiningId,
+          productId: id,
+          productSizeId: size?.joiningId,
+          quantity: count,
+        )) ??
+        Data.empty();
   }
 
   Future<void> getCart() async {

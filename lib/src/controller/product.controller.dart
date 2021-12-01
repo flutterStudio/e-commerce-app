@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
@@ -6,6 +7,7 @@ import 'package:e_commerce/src/model/evaluation.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/repository/product.repo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
@@ -114,10 +116,16 @@ class ProductController extends GetxController {
 
   void addToCart() {
     if (count.value > 0) {
-      Get.toNamed("/cart/${product.value.data?.id}/${count.value}");
+      Get.find<CartScreenController>().add(product.value.data!.id!, count.value,
+          color: selectedColor.value, size: selectedSize.value);
     } else {
       Get.showSnackbar(GetBar(
-        message: "no-selected-items".tr,
+        snackStyle: SnackStyle.GROUNDED,
+        messageText: Text(
+          "no-selected-items".tr,
+          style: Get.textTheme.subtitle2
+              ?.copyWith(color: Get.theme.colorScheme.onError),
+        ),
         backgroundColor: Get.theme.colorScheme.error,
       ));
     }

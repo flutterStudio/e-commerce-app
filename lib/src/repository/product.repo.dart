@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
+import 'package:e_commerce/src/dto/add_to_cart.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
 import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
@@ -89,10 +90,10 @@ class ProductRepo {
     }
   }
 
-  Future<Data<Cart>> addToCart(int productId, int count) async {
+  Future<Data<Cart>> addToCart(AddToCartDTO dto) async {
     try {
       Data<Cart> data = await _apiService.postRequest<Data<Cart>>(
-          _addTocart, {"productId": productId, "quantity": count}, (response) {
+          _addTocart, dto.serializer().toJson(), (response) {
         Data<Cart> data = Data.empty();
 
         Cart cart =
