@@ -11,7 +11,7 @@ class RoundedIconBtn extends StatelessWidget {
   }) : super(key: key);
 
   final IconData icon;
-  final GestureTapCancelCallback press;
+  final GestureTapCancelCallback? press;
   final bool showShadow;
   final Color? color;
   final Color? background;
@@ -22,7 +22,6 @@ class RoundedIconBtn extends StatelessWidget {
       height: 40,
       width: 40,
       decoration: BoxDecoration(
-        // shape: BoxShape.circle,
         boxShadow: [
           if (showShadow)
             BoxShadow(

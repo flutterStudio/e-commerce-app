@@ -68,9 +68,11 @@ class ProductController extends GetxController {
   }
 
   void increaseCount() {
-    count.value++;
-    calculatePrice();
-    update();
+    if (count.value < product.value.data!.availableQuantity!) {
+      count.value++;
+      calculatePrice();
+      update();
+    }
   }
 
   void decreaseCount() {

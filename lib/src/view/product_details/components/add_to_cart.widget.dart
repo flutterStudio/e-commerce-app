@@ -64,9 +64,12 @@ class _ProductCountWidget extends GetWidget<ProductController> {
           background: Theme.of(context).colorScheme.primaryVariant,
           icon: Icons.add,
           showShadow: true,
-          press: () {
-            controller.increaseCount();
-          },
+          press: controller.count.value <
+                  controller.product.value.data!.availableQuantity!
+              ? () {
+                  controller.increaseCount();
+                }
+              : null,
         ),
       ],
     );
