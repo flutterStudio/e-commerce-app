@@ -9,13 +9,10 @@ import 'package:e_commerce/src/view/product_details/components/product_stats.dar
 import 'package:e_commerce/src/view/product_details/components/sizes_list.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/top_rounded_container.dart';
 import 'package:e_commerce/src/view/product_details/components/user_evaluation.widget.dart';
-import 'package:e_commerce/src/view/shared/add_to_cart_bottom_sheet.dart';
-import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ProductScreen extends GetView<ProductController> {
   const ProductScreen({Key? key}) : super(key: key);
