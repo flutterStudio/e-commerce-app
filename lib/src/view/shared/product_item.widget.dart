@@ -34,27 +34,27 @@ class _ProductCardState extends State<ProductCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 1.02,
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                  decoration: BoxDecoration(
-                    color: kSecondaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Hero(
-                    tag: widget.product.id.toString(),
-                    child: Image.network(
-                      widget.product.mainImage!,
-                      errorBuilder: (context, object, _) =>
-                          Text("message-error-loading-image".tr),
+                  aspectRatio: 0.9,
+                  child: Container(
+                    padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                    decoration: BoxDecoration(
+                      color: kSecondaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ),
-                ),
-              ),
+                    child: Hero(
+                      tag: widget.product.id.toString(),
+                      child: Image.network(
+                        widget.product.mainImage!,
+                        errorBuilder: (context, object, _) =>
+                            Text("message-error-loading-image".tr),
+                      ),
+                    ),
+                  )),
               const SizedBox(height: 10),
               Text(
                 widget.product.title!,
                 style: const TextStyle(color: Colors.black),
+                overflow: TextOverflow.clip,
                 maxLines: 2,
               ),
               Row(

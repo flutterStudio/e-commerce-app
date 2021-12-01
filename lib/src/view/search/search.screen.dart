@@ -28,7 +28,7 @@ class SearchScreen extends GetView<SearchController> {
                       GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: .8),
+                                  crossAxisCount: 2, childAspectRatio: 0.7),
                           itemCount: controller.products.value.data!.length,
                           itemBuilder: (context, index) => GestureDetector(
                                 onTap: () {
