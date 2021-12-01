@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
+import 'package:e_commerce/src/dto/filter_products.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
 import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
@@ -22,6 +23,7 @@ class ProductRepo {
   static const String _comapnyActiveProductsUrl = "Product/company/active";
   static const String _productEvaluations = "Evaluation/ProductEvaluation";
   static const String _evaluations = "Evaluation";
+  static const String _filterProducts = "Product/FilterProducts";
 
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
 
@@ -55,6 +57,39 @@ class ProductRepo {
         categories = _initCategoriesData(response);
         if (categories.isNotEmpty) {
           return Data.succeed(data: categories);
+        }
+        return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  ///
+  /// * brief:
+  ///
+  ///     Get all available categories in the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains either a list of categories, or an exception.
+  ///
+  Future<Data<List<Product>>> fliterProducts(FilterProductsDto dto) async {
+    try {
+      Data<List<Product>> data = await _apiService
+          .postRequest<Data<List<Product>>>(
+              _filterProducts, dto.serializer().toJson(), (response) {
+        Data<List<Product>> data = Data.empty();
+        List<Product> products = [];
+        products = _initProductData(response);
+        if (products.isNotEmpty) {
+          return Data.succeed(data: products);
         }
         return data;
       });
