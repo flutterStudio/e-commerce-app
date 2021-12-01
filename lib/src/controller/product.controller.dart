@@ -11,9 +11,14 @@ import 'package:get/get.dart';
 class ProductController extends GetxController {
   final int? id;
   Rx<Data<Product>> product = Rx<Data<Product>>(Data.empty());
+
   Rx<Data<List<Evaluation>>> productEvaluations =
       Rx<Data<List<Evaluation>>>(Data.empty());
+
   Rx<Data<Evaluation>> userEvaluations = Rx<Data<Evaluation>>(Data.empty());
+
+  Rx<int> availableAmount = Rx<int>(0);
+
   Rx<int> count = Rx<int>(0);
   Rx<String?> comment = Rx<String?>(null);
   Rx<double> rate = Rx<double>(0);
@@ -65,20 +70,25 @@ class ProductController extends GetxController {
   void getProduct(int id) async {
     product.value = Data.inProgress();
     product.value = await _productRepo.getProduct(id);
+    availableAmount.value = product.value.data?.availableQuantity ?? 0;
   }
 
   void increaseCount() {
     if (count.value < product.value.data!.availableQuantity!) {
       count.value++;
+      availableAmount.value--;
       calculatePrice();
       update();
     }
   }
 
   void decreaseCount() {
-    if (count.value > 0) count.value--;
-    calculatePrice();
-    update();
+    if (count.value > 0) {
+      count.value--;
+      availableAmount.value++;
+      calculatePrice();
+      update();
+    }
   }
 
   void calculatePrice() {

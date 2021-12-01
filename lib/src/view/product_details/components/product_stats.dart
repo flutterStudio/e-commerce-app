@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/size.config.dart';
+import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,10 @@ class ProductStats extends StatelessWidget {
           child: _statsItem(
               context, "min-amount".tr, product?.minQuantity.toString() ?? " "),
         ),
-        Expanded(
-          child: _statsItem(context, "available-amount".tr,
-              product?.availableQuantity.toString() ?? " "),
-        ),
+        GetX<ProductController>(
+            builder: (controller) => Expanded(
+                child: _statsItem(context, "available-amount".tr,
+                    controller.availableAmount.value.toString()))),
       ],
     );
   }
