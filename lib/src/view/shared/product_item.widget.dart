@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,27 +35,25 @@ class _ProductCardState extends State<ProductCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 1.02,
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                  decoration: BoxDecoration(
-                    color: kSecondaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Hero(
-                    tag: widget.product.id.toString(),
-                    child: Image.network(
-                      widget.product.mainImage!,
-                      errorBuilder: (context, object, _) =>
-                          Text("message-error-loading-image".tr),
+                  aspectRatio: 0.9,
+                  child: Container(
+                    padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                    decoration: BoxDecoration(
+                      color: kSecondaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ),
-                ),
-              ),
+                    child: Hero(
+                      tag: widget.product.id.toString(),
+                      child: CustomNetworkImage(
+                        url: widget.product.mainImage ?? " ",
+                      ),
+                    ),
+                  )),
               const SizedBox(height: 10),
               Text(
                 widget.product.title!,
                 style: const TextStyle(color: Colors.black),
+                overflow: TextOverflow.clip,
                 maxLines: 2,
               ),
               Row(

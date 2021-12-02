@@ -81,15 +81,22 @@ class RequestHandler<T> extends StatelessWidget {
   Widget _errorWidget(String message) {
     return Column(
       children: [
-        Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
-        const SizedBox(
-          height: SizeConfig.verticalSpace,
+        const Spacer(),
+        Expanded(
+          child: Column(
+            children: [
+              Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
+              const SizedBox(
+                height: SizeConfig.verticalSpace,
+              ),
+              Text(
+                message,
+                style: Get.textTheme.headline5
+                    ?.copyWith(color: Get.theme.colorScheme.primary),
+              )
+            ],
+          ),
         ),
-        Text(
-          message,
-          style: Get.textTheme.headline5
-              ?.copyWith(color: Get.theme.colorScheme.primary),
-        )
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/model/cart_item.model.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
+import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/material.dart';
 
 class CartCard extends StatelessWidget {
@@ -24,9 +25,8 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network(
-                cart.product?.mainImage ?? "",
-                errorBuilder: (context, _, __) => const Icon(Icons.error),
+              child: CustomNetworkImage(
+                url: cart.product?.mainImage ?? "",
               ),
             ),
           ),

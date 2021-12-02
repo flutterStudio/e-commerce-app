@@ -135,7 +135,7 @@ class AppRoutes {
     GetPage(
         name: AppPaths.productSearch,
         middlewares: [AuthGuard()],
-        page: () => SearchScreen(),
+        page: () => const SearchScreen(),
         binding: BindingsBuilder.put(() => SearchController())),
   ];
 }
