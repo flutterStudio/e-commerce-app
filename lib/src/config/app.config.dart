@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
+import 'package:e_commerce/src/controller/discover_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/controller/product_list.controller.dart';
@@ -25,6 +26,7 @@ class AppConfig {
         () async => HomeScreenController());
     await Get.putAsync<CartScreenController>(
         () async => CartScreenController());
+    await Get.putAsync<Discovercontroller>(() async => Discovercontroller());
     await Get.putAsync<ProductListcontroller>(
         () async => ProductListcontroller());
     await Get.putAsync<OfferScreenCopntroller>(

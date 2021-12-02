@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product_list.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/shared/product_item.widget.dart';
@@ -23,7 +24,9 @@ class ProductsListScreen extends GetView<ProductListcontroller> {
                 GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: .8),
+                            mainAxisSpacing: SizeConfig.verticalSpace,
+                            crossAxisCount: 2,
+                            childAspectRatio: .7),
                     itemCount: controller.products.value.data!.length,
                     itemBuilder: (context, index) => GestureDetector(
                           onTap: () {

@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
+import 'package:e_commerce/src/controller/discover_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
 
 import 'package:e_commerce/src/controller/login.controller.dart';
@@ -91,6 +92,17 @@ class AppRoutes {
       name: AppPaths.products,
       middlewares: [AuthGuard()],
       page: () => const ProductsListScreen(),
+      binding: BindingsBuilder.put(() {
+        return ProductListcontroller();
+      }),
+    ),
+    GetPage(
+      name: AppPaths.productDiscover,
+      middlewares: [AuthGuard()],
+      page: () => const ProductsListScreen(),
+      binding: BindingsBuilder.put(() {
+        return Discovercontroller();
+      }),
     ),
     GetPage(
       name: AppPaths.productsType,
@@ -127,8 +139,7 @@ class AppRoutes {
       binding: BindingsBuilder(() {
         int? offer = int.tryParse(Get.parameters['offer'] ?? " ");
         if (offer != null) {
-          var controller = Get.find<ProductListcontroller>();
-          controller.getOfferProducts(offer);
+          Get.find<ProductListcontroller>().getOfferProducts(offer);
         }
       }),
     ),
