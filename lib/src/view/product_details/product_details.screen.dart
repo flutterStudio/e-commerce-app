@@ -61,6 +61,7 @@ class ProductScreen extends GetView<ProductController> {
                                 ? Container()
                                 : _SectionWidget(
                                     child: ColorDots(
+                                      interactive: true,
                                       product: data,
                                     ),
                                     title: "available-colors".tr,
@@ -173,7 +174,7 @@ class _SectionWidget extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(
           vertical: SizeConfig.horizontalSpace * 2,
           horizontal: SizeConfig.horizontalSpace * 2),
