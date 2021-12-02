@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
@@ -21,6 +22,7 @@ class AddToCart extends GetView<ProductController> {
         DefaultButton(
           press: () {
             controller.addToCart();
+            Get.toNamed(AppPaths.cart);
           },
           child: Text(
             "add-to-cart".tr,

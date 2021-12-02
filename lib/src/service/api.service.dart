@@ -41,10 +41,14 @@ class ApiService extends GetConnect {
     throw Exception("error-network".tr);
   }
 
-  Future<T> deleteRequest<T>(String url, ModelDecoder<T> decoder,
-      {Map<String, dynamic>? query}) async {
+  Future<T> deleteRequest<T>(
+    String url,
+    ModelDecoder<T> decoder, {
+    Map<String, dynamic>? query,
+  }) async {
     Response result = await super.delete(
       url,
+      headers: {"Authorization": _token},
     );
     if (result.isOk) {
       return decoder(result);
