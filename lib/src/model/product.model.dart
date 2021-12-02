@@ -53,13 +53,16 @@ class _ProductSerializer extends ModelSerializer<Product> {
     var attachments = json["productImagesList"] ?? [];
     List<String> images = [];
     for (var attachment in attachments) {
-      images.add(_emulatorImage(attachment["attachment"]?["downloadUrl"]));
+      var image = _emulatorImage(attachment["attachment"]?["downloadUrl"]);
+      if (image != null) {
+        images.add(image);
+      }
     }
     model.images = images;
   }
 
-  String _emulatorImage(String url) {
-    return url.replaceFirst(
+  String? _emulatorImage(String? url) {
+    return url?.replaceFirst(
         "https://127.0.0.1:5001", "http://94.242.58.41:5002");
   }
 

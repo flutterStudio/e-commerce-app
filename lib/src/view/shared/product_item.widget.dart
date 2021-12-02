@@ -44,7 +44,7 @@ class _ProductCardState extends State<ProductCard> {
                     child: Hero(
                       tag: widget.product.id.toString(),
                       child: Image.network(
-                        widget.product.mainImage!,
+                        widget.product.mainImage ?? " ",
                         errorBuilder: (context, object, _) =>
                             Text("message-error-loading-image".tr),
                       ),

@@ -24,7 +24,7 @@ class ProductRepo {
   static const String _productEvaluations = "Evaluation/ProductEvaluation";
   static const String _evaluations = "Evaluation";
   static const String _filterProducts = "Product/FilterProducts";
-
+  static const String _searchProducts = "Product/search";
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
 
   Future<Data<List<Product>>> getCompanyProducts(
@@ -88,6 +88,42 @@ class ProductRepo {
         Data<List<Product>> data = Data.empty();
         List<Product> products = [];
         products = _initProductData(response);
+        if (products.isNotEmpty) {
+          return Data.succeed(data: products);
+        }
+        return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  ///
+  /// * brief:
+  ///
+  ///     Get all available categories in the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains either a list of categories, or an exception.
+  ///
+  Future<Data<List<Product>>> searchProducts(String key) async {
+    try {
+      Data<List<Product>> data = await _apiService
+          .getRequest<Data<List<Product>>>(_searchProducts + "/$key",
+              (response) {
+        Data<List<Product>> data = Data.empty();
+        List<Product> products = [];
+        var productsData = jsonDecode(response.bodyString!) as List;
+        for (var product in productsData) {
+          products.add(Product().serilizer().fromJson(product));
+        }
         if (products.isNotEmpty) {
           return Data.succeed(data: products);
         }

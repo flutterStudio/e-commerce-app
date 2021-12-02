@@ -12,6 +12,7 @@ class SearchController extends GetxController {
   final Rx<List<Category>> categories = Rx<List<Category>>([]);
   Rx<Data<List<Product>>> products = Rx<Data<List<Product>>>(Data.empty());
   Rx<Category?> selectedCategory = Rx<Category?>(null);
+  Rx<String?> searchTerm = Rx<String?>(null);
   final ProductRepo _productRepo = Get.find<MainRepo>().productRepo;
   SearchController() {
     initCategories();
@@ -20,9 +21,11 @@ class SearchController extends GetxController {
   SearchController.search(String key);
 
   Future<void> searchProduct(String key) async {
+    searchTerm.value = key;
     products.value = Data.inProgress();
-    Data<List<Product>> companyProducts =
-        await Get.find<MainRepo>().productRepo.getActiveProducts();
+    Data<List<Product>> companyProducts = await Get.find<MainRepo>()
+        .productRepo
+        .searchProducts(searchTerm.value!);
 
     products.value = companyProducts;
   }

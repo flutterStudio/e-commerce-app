@@ -43,8 +43,14 @@ class SearchScreen extends GetView<SearchController> {
                 );
               }),
               headerSliverBuilder: (context, _) => [
-                    const SliverToBoxAdapter(
-                        child: Hero(tag: "search-field", child: SearchField())),
+                    SliverToBoxAdapter(
+                        child: Hero(
+                            tag: "search-field",
+                            child: SearchField(
+                              onSubmitted: (value) {
+                                controller.searchProduct(value);
+                              },
+                            ))),
                     SliverToBoxAdapter(
                       child: GetX<SearchController>(builder: (controller) {
                         return Container(
