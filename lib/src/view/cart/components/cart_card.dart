@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/cart_item.model.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
@@ -52,8 +53,20 @@ class CartCard extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary),
                   children: [
                     TextSpan(
-                        text: " x ${cart.count}",
-                        style: Theme.of(context).textTheme.bodyText1),
+                      text: " x ${cart.count}",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const WidgetSpan(
+                        child: SizedBox(
+                      width: SizeConfig.horizontalSpace,
+                    )),
+                    cart.product?.discount != null
+                        ? TextSpan(
+                            text: " disount: ${cart.product!.discount}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.primary))
+                        : TextSpan(),
                   ],
                 ),
               ),
