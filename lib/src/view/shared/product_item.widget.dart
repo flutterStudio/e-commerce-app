@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,10 +44,8 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                     child: Hero(
                       tag: widget.product.id.toString(),
-                      child: Image.network(
-                        widget.product.mainImage ?? " ",
-                        errorBuilder: (context, object, _) =>
-                            Text("message-error-loading-image".tr),
+                      child: CustomNetworkImage(
+                        url: widget.product.mainImage ?? " ",
                       ),
                     ),
                   )),

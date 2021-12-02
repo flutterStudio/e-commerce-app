@@ -29,9 +29,8 @@ class _ProductImagesState extends State<ProductImages> {
                   aspectRatio: 1,
                   child: Hero(
                     tag: widget.product.id.toString(),
-                    child: Image.network(
-                      widget.product.images![selectedImage],
-                      errorBuilder: (context, _, __) => const Icon(Icons.error),
+                    child: CustomNetworkImage(
+                      url: widget.product.images![selectedImage],
                     ),
                   ),
                 ),
