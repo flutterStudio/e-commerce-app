@@ -4,6 +4,7 @@ import 'package:e_commerce/src/model/model.dart';
 
 class Cart extends Model {
   double? finalPrice;
+  int? orderId;
   List<CartItem>? orderProducts;
   DateTime? orderDate;
   bool? isInCart;
@@ -24,6 +25,7 @@ class _CartSerializer extends ModelSerializer<Cart> {
     model.isInCart = json['isInCart'];
     model.orderDate = DateTime.tryParse(json['orderDate'])!;
     model.finalPrice = json['finalPrice'];
+    model.orderId = json['orderId'];
     List<CartItem> items = [];
     for (var item in json['orderProducts']) {
       CartItem cartItem = CartItem().serilizer().fromJson(item);

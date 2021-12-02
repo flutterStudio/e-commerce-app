@@ -20,6 +20,7 @@ class ProductRepo {
   static const String _addTocart = "Order/addToCart";
   static const String _removeFromTocart = "Order/RemoveFromCart";
   static const String _cartOrders = "Order/InCart";
+  static const String _orderCheckout = "Order/checkout";
   static const String _category = "Category";
   static const String _comapnyActiveProductsUrl = "Product/company/active";
   static const String _productEvaluations = "Evaluation/ProductEvaluation";
@@ -64,6 +65,23 @@ class ProductRepo {
       });
 
       return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  Future<Data<bool>> checkout(int order) async {
+    try {
+      return await _apiService.putRequest<Data<bool>>(
+          _orderCheckout, {"orderId": order}, (response) {
+        return Data.succeed(data: true);
+      });
+
+      // return data;
     } on NetworkException catch (e) {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {

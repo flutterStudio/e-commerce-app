@@ -13,6 +13,7 @@ class CartScreenController extends GetxController {
   Rx<Data<Cart>> cart = Rx<Data<Cart>>(Data.empty());
   Rx<double> total = Rx<double>(0.0);
   Rx<Data<bool>> deleteProduct = Rx<Data<bool>>(Data.empty());
+  Rx<Data<bool>> checkoutCart = Rx<Data<bool>>(Data.empty());
   MainRepo? _mainRepo;
   @override
   void onInit() {
@@ -37,9 +38,14 @@ class CartScreenController extends GetxController {
     cart.value = await _mainRepo?.productRepo.getMyCart() ?? Data.empty();
   }
 
-  void checkout() {
-    NetworkUtils.openwhatsapp(
-        "Customer ordered ${cart.value.data?.orderProducts?.length} products with a total price ${total.value}");
+  Future<void> checkout() async {
+    checkoutCart.value = Data.inProgress();
+    checkoutCart.value =
+        (await _mainRepo?.productRepo.checkout(cart.value.data!.orderId!))!;
+    if (checkoutCart.value.isSucceed) {
+      NetworkUtils.openwhatsapp(
+          "Customer ordered ${cart.value.data?.orderProducts?.length} products with a total price ${total.value}");
+    }
   }
 
   Future<bool> remove(int id) async {

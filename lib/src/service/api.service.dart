@@ -41,6 +41,21 @@ class ApiService extends GetConnect {
     throw Exception("error-network".tr);
   }
 
+  Future<T> putRequest<T>(String url, dynamic body, ModelDecoder<T> decoder,
+      {Map<String, dynamic>? query}) async {
+    Response result = await super.put(
+      url,
+      body,
+      headers: {"Authorization": _token},
+      query: query,
+    );
+    if (result.isOk) {
+      return decoder(result);
+    }
+    _processResponseError(result.statusCode);
+    throw Exception("error-network".tr);
+  }
+
   Future<T> deleteRequest<T>(
     String url,
     ModelDecoder<T> decoder, {
