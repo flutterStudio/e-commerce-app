@@ -18,6 +18,9 @@ class CartBody extends GetView<CartScreenController> {
         child: Obx(() {
           return RequestHandler<Cart>(
             data: controller.cart.value,
+            onErrorRetry: () {
+              controller.getCart();
+            },
             onSuccess: (context, data) => ListView.builder(
               itemCount: data.orderProducts?.length,
               itemBuilder: (context, index) => Padding(
@@ -38,8 +41,6 @@ class CartBody extends GetView<CartScreenController> {
                     ),
                     child: Row(
                       children: [
-                        SvgPicture.asset("assets/icons/Trash.svg"),
-                        const Spacer(),
                         SvgPicture.asset("assets/icons/Trash.svg"),
                       ],
                     ),
