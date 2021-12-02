@@ -22,24 +22,28 @@ class SearchScreen extends GetView<SearchController> {
           padding: const EdgeInsets.all(SizeConfig.verticalSpace),
           child: NestedScrollView(
               body: Obx(() {
-                return RequestHandler<List<Product>>(
-                  data: controller.products.value,
-                  onSuccess: (BuildContext context, List<Product> items) =>
-                      GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.7),
-                          itemCount: controller.products.value.data!.length,
-                          itemBuilder: (context, index) => GestureDetector(
-                                onTap: () {
-                                  Get.toNamed(
-                                      "/product/${controller.products.value.data![index].id}");
-                                },
-                                child: ProductCard(
-                                  product:
-                                      controller.products.value.data![index],
-                                ),
-                              )),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: SizeConfig.verticalSpace * 2),
+                  child: RequestHandler<List<Product>>(
+                    data: controller.products.value,
+                    onSuccess: (BuildContext context, List<Product> items) =>
+                        GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2, childAspectRatio: 0.7),
+                            itemCount: controller.products.value.data!.length,
+                            itemBuilder: (context, index) => GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(
+                                        "/product/${controller.products.value.data![index].id}");
+                                  },
+                                  child: ProductCard(
+                                    product:
+                                        controller.products.value.data![index],
+                                  ),
+                                )),
+                  ),
                 );
               }),
               headerSliverBuilder: (context, _) => [
