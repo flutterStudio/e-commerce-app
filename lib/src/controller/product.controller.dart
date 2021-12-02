@@ -49,7 +49,7 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     if (id != null) {
-      getProduct(id!);
+      getProduct(id!).then((value) => getUserEvaluations());
     }
 
     super.onInit();
@@ -68,6 +68,14 @@ class ProductController extends GetxController {
     }
   }
 
+  void getUserEvaluations() async {
+    if (product.value.data != null) {
+      userEvaluations.value = Data.inProgress();
+      userEvaluations.value =
+          await _productRepo.getUserProductEvaluations(product.value.data!.id!);
+    }
+  }
+
   ///
   /// #### Brief
   ///   * Post the evaluation of the current user on the `product`.
@@ -76,10 +84,20 @@ class ProductController extends GetxController {
   void evaluateProduct() async {
     if (product.value.data != null && !comment.isBlank! && !rate.isBlank!) {
       userEvaluations.value = Data.inProgress();
-      await _productRepo.addProductEvaluations(AddEvaluationDto(
-          comment: comment.value,
-          productId: product.value.data?.id,
-          rate: rate.value));
+      Get.showSnackbar(GetBar(
+        snackStyle: SnackStyle.GROUNDED,
+        messageText: Text(
+          "Sending comment".tr,
+          style: Get.textTheme.subtitle2
+              ?.copyWith(color: Get.theme.colorScheme.onError),
+        ),
+        backgroundColor: Get.theme.colorScheme.error,
+      ));
+      userEvaluations.value = await _productRepo.addProductEvaluations(
+          AddEvaluationDto(
+              comment: comment.value,
+              productId: product.value.data?.id,
+              rate: rate.value));
     }
   }
 
@@ -87,7 +105,7 @@ class ProductController extends GetxController {
   /// #### Brief
   ///   * Fetch the product with the given [id].
   ///
-  void getProduct(int id) async {
+  Future<void> getProduct(int id) async {
     product.value = Data.inProgress();
     product.value = await _productRepo.getProduct(id);
     availableAmount.value = product.value.data?.availableQuantity ?? 0;
