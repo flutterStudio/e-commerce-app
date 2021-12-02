@@ -92,6 +92,7 @@ class ProductRepo {
         if (products.isNotEmpty) {
           return Data.succeed(data: products);
         }
+        data.status = DataStatus.empty;
         return data;
       });
 
@@ -128,6 +129,7 @@ class ProductRepo {
         if (products.isNotEmpty) {
           return Data.succeed(data: products);
         }
+        data.status = DataStatus.empty;
         return data;
       });
 

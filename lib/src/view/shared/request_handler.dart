@@ -63,13 +63,9 @@ class RequestHandler<T> extends StatelessWidget {
             return _onSuccess(context, _data.data!);
           }
         }
-      case DataStatus.none:
+      case DataStatus.empty:
         {
-          if (_data.data.isNullOrEmpty()) {
-            return _emptyResponseWidget("message-empty-response".tr);
-          } else {
-            return _onSuccess(context, _data.data!);
-          }
+          return _emptyResponseWidget("message-empty-response".tr);
         }
       default:
         {

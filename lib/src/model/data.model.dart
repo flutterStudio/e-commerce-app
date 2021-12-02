@@ -117,7 +117,7 @@ class Data<T> {
   set data(data) {
     _hasData = data == null || GetUtils.isNullOrBlank(data)! ? false : true;
     _data = data;
-    _status = _hasData ? DataStatus.succeed : DataStatus.none;
+    _status = _hasData ? DataStatus.succeed : DataStatus.empty;
   }
 
   set status(s) => _status = s;
@@ -151,4 +151,4 @@ class Data<T> {
   bool get hasData => _hasData;
 }
 
-enum DataStatus { inProgress, succeed, faild, timeout, none }
+enum DataStatus { inProgress, succeed, faild, timeout, none, empty }
