@@ -118,7 +118,7 @@ class UserEvaluation extends GetView<ProductController> {
           fillColor: Get.theme.colorScheme.secondaryVariant,
           focusColor: Get.theme.colorScheme.secondaryVariant,
           suffix: IconButton(
-              onPressed: () {
+              onPressed: () async {
                 controller.evaluateProduct();
               },
               icon: Icon(

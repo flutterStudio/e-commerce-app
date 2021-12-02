@@ -13,7 +13,7 @@ class ProductEvaluations extends GetView<ProductController> {
           leading: BackButton(
             onPressed: () => Get.back(),
           ),
-          title: Text("product-details".tr),
+          title: Text("product-evaluations".tr),
         ),
         body: const ReviewList());
   }

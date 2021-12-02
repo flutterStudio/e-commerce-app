@@ -66,7 +66,7 @@ class CartCard extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Theme.of(context).colorScheme.primary))
-                        : TextSpan(),
+                        : const TextSpan(),
                   ],
                 ),
               ),

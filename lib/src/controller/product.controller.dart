@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/model/color.model.dart';
@@ -98,6 +99,8 @@ class ProductController extends GetxController {
               comment: comment.value,
               productId: product.value.data?.id,
               rate: rate.value));
+      getProduct(product.value.data!.id!);
+      Get.toNamed(AppPaths.productEvaluations);
     }
   }
 

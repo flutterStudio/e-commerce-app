@@ -4,9 +4,14 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NetworkUtils {
-  static void openwhatsapp(String message) async {
+  static void openwhatsapp(
+    String message, {
+    String? phone,
+  }) async {
     String whatsapp = "+963958252701";
-    String androidUrl = "whatsapp://send?phone=" + whatsapp + "&text=$message";
+
+    String androidUrl =
+        "whatsapp://send?phone=" + (phone ?? whatsapp) + "&text=$message";
     String iosUrl = "https://wa.me/$whatsapp?text=${Uri.parse(message)}";
     if (Platform.isIOS) {
       // for iOS phone only

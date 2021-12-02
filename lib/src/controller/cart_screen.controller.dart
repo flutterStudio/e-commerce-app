@@ -4,6 +4,7 @@ import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/utils/network.utils.dart';
 import 'package:e_commerce/src/view/shared/action.dialog.dart';
 import 'package:get/get.dart';
@@ -40,12 +41,14 @@ class CartScreenController extends GetxController {
 
   Future<void> checkout() async {
     checkoutCart.value = Data.inProgress();
+    Cart tempCart = cart.value.data!;
     checkoutCart.value =
         (await _mainRepo?.productRepo.checkout(cart.value.data!.orderId!))!;
     if (checkoutCart.value.isSucceed) {
       getCart();
+      var authservice = Get.find<AuthService>();
       NetworkUtils.openwhatsapp(
-          "Customer ordered ${cart.value.data?.orderProducts?.length} products with a total price ${total.value}");
+          "Customer  ${authservice.currentUser.value!.firstName} ${authservice.currentUser.value!.lastName} ordered ${tempCart.orderProducts?.length} products with a total price ${tempCart.finalPrice}");
     }
   }
 

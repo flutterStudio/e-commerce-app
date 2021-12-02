@@ -34,6 +34,9 @@ class DiscoverScreen extends GetView<Discovercontroller> {
                   child: ProductCard(
                     product: data[index],
                   ))),
+          onErrorRetry: () {
+            Get.find<Discovercontroller>().getProducts();
+          },
           inProgress: const RefreshProgressIndicator(),
         ),
       )),

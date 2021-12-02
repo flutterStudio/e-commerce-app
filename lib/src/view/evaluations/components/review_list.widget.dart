@@ -15,6 +15,9 @@ class ReviewList extends GetView<ProductController> {
     return Obx(() {
       return RequestHandler<List<Evaluation>>(
         data: controller.productEvaluations.value,
+        onErrorRetry: () {
+          controller.getProductEvaluations();
+        },
         onSuccess: (context, data) => ListView.builder(
             itemCount: controller.productEvaluations.value.data?.length,
             itemBuilder: (context, index) => ReviewItem(
