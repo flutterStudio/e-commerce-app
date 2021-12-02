@@ -16,7 +16,7 @@ class ImagesSlider extends StatelessWidget {
               autoPlay: false,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 2.0,
+              aspectRatio: 3,
               initialPage: 2,
             ),
             itemBuilder:

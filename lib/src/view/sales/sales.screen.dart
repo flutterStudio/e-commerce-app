@@ -45,7 +45,7 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
     List<ScreenItem> slider =
         items.where((e) => e.itemType == ScreenItemtype.Slider).toList();
     List<ScreenItem> banners =
-        items.where((e) => e.itemType == ScreenItemtype.Banner).toList();
+        items.where((e) => e.itemType == ScreenItemtype.Item).toList();
     return Column(
       children: [
         Expanded(
@@ -60,7 +60,13 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
                   ),
                 ),
                 ...banners.map((e) {
-                  return ImageItem(item: e);
+                  return Container(
+                    color: Theme.of(context).colorScheme.secondaryVariant,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: SizeConfig.verticalSpace),
+                    child:
+                        AspectRatio(aspectRatio: 3, child: ImageItem(item: e)),
+                  );
                 }).toList()
               ],
             ),
