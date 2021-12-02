@@ -33,6 +33,9 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
                   context,
                   items,
                 ),
+                onErrorRetry: () {
+                  controller.getMainScreenItems();
+                },
               );
             }),
           ),

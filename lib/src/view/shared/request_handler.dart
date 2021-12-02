@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/data.model.dart';
+import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:e_commerce/src/utils/extensions.dart';
@@ -21,6 +22,7 @@ class RequestHandler<T> extends StatelessWidget {
   final Widget Function(String? error)? _onFailed;
   final Widget? _inProgress;
   final Widget? _other;
+  final VoidCallback? onErrorRetry;
 
   const RequestHandler(
       {Key? key,
@@ -28,7 +30,8 @@ class RequestHandler<T> extends StatelessWidget {
       Widget Function(String? error)? onFailed,
       inProgress,
       other,
-      required Data<T> data})
+      required Data<T> data,
+      this.onErrorRetry})
       : _onSuccess = onSuccess,
         _onFailed = onFailed,
         _inProgress = inProgress,
@@ -53,7 +56,9 @@ class RequestHandler<T> extends StatelessWidget {
         {
           return _onFailed != null
               ? _onFailed!(_data.message)
-              : _errorWidget(_data.message ?? "message-error".tr);
+              : _errorWidget(
+                  _data.message ?? "message-error".tr,
+                );
         }
       case DataStatus.succeed:
         {
@@ -89,7 +94,13 @@ class RequestHandler<T> extends StatelessWidget {
                 message,
                 style: Get.textTheme.headline5
                     ?.copyWith(color: Get.theme.colorScheme.primary),
-              )
+              ),
+              onErrorRetry == null
+                  ? Container()
+                  : DefaultButton(
+                      child: Text("retry".tr),
+                      press: onErrorRetry,
+                    )
             ],
           ),
         ),
