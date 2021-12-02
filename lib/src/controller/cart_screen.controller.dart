@@ -43,6 +43,7 @@ class CartScreenController extends GetxController {
     checkoutCart.value =
         (await _mainRepo?.productRepo.checkout(cart.value.data!.orderId!))!;
     if (checkoutCart.value.isSucceed) {
+      getCart();
       NetworkUtils.openwhatsapp(
           "Customer ordered ${cart.value.data?.orderProducts?.length} products with a total price ${total.value}");
     }
