@@ -1,5 +1,4 @@
 import 'package:e_commerce/src/model/data.model.dart';
-import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
