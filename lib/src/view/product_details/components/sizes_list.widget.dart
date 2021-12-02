@@ -20,7 +20,7 @@ class SizesList extends GetView<ProductController> {
                 onSelect: () {
                   controller.selectSize(product!.sizes![index]);
                 },
-                size: product!.sizes![index],
+                value: product!.sizes![index],
               ),
       ),
     );

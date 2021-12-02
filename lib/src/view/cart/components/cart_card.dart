@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/model/cart_item.model.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
+import 'package:e_commerce/src/view/shared/size.widget.dart';
 import 'package:flutter/material.dart';
 
 class CartCard extends StatelessWidget {
@@ -61,7 +62,14 @@ class CartCard extends StatelessWidget {
                   cart.color?.colorValue == null
                       ? Container()
                       : ColorDot(
+                          size: 30,
                           color: cart.color!.colorValue!,
+                        ),
+                  cart.size?.sizeValue == null
+                      ? Container()
+                      : SizeWidget(
+                          size: 30,
+                          value: cart.size!,
                         )
                 ],
               )

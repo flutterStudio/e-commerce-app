@@ -26,6 +26,12 @@ class _CartSerializer extends ModelSerializer<CartItem> {
     model.product = Product().serilizer().fromJson(json["product"]);
     model.orderPrice = json["orderPrice"];
     model.count = json["quantity"];
+    model.color = json["productColor"] == null
+        ? null
+        : ColorModel().serilizer().fromJson(json["productColor"]);
+    model.size = json["productSize"] == null
+        ? null
+        : Size().serilizer().fromJson(json["productSize"]);
     model.orderProductId = json["orderProductId"];
 
     return model;

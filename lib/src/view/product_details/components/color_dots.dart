@@ -50,8 +50,10 @@ class ColorDot extends StatelessWidget {
     required this.color,
     this.isSelected = false,
     this.onSelected,
+    this.size = 40,
   }) : super(key: key);
 
+  final double size;
   final Color color;
   final bool isSelected;
 
@@ -62,8 +64,8 @@ class ColorDot extends StatelessWidget {
       onTap: onSelected,
       child: Container(
         margin: const EdgeInsets.only(right: SizeConfig.horizontalSpace),
-        height: isSelected ? 50 : 40,
-        width: isSelected ? 50 : 40,
+        height: isSelected ? size + 10 : size,
+        width: isSelected ? size + 10 : size,
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: Colors.transparent,

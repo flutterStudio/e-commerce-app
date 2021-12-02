@@ -7,9 +7,10 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class SizeWidget extends GetWidget<ProductController> {
-  final Size size;
+  final Size value;
   final VoidCallback? onSelect;
-  const SizeWidget({Key? key, required this.size, this.onSelect})
+  final double? size;
+  const SizeWidget({Key? key, this.size, required this.value, this.onSelect})
       : super(key: key);
 
   @override
@@ -17,14 +18,15 @@ class SizeWidget extends GetWidget<ProductController> {
     return GestureDetector(
       onTap: onSelect,
       child: Obx(() {
-        final bool isSelected = controller.selectedSize.value == size;
+        final bool isSelected = controller.selectedSize.value == value;
         return Container(
+          height: size,
           alignment: Alignment.center,
           margin: const EdgeInsets.symmetric(
               horizontal: SizeConfig.horizontalSpace),
           padding: const EdgeInsets.all(SizeConfig.horizontalSpace),
           child: Text(
-            size.sizeValue!,
+            value.sizeValue!,
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 color: isSelected
