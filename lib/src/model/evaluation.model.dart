@@ -28,7 +28,8 @@ class _EvaluationSerializer extends ModelSerializer<Evaluation> {
     model.id = json["evaluationId"];
     model.comment = json["comment"];
     model.rate = json["rate"];
-    model.user = User().serilizer().fromJson(json["user"]);
+    model.user =
+        json["user"] == null ? null : User().serilizer().fromJson(json["user"]);
     return model;
   }
 

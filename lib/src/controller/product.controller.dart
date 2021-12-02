@@ -99,7 +99,7 @@ class ProductController extends GetxController {
               comment: comment.value,
               productId: product.value.data?.id,
               rate: rate.value));
-      getProduct(product.value.data!.id!);
+      getUserEvaluations();
       Get.toNamed(AppPaths.productEvaluations);
     }
   }
