@@ -2,8 +2,8 @@ import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
-import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/evaluations/components/review_item.widget.dart';
+import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/shared/show_more.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,50 +43,64 @@ class UserEvaluation extends GetView<ProductController> {
         const SizedBox(
           height: SizeConfig.verticalSpace * 2,
         ),
-        ReviewItem(
-            review: Evaluation(
-                user: Get.find<AuthService>().currentUser.value,
-                rate: 4.5,
-                comment:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam a sapien, amet, consectetur nisl ullamcorper quam aliquet. Id nisi, amet suscipit nam orci tincidunt nunc donec arcu. Gravida id ...")),
+        Obx(() => controller.userEvaluations.value.isSucceed &&
+                controller.userEvaluations.value.data != null
+            ? RequestHandler<Evaluation>(
+                data: controller.userEvaluations.value,
+                onSuccess: (context, data) => ReviewItem(
+                    review: Evaluation(
+                        user: data.user,
+                        rate: data.rate!,
+                        comment: data.comment)))
+            : Container()),
         Padding(
           padding: const EdgeInsets.all(SizeConfig.horizontalSpace * 2),
           child: Column(
             children: [
               Row(
                 children: [
-                  Text(
-                    "rate-this-product".tr,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
+                  Obx(() => !controller.userEvaluations.value.hasData
+                      ? Text(
+                          "rate-this-product".tr,
+                          style: Theme.of(context).textTheme.headline5,
+                        )
+                      : Container()),
                   const Spacer(),
-                  RatingBar(
-                    itemSize: ICONSIZE.md,
-                    glow: true,
-                    allowHalfRating: true,
-                    minRating: 1,
-                    initialRating: 1,
-                    unratedColor: Theme.of(context).colorScheme.secondary,
-                    glowColor: Theme.of(context).colorScheme.primary,
-                    ratingWidget: RatingWidget(
-                        empty: const Icon(
-                          Icons.star_outline_outlined,
-                        ),
-                        half: Icon(
-                          Icons.star_half_outlined,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        full: Icon(
-                          Icons.star_rate,
-                          color: Theme.of(context).colorScheme.primary,
-                        )),
-                    onRatingUpdate: (value) {
-                      controller.rate.value = value;
-                    },
-                  )
+                  Obx(() {
+                    var data = controller.userEvaluations.value;
+                    return data.hasData
+                        ? Container()
+                        : RatingBar(
+                            itemSize: ICONSIZE.md,
+                            glow: true,
+                            allowHalfRating: true,
+                            minRating: 1,
+                            initialRating: data.data?.rate ?? 0,
+                            unratedColor:
+                                Theme.of(context).colorScheme.secondary,
+                            glowColor: Theme.of(context).colorScheme.primary,
+                            ratingWidget: RatingWidget(
+                                empty: const Icon(
+                                  Icons.star_outline_outlined,
+                                ),
+                                half: Icon(
+                                  Icons.star_half_outlined,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                full: Icon(
+                                  Icons.star_rate,
+                                  color: Theme.of(context).colorScheme.primary,
+                                )),
+                            onRatingUpdate: (value) {
+                              controller.rate.value = value;
+                            },
+                          );
+                  })
                 ],
               ),
-              reviewField()
+              Obx(() => !controller.userEvaluations.value.hasData
+                  ? reviewField()
+                  : Container())
             ],
           ),
         )

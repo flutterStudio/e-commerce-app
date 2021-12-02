@@ -43,7 +43,7 @@ class ReviewItem extends StatelessWidget {
             glow: true,
             allowHalfRating: true,
             minRating: 1,
-            initialRating: 1,
+            initialRating: review.rate ?? 0.0,
             unratedColor: Theme.of(context).colorScheme.secondary,
             glowColor: Theme.of(context).colorScheme.primary,
             ratingWidget: RatingWidget(

@@ -24,6 +24,7 @@ class ProductRepo {
   static const String _comapnyActiveProductsUrl = "Product/company/active";
   static const String _productEvaluations = "Evaluation/ProductEvaluation";
   static const String _evaluations = "Evaluation";
+  static const String _evaluationsOnProduct = "Evaluation/UserEvaluation";
   static const String _filterProducts = "Product/FilterProducts";
   static const String _searchProducts = "Product/search";
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
@@ -325,10 +326,38 @@ class ProductRepo {
           Data<Evaluation> data = Data.empty();
 
           // Get pagination info if exists.
-          _initPaginationInfo(data, response);
+          data.data = Evaluation()
+              .serilizer()
+              .fromJson(jsonDecode(response.bodyString!));
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    }
+  }
+
+  ///
+  /// #### brief
+  /// Get users evaluations on a specific product.
+  ///
+  ///
+  Future<Data<Evaluation>> getUserProductEvaluations(int productId) async {
+    try {
+      Data<Evaluation>? data = await _apiService.getRequest<Data<Evaluation>>(
+        _evaluationsOnProduct + "/$productId",
+        (response) {
+          Data<Evaluation> data = Data.empty();
 
           // Get pagination info if exists.
-          data.data = _initEvaluationsData(response);
+          data.data = Evaluation()
+              .serilizer()
+              .fromJson(jsonDecode(response.bodyString!));
 
           return data;
         },
