@@ -7,34 +7,41 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 class ColorDots extends GetView<ProductController> {
   const ColorDots({
     Key? key,
+    this.interactive = false,
     required this.product,
   }) : super(key: key);
 
   final Product? product;
+  final bool interactive;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Obx(() {
-        return Row(
-          children: [
-            ...List.generate(
-              product?.colors?.length ?? 0,
-              (index) => ColorDot(
-                onSelected: () {
-                  controller.selectedColor(product?.colors?[index]);
-                },
-                color: product!.colors![index].colorValue!,
-                isSelected: controller.selectedColor.value?.colorValue ==
-                    product?.colors?[index].colorValue,
-              ),
-            ),
-          ],
-        );
-      }),
+      child: interactive
+          ? Obx(() {
+              return _colorsList();
+            })
+          : _colorsList(),
     );
   }
+
+  Widget _colorsList() => Row(
+        children: [
+          ...List.generate(
+            product?.colors?.length ?? 0,
+            (index) => ColorDot(
+              onSelected: () {
+                controller.selectedColor(product?.colors?[index]);
+              },
+              color: product!.colors![index].colorValue!,
+              isSelected: interactive &&
+                  controller.selectedColor.value?.colorValue ==
+                      product?.colors?[index].colorValue,
+            ),
+          ),
+        ],
+      );
 }
 
 class ColorDot extends StatelessWidget {

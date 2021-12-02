@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/model/cart_item.model.dart';
+import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:flutter/material.dart';
 
 class CartCard extends StatelessWidget {
@@ -54,6 +55,15 @@ class CartCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1),
                   ],
                 ),
+              ),
+              Row(
+                children: [
+                  cart.color?.colorValue == null
+                      ? Container()
+                      : ColorDot(
+                          color: cart.color!.colorValue!,
+                        )
+                ],
               )
             ],
           ),

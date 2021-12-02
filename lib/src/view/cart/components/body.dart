@@ -24,7 +24,7 @@ class CartBody extends GetView<CartScreenController> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Dismissible(
                   key: Key(data.orderProducts![index].product!.id.toString()),
-                  direction: DismissDirection.endToStart,
+                  direction: DismissDirection.horizontal,
                   onDismissed: (direction) {},
                   confirmDismiss: (direction) async {
                     return await controller
@@ -38,6 +38,7 @@ class CartBody extends GetView<CartScreenController> {
                     ),
                     child: Row(
                       children: [
+                        SvgPicture.asset("assets/icons/Trash.svg"),
                         const Spacer(),
                         SvgPicture.asset("assets/icons/Trash.svg"),
                       ],
