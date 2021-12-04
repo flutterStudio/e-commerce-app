@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/stories/components/story_list_item.widget.dart';
+import 'package:e_commerce/src/view/stories/components/story_list_item.widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:story_view/story_view.dart';
 
