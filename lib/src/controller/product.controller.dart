@@ -85,7 +85,7 @@ class ProductController extends GetxController {
   void evaluateProduct() async {
     if (product.value.data != null && !comment.isBlank! && !rate.isBlank!) {
       userEvaluations.value = Data.inProgress();
-      Get.showSnackbar(GetBar(
+      Get.showSnackbar(GetSnackBar(
         snackStyle: SnackStyle.GROUNDED,
         messageText: Text(
           "Sending comment".tr,
@@ -140,7 +140,7 @@ class ProductController extends GetxController {
       Get.find<CartScreenController>().add(product.value.data!.id!, count.value,
           color: selectedColor.value, size: selectedSize.value);
     } else {
-      Get.showSnackbar(GetBar(
+      Get.showSnackbar(GetSnackBar(
         snackStyle: SnackStyle.GROUNDED,
         messageText: Text(
           "no-selected-items".tr,
