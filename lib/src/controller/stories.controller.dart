@@ -1,8 +1,10 @@
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/story.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/view/stories/stories_view.screen.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:story_view/controller/story_controller.dart';
 
 class StoriesController extends GetxController {
   Rx<Data<List<Story>>> allCompaniesStories =
@@ -12,7 +14,7 @@ class StoriesController extends GetxController {
       Rx<Data<List<Story>>>(Data.empty());
 
   Rx<int?> currentMarketId = Rx<int?>(null);
-
+  final StoryController storyController = StoryController();
   final MainRepo _mainRepo = Get.find<MainRepo>();
 
   Future<void> getAllCompaniesStories() async {
@@ -33,7 +35,8 @@ class StoriesController extends GetxController {
   void setCurrentCompany(int id) {
     if (currentMarketId.value != id) {
       currentMarketId.value = id;
-      getCurrentCompanyStories();
     }
+    getCurrentCompanyStories();
+    Get.to(() => StoriesViewScreen());
   }
 }

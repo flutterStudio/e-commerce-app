@@ -6,6 +6,7 @@ import 'package:e_commerce/src/view/sales/components/image_element.component.dar
 import 'package:e_commerce/src/view/sales/components/images_slider.component.dart';
 import 'package:e_commerce/src/view/sales/components/top_bar.component.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
+import 'package:e_commerce/src/view/stories/components/stories_list.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -56,6 +57,7 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                const StoriesList(),
                 SizedBox(
                   height: 200,
                   child: ImagesSlider(
