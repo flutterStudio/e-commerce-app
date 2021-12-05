@@ -31,6 +31,9 @@ Map<String, String> _messages = {
   "message-no-products": "No products found",
   "message-no-product-images": "This products has no images",
   "message-error-loading-image": "Could not load image",
+  "message-sending-evaluation": "Sending evaluation",
+  "message-evaluation-sent": "Evaluation was Sent",
+  "message-error-evaluation-not-sent": "Evaluation was not Sent",
   "no-selected-items": "Please select some items first",
 };
 

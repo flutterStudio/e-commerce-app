@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/model/color.model.dart';
@@ -8,7 +7,9 @@ import 'package:e_commerce/src/model/evaluation.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/repository/product.repo.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
@@ -85,22 +86,26 @@ class ProductController extends GetxController {
   void evaluateProduct() async {
     if (product.value.data != null && !comment.isBlank! && !rate.isBlank!) {
       userEvaluations.value = Data.inProgress();
-      Get.showSnackbar(GetSnackBar(
-        snackStyle: SnackStyle.GROUNDED,
-        messageText: Text(
-          "Sending comment".tr,
-          style: Get.textTheme.subtitle2
-              ?.copyWith(color: Get.theme.colorScheme.onError),
-        ),
-        backgroundColor: Get.theme.colorScheme.error,
-      ));
+      Utils.showSnackBar("message-sending-evaluation".tr,
+          showProgressIndicator: true);
       userEvaluations.value = await _productRepo.addProductEvaluations(
           AddEvaluationDto(
               comment: comment.value,
               productId: product.value.data?.id,
               rate: rate.value));
-      getUserEvaluations();
-      Get.toNamed(AppPaths.productEvaluations);
+      Get.closeCurrentSnackbar();
+      if (userEvaluations.value.isSucceed) {
+        Utils.showSnackBar(
+          "message-evaluation-sent".tr,
+        );
+      } else {
+        Utils.showSnackBar("message-error-evaluation-not-sent".tr,
+            button: TextButton(
+                onPressed: () {
+                  evaluateProduct();
+                },
+                child: Text("retry".tr)));
+      }
     }
   }
 
