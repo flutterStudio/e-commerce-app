@@ -13,10 +13,10 @@ class ImagesSlider extends StatelessWidget {
         ? CarouselSlider.builder(
             itemCount: items.length,
             options: CarouselOptions(
-              autoPlay: false,
+              autoPlay: true,
               enlargeCenterPage: true,
               viewportFraction: 0.9,
-              aspectRatio: 3,
+              aspectRatio: 2,
               initialPage: 2,
             ),
             itemBuilder:
