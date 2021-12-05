@@ -11,11 +11,13 @@ enum ScreenItemtype {
 enum ScreenItemActionType { External, Internal }
 
 enum MediaType { image, video, audio }
-enum errorType {
+
+enum ErrorType {
   forbidden,
   notFound,
   unauthorized,
   badRequest,
   timeout,
-  internalError
+  internalError,
+  none
 }
