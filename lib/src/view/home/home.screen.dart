@@ -22,9 +22,9 @@ class HomeScreen extends GetView<HomeScreenController> {
           controller: controller.pageController,
           screens: const [
             SalesScreen(),
-            ProfileScreen(),
             CartScreen(),
             DiscoverScreen(),
+            ProfileScreen(),
           ],
           items: [
             PersistentBottomNavBarItem(
