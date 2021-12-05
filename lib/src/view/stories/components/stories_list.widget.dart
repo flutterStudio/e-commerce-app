@@ -7,8 +7,8 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class StoriesList extends GetWidget<StoriesController> {
-  const StoriesList({Key? key}) : super(key: key);
-
+  const StoriesList({Key? key, required this.height}) : super(key: key);
+  final double height;
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -21,11 +21,12 @@ class StoriesList extends GetWidget<StoriesController> {
 
   SizedBox _onSucess(BuildContext context, List<Story> stories) {
     return SizedBox(
-        height: 60,
+        height: height,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: stories.length,
             itemBuilder: (context, index) => StoryListItem(
+                  height: height - 10,
                   story: stories[index],
                   onTap: () {
                     stories[index].userId == null

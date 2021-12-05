@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class StoryListItem extends StatelessWidget {
-  const StoryListItem({Key? key, required this.story, this.onTap})
+  const StoryListItem(
+      {Key? key, required this.story, this.onTap, required this.height})
       : super(key: key);
   final Story story;
+  final double height;
+
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 80,
-        height: 80,
+        height: height,
+        width: height,
         margin: const EdgeInsets.only(right: 10),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
@@ -24,9 +27,8 @@ class StoryListItem extends StatelessWidget {
                 width: 2, color: Theme.of(context).colorScheme.primary)),
         child: CustomNetworkImage(
           url: story.attachment ?? "",
-          erroPlaceholder: Icon(
-            Icons.error,
-            color: Theme.of(context).colorScheme.onError,
+          erroPlaceholder: Container(
+            color: Theme.of(context).colorScheme.secondaryVariant,
           ),
         ),
       ),

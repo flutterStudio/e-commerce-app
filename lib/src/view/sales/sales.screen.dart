@@ -58,15 +58,15 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.verticalSpace * 2),
+                  padding:
+                      EdgeInsets.symmetric(vertical: SizeConfig.verticalSpace),
                   child: StoriesList(
-                    height: 70,
+                    height: 90,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      vertical: SizeConfig.verticalSpace * 2),
+                      vertical: SizeConfig.verticalSpace),
                   child: ImagesSlider(
                     items: slider,
                   ),
