@@ -56,7 +56,6 @@ class ProductScreen extends GetView<ProductController> {
                               child: ProductStats(product: data),
                               title: "product-details",
                             ),
-
                             data.colors.isBlank!
                                 ? Container()
                                 : _SectionWidget(
@@ -79,77 +78,9 @@ class ProductScreen extends GetView<ProductController> {
                                   )
                                 : Container(),
                             const UserEvaluation()
-                            // TopRoundedContainer(
-                            //   color: Theme.of(context)
-                            //       .colorScheme
-                            //       .background,
-                            //   child: Column(
-                            //     children: [
-                            //       ColorDots(
-                            //         product: data,
-                            //       ),
-                            //       const SizesList(),
-                            //       TopRoundedContainer(
-                            //         color: Colors.white,
-                            //         child: Padding(
-                            //           padding: EdgeInsets.only(
-                            //             left: MediaQuery.of(context)
-                            //                     .size
-                            //                     .width *
-                            //                 0.15,
-                            //             right: MediaQuery.of(context)
-                            //                     .size
-                            //                     .width *
-                            //                 0.15,
-                            //             bottom:
-                            //                 getProportionateScreenWidth(
-                            //                     40),
-                            //             top: getProportionateScreenWidth(
-                            //                 15),
-                            //           ),
-                            //           child: Obx(() {
-                            //             return Row(
-                            //               children: [
-                            //                 Text(
-                            //                   "${controller.count.value}/${controller.price.value}",
-                            //                   style: Theme.of(context)
-                            //                       .textTheme
-                            //                       .headline4
-                            //                       ?.copyWith(
-                            //                           color: Theme.of(
-                            //                                   context)
-                            //                               .colorScheme
-                            //                               .primary),
-                            //                 ),
-                            //                 Text(
-                            //                   " USD",
-                            //                   style: Theme.of(context)
-                            //                       .textTheme
-                            //                       .headline4,
-                            //                 ),
-                            //                 const Spacer(),
-                            //                 DefaultButton(
-                            //                   child: const Icon(
-                            //                       Icons.shopping_bag),
-                            //                   press: () {
-                            //                     controller.addToCart();
-                            //                   },
-                            //                 ),
-                            //               ],
-                            //             );
-                            //           }),
                           ],
                         ),
                       );
-                      // ShowMore(
-                      //   text: "Show product instances",
-                      //   onClick: () {
-                      //     Get.to(ProductInstances());
-                      //   },
-                      // ),
-                      // ],
-                      // ),
-                      // inProgress: const RefreshProgressIndicator());
                     })),
               ],
             ),

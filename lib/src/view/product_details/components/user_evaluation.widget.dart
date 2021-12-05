@@ -48,6 +48,7 @@ class UserEvaluation extends GetView<ProductController> {
             ? RequestHandler<Evaluation>(
                 data: controller.userEvaluations.value,
                 onSuccess: (context, data) => ReviewItem(
+                    showOptiona: true,
                     review: Evaluation(
                         user: data.user,
                         rate: data.rate!,

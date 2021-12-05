@@ -17,59 +17,77 @@ class ReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(SizeConfig.horizontalSpace * 2),
+      padding: const EdgeInsets.all(SizeConfig.horizontalSpace),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.primaryVariant),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.background,
-              ),
               const Spacer(),
-              Text("${review.user?.firstName} ${review.user?.lastName}"),
-              const Spacer(
-                flex: 10,
-              ),
-              const Text("Date of review")
+              GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.more_vert_rounded,
+                    size: ICONSIZE.sm,
+                  ))
             ],
           ),
-          const SizedBox(
-            height: SizeConfig.verticalSpace,
-          ),
-          Text("${review.comment}"),
-          const SizedBox(
-            height: SizeConfig.verticalSpace,
-          ),
-          RatingBar(
-            itemSize: ICONSIZE.sm,
-            glow: true,
-            maxRating: updatable ? 5 : review.rate ?? 0.0,
-            minRating: updatable ? 0 : review.rate ?? 0.0,
-            allowHalfRating: true,
-            initialRating: review.rate ?? 0.0,
-            unratedColor: updatable
-                ? Theme.of(context).colorScheme.secondary.withAlpha(100)
-                : null,
-            glowColor: updatable ? Theme.of(context).colorScheme.primary : null,
-            updateOnDrag: updatable,
-            ratingWidget: RatingWidget(
-                empty: const Icon(
-                  Icons.star_outline_outlined,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: SizeConfig.horizontalSpace),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.background,
+                    ),
+                    const SizedBox(
+                      width: SizeConfig.horizontalSpace * 2,
+                    ),
+                    Text("${review.user?.firstName} ${review.user?.lastName}"),
+                  ],
                 ),
-                half: Icon(
-                  Icons.star_half_outlined,
-                  color: Theme.of(context).colorScheme.primary,
+                const SizedBox(
+                  height: SizeConfig.verticalSpace,
                 ),
-                full: Icon(
-                  Icons.star_rate,
-                  color: Theme.of(context).colorScheme.primary,
-                )),
-            onRatingUpdate: (double value) {},
-          )
+                Text("${review.comment}"),
+                const SizedBox(
+                  height: SizeConfig.verticalSpace,
+                ),
+                RatingBar(
+                  itemSize: ICONSIZE.sm,
+                  glow: true,
+                  maxRating: updatable ? 5 : review.rate ?? 0.0,
+                  minRating: updatable ? 0 : review.rate ?? 0.0,
+                  allowHalfRating: true,
+                  initialRating: review.rate ?? 0.0,
+                  unratedColor: updatable
+                      ? Theme.of(context).colorScheme.secondary.withAlpha(100)
+                      : null,
+                  glowColor:
+                      updatable ? Theme.of(context).colorScheme.primary : null,
+                  updateOnDrag: updatable,
+                  ratingWidget: RatingWidget(
+                      empty: const Icon(
+                        Icons.star_outline_outlined,
+                      ),
+                      half: Icon(
+                        Icons.star_half_outlined,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      full: Icon(
+                        Icons.star_rate,
+                        color: Theme.of(context).colorScheme.primary,
+                      )),
+                  onRatingUpdate: (double value) {},
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );
