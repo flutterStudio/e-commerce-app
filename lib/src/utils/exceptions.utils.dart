@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/service/auth_service.dart';
+import 'package:e_commerce/src/view/shared/action.dialog.dart';
+import 'package:get/get.dart';
 
 abstract class BaseException implements Exception {
   BaseException({this.errorType = ErrorType.none, required this.message});
@@ -11,11 +14,18 @@ abstract class BaseException implements Exception {
     switch (errorType) {
       case ErrorType.forbidden:
         {
-          message = "Access denied";
+          message = "error-403".tr;
           break;
         }
       case ErrorType.unauthorized:
         {
+          Get.dialog(ActionDialog(
+            title: "error-401".tr,
+            onApprove: () {
+              Get.find<AuthService>().removeUser();
+            },
+            onDeny: () {},
+          ));
           break;
         }
       default:

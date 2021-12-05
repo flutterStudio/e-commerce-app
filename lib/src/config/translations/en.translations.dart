@@ -20,7 +20,6 @@ Map<String, String> _errors = {
   "error-408": "Request Timeout",
   "error-409": "Operation Denied",
   "error-500": "Server Error",
-  "error-invalid-email": "Invalid Email",
 };
 
 Map<String, String> _messages = {
@@ -34,6 +33,7 @@ Map<String, String> _messages = {
   "message-sending-evaluation": "Sending evaluation",
   "message-evaluation-sent": "Evaluation was Sent",
   "message-error-evaluation-not-sent": "Evaluation was not Sent",
+  "error-invalid-email": "Invalid Email",
   "no-selected-items": "Please select some items first",
 };
 
