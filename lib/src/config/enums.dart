@@ -9,3 +9,5 @@ enum ScreenItemtype {
   Item
 }
 enum ScreenItemActionType { External, Internal }
+
+enum MediaType { image, video, audio }
