@@ -6,9 +6,14 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ReviewItem extends StatelessWidget {
   final Evaluation review;
-  const ReviewItem({Key? key, required this.review, this.updatable = false})
+  const ReviewItem(
+      {Key? key,
+      required this.review,
+      this.updatable = false,
+      this.showOptiona = false})
       : super(key: key);
   final bool updatable;
+  final bool showOptiona;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,15 +45,17 @@ class ReviewItem extends StatelessWidget {
             height: SizeConfig.verticalSpace,
           ),
           RatingBar(
-            itemSize: ICONSIZE.md,
+            itemSize: ICONSIZE.sm,
             glow: true,
             maxRating: updatable ? 5 : review.rate ?? 0.0,
             minRating: updatable ? 0 : review.rate ?? 0.0,
             allowHalfRating: true,
             initialRating: review.rate ?? 0.0,
-            unratedColor: Theme.of(context).colorScheme.secondary,
-            glowColor: Theme.of(context).colorScheme.primary,
-            updateOnDrag: false,
+            unratedColor: updatable
+                ? Theme.of(context).colorScheme.secondary.withAlpha(100)
+                : null,
+            glowColor: updatable ? Theme.of(context).colorScheme.primary : null,
+            updateOnDrag: updatable,
             ratingWidget: RatingWidget(
                 empty: const Icon(
                   Icons.star_outline_outlined,
