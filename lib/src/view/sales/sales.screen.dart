@@ -57,9 +57,16 @@ class SalesScreen extends GetView<OfferScreenCopntroller> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const StoriesList(),
-                SizedBox(
-                  height: 200,
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: SizeConfig.verticalSpace * 2),
+                  child: StoriesList(
+                    height: 70,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: SizeConfig.verticalSpace * 2),
                   child: ImagesSlider(
                     items: slider,
                   ),
