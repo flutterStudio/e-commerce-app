@@ -2,7 +2,7 @@ import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
-import 'package:e_commerce/src/view/mixins/refreshable.mixin.dart';
+import 'package:e_commerce/src/view/mixinx/refreshable.mixin.dart';
 import 'package:e_commerce/src/view/sales/components/image_element.component.dart';
 import 'package:e_commerce/src/view/sales/components/images_slider.component.dart';
 import 'package:e_commerce/src/view/sales/components/top_bar.component.dart';
