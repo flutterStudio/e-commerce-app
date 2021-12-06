@@ -1,7 +1,7 @@
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/discover_screen.controller.dart';
 import 'package:e_commerce/src/model/product.model.dart';
-import 'package:e_commerce/src/view/mixins/refreshable.mixin.dart';
+import 'package:e_commerce/src/view/mixinx/refreshable.mixin.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/shared/product_item.widget.dart';
 import 'package:flutter/material.dart';

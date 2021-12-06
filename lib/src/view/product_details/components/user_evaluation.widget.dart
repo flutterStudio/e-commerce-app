@@ -23,23 +23,21 @@ class UserEvaluation extends GetView<ProductController> {
         const SizedBox(
           height: SizeConfig.verticalSpace * 2,
         ),
-        Padding(
-            padding: const EdgeInsets.all(SizeConfig.horizontalSpace * 2),
-            child: Row(
-              children: [
-                Text(
-                  "app-ratings".tr,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const Spacer(),
-                ShowMore(
-                  text: "show-all-ratings".tr,
-                  onClick: () {
-                    Get.toNamed(AppPaths.productEvaluations);
-                  },
-                )
-              ],
-            )),
+        Row(
+          children: [
+            Text(
+              "app-ratings".tr,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            const Spacer(),
+            ShowMore(
+              text: "show-all-ratings".tr,
+              onClick: () {
+                Get.toNamed(AppPaths.productEvaluations);
+              },
+            )
+          ],
+        ),
         const SizedBox(
           height: SizeConfig.verticalSpace * 2,
         ),
