@@ -16,11 +16,12 @@ class OfferScreenCopntroller extends GetxController {
     super.onInit();
   }
 
-  void getMainScreenItems() async {
+  Future<List<ScreenItem>> getMainScreenItems() async {
     screenItems.value = Data.inProgress();
     Data<List<ScreenItem>> companyProducts =
         await _mainRepo.offerRepo.getAllScreenItems();
 
     screenItems.value = companyProducts;
+    return screenItems.value.data ?? [];
   }
 }
