@@ -247,6 +247,8 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
     }
   }
 
@@ -270,6 +272,8 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
     }
   }
 
@@ -296,6 +300,8 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
     }
   }
 
@@ -327,6 +333,8 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
     }
   }
 
@@ -357,6 +365,31 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
+    }
+  }
+
+  ///
+  /// #### brief
+  /// Delet the evaluation specified by the given [id].
+  ///
+  ///
+  Future<Data<bool>> deleteProductEvaluations(int id) async {
+    try {
+      Data<bool>? data = await _apiService.deleteRequest<Data<bool>>(
+        _evaluations,
+        (response) {
+          return Data.succeed(data: true);
+        },
+      );
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
     }
   }
 
@@ -386,6 +419,8 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
     }
   }
 
