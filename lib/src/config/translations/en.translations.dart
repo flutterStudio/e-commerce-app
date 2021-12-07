@@ -26,9 +26,7 @@ Map<String, String> _messages = {
   "message-unknown-error": "Something went wrong!, please try again later.",
   "message-network-error": "Network error !, please try again later.",
   "message-400": "Can not process this rquest, You can report this problem.",
-  "message-401-full":
-      "You do not have the access rights to this information.\n Try to login if you are not, or use another account.",
-  "message-401": "You do not have the access rights to this information.",
+  "message-401": "It seems like you are not logged in.",
   "message-402": "This operation needs a payment method",
   "message-403": "You do not allowed to access this content.",
   "message-404": "Requested information was not found.",
@@ -90,4 +88,5 @@ Map<String, String> _textFields = {
 
 Map<String, String> _question = {
   "question-delete-cart-product": "Are you sure you want to delete ",
+  "question-login": "Go to login screen?",
 };
