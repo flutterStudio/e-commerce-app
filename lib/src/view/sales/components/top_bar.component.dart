@@ -18,9 +18,11 @@ class TopBar extends StatelessWidget {
               flex: 8,
               child: Hero(
                   tag: "search-field",
-                  child: SearchField(onTap: () {
-                    Get.toNamed("/productSearch");
-                  }))),
+                  child: SearchField(
+                      textEditingController: TextEditingController(),
+                      onTap: () {
+                        Get.toNamed("/productSearch");
+                      }))),
           const Spacer(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Bell.svg",

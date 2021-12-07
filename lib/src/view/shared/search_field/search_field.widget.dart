@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SearchField extends StatelessWidget {
-  SearchField({Key? key, this.onTap, this.onSubmitted}) : super(key: key);
+  const SearchField(
+      {Key? key,
+      this.onTap,
+      this.onSubmitted,
+      required this.textEditingController})
+      : super(key: key);
   final void Function(String)? onSubmitted;
   final void Function()? onTap;
-  final TextEditingController? controller = TextEditingController();
+  final TextEditingController textEditingController;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -15,7 +20,7 @@ class SearchField extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: TextField(
-            controller: controller,
+            controller: textEditingController,
             onChanged: (value) => {},
             onSubmitted: onSubmitted,
             onTap: onTap,
@@ -30,7 +35,7 @@ class SearchField extends StatelessWidget {
               prefixIcon: IconButton(
                 icon: const Icon(Icons.search),
                 onPressed: () {
-                  onSubmitted!(controller!.value.text);
+                  onSubmitted!(textEditingController.value.text);
                 },
               ),
             )),

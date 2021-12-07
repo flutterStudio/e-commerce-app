@@ -51,6 +51,8 @@ class SearchScreen extends GetView<SearchController> {
                         child: Hero(
                             tag: "search-field",
                             child: SearchField(
+                              textEditingController:
+                                  controller.textEditingController,
                               onSubmitted: (value) {
                                 controller.searchProduct(value);
                               },
