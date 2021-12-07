@@ -33,7 +33,5 @@ class ProductListcontroller extends GetxController {
         screenItem.data?.productScreenItems != null) {
       products.value = Data.succeed(data: screenItem.data!.productScreenItems!);
     }
-
-    // products.value.copyProperties(screenItem);
   }
 }

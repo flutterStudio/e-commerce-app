@@ -10,10 +10,12 @@ class ReviewItem extends StatelessWidget {
       {Key? key,
       required this.review,
       this.updatable = false,
-      this.showOptiona = false})
+      this.showOptiona = false,
+      this.onOptionsClick})
       : super(key: key);
   final bool updatable;
   final bool showOptiona;
+  final VoidCallback? onOptionsClick;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,11 +29,12 @@ class ReviewItem extends StatelessWidget {
             children: [
               const Spacer(),
               GestureDetector(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.more_vert_rounded,
-                    size: ICONSIZE.sm,
-                  ))
+                onTap: onOptionsClick,
+                child: const Icon(
+                  Icons.more_vert_rounded,
+                  size: ICONSIZE.sm,
+                ),
+              ),
             ],
           ),
           Padding(

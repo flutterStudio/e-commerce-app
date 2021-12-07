@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
+import 'package:e_commerce/src/view/evaluations/components/evaluation_options_modal.dart';
 import 'package:e_commerce/src/view/evaluations/components/review_item.widget.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/shared/show_more.widget.dart';
@@ -47,6 +48,9 @@ class UserEvaluation extends GetView<ProductController> {
                 data: controller.userEvaluations.value,
                 onSuccess: (context, data) => ReviewItem(
                     showOptiona: true,
+                    onOptionsClick: () {
+                      Get.bottomSheet(const EvaluationOptionse());
+                    },
                     review: Evaluation(
                         user: data.user,
                         rate: data.rate!,
