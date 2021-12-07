@@ -42,6 +42,7 @@ class ErrorMessage extends StatelessWidget {
         Expanded(
           child: Text(
             error,
+            textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
                 .caption

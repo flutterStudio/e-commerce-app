@@ -92,6 +92,7 @@ class RequestHandler<T> extends StatelessWidget {
               ),
               Text(
                 message,
+                textAlign: TextAlign.center,
                 style: Get.textTheme.headline5
                     ?.copyWith(color: Get.theme.colorScheme.primary),
               ),
