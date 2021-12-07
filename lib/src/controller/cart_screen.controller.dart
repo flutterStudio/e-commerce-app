@@ -19,7 +19,6 @@ class CartScreenController extends GetxController {
   @override
   void onInit() {
     _mainRepo = Get.find<MainRepo>();
-    getCart();
     super.onInit();
   }
 

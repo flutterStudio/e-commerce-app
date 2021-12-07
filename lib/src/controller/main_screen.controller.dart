@@ -10,11 +10,6 @@ class OfferScreenCopntroller extends GetxController {
   OfferScreenCopntroller();
 
   final MainRepo _mainRepo = Get.find<MainRepo>();
-  @override
-  void onInit() {
-    getMainScreenItems();
-    super.onInit();
-  }
 
   Future<List<ScreenItem>> getMainScreenItems() async {
     screenItems.value = Data.inProgress();

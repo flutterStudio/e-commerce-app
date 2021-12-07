@@ -37,10 +37,16 @@ class AppConfig {
     await Get.putAsync<OfferScreenCopntroller>(
         () async => OfferScreenCopntroller());
 
-    await Get.putAsync<StoriesController>(() async => StoriesController())
-        .then((value) => value.getAllCompaniesStories());
+    await Get.putAsync<StoriesController>(() async => StoriesController());
 
     await Get.putAsync<ProfileController>(() async => ProfileController());
+  }
+
+  Future<void> initData() async {
+    Get.find<StoriesController>().getAllCompaniesStories();
+    Get.find<OfferScreenCopntroller>().getMainScreenItems();
+    Get.find<Discovercontroller>().getProducts();
+    Get.find<CartScreenController>().getCart();
   }
 
   Future<void> _initServices() async {

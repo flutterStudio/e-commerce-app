@@ -22,7 +22,6 @@ class ProductController extends GetxController {
       Rx<Data<List<Evaluation>>>(Data.empty());
 
   Rx<Data<Evaluation>> userEvaluations = Rx<Data<Evaluation>>(Data.empty());
-
   // Products screen temporary info.
 
   /// product available amount taking into consideration the selected count.
@@ -62,7 +61,7 @@ class ProductController extends GetxController {
   ///   * Get users evaluations on the current product.
   ///   * Updates the value of the observable 'productEvaluations'.
   ///
-  void getProductEvaluations() async {
+  Future<void> getProductEvaluations() async {
     if (product.value.data != null) {
       productEvaluations.value = Data.inProgress();
       productEvaluations.value =
@@ -70,7 +69,12 @@ class ProductController extends GetxController {
     }
   }
 
-  void getUserEvaluations() async {
+  ///
+  /// #### Brief
+  ///   * Get prpduct's evaluations on the current product.
+  ///   * Updates the value of the observable 'userEvaluations'.
+  ///
+  Future<void> getUserEvaluations() async {
     if (product.value.data != null) {
       userEvaluations.value = Data.inProgress();
       userEvaluations.value =
@@ -80,10 +84,26 @@ class ProductController extends GetxController {
 
   ///
   /// #### Brief
+  ///   * delete the review with the given [id].
+  ///   * Updates the value of the observable 'userEvaluations'.
+  ///
+  Future<void> deleteEveluation() async {
+    if (userEvaluations.value.data != null) {
+      int? evaluationId = userEvaluations.value.data?.id;
+      if (evaluationId != null) {
+        userEvaluations.value = Data.inProgress();
+        var data = await _productRepo.deleteProductEvaluations(evaluationId);
+        if (data.isSucceed) {}
+      }
+    }
+  }
+
+  ///
+  /// #### Brief
   ///   * Post the evaluation of the current user on the `product`.
   ///   * Updates the value of the observable 'userEvaluations'.
   ///
-  void evaluateProduct() async {
+  Future<void> evaluateProduct() async {
     if (product.value.data != null && !comment.isBlank! && !rate.isBlank!) {
       userEvaluations.value = Data.inProgress();
       Utils.showSnackBar("message-sending-evaluation".tr,

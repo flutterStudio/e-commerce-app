@@ -8,10 +8,6 @@ import 'package:get/get.dart';
 class Discovercontroller extends GetxController {
   Rx<Data<List<Product>>> products = Rx<Data<List<Product>>>(Data.empty());
 
-  Discovercontroller() {
-    getProducts();
-  }
-
   Future<void> getProducts() async {
     products.value = Data.inProgress();
     Data<List<Product>> companyProducts =
