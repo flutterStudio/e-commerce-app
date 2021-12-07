@@ -12,9 +12,9 @@ Map<String, String> _english = {
 };
 
 Map<String, String> _errors = {
-  "error-network": "Network error",
   "error-400": "Bad Request",
   "error-401": "Unauthorized",
+  "error-402": "Payment Required",
   "error-403": "Forbidden",
   "error-404": "Not Found",
   "error-408": "Request Timeout",
@@ -23,7 +23,19 @@ Map<String, String> _errors = {
 };
 
 Map<String, String> _messages = {
-  "message-error": "An error occured",
+  "message-unknown-error": "Something went wrong!, please try again later.",
+  "message-network-error": "Network error !, please try again later.",
+  "message-400": "Can not process this rquest, You can report this problem.",
+  "message-401-full":
+      "You do not have the access rights to this information.\n Try to login if you are not, or use another account.",
+  "message-401": "You do not have the access rights to this information.",
+  "message-402": "This operation needs a payment method",
+  "message-403": "You do not allowed to access this content.",
+  "message-404": "Requested information was not found.",
+  "message-408": "This is taking too much time, please try again later",
+  "message-409": "You are not allowed to perform this operation.",
+  "message-500":
+      "This service is not available right now, please try again later.",
   "message-error-invalid-email": "You enterd an invalid email",
   "message-required-field": "This field is required",
   "message-empty-response": "No data found",
@@ -64,7 +76,8 @@ Map<String, String> _text = {
   "product-sizes": "Product sizes",
   "available-sizes": "Available sizes",
   "add-to-cart": "Add to cart",
-  "product-evaluations": "Product evaluations"
+  "product-evaluations": "Product evaluations",
+  "delete-evaluation": "Delete evaluation"
 };
 
 Map<String, String> _textFields = {

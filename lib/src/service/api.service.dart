@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/utils/exceptions.utils.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class ApiService extends GetConnect {
       return decoder(result);
     }
     _processResponseError(result.statusCode);
-    throw Exception("error-network".tr);
+    throw Exception("message-network-error".tr);
   }
 
   Future<T> postRequest<T>(String url, dynamic body, ModelDecoder<T> decoder,
@@ -38,7 +39,7 @@ class ApiService extends GetConnect {
       return decoder(result);
     }
     _processResponseError(result.statusCode);
-    throw Exception("error-network".tr);
+    throw Exception("message-network-error".tr);
   }
 
   Future<T> putRequest<T>(String url, dynamic body, ModelDecoder<T> decoder,
@@ -53,7 +54,7 @@ class ApiService extends GetConnect {
       return decoder(result);
     }
     _processResponseError(result.statusCode);
-    throw Exception("error-network".tr);
+    throw Exception("message-network-error".tr);
   }
 
   Future<T> deleteRequest<T>(
@@ -69,11 +70,45 @@ class ApiService extends GetConnect {
       return decoder(result);
     }
     _processResponseError(result.statusCode);
-    throw Exception("error-network".tr);
+    throw Exception("message-network-error".tr);
   }
 
   void _processResponseError(int? code) {
-    throw NetworkException(
-        message: "error-network".tr + ", " + "error-$code".tr);
+    ErrorType errorType = ErrorType.none;
+    if (code != null) {
+      switch (code) {
+        case 401:
+          {
+            errorType = ErrorType.unauthorized;
+            break;
+          }
+        case 402:
+          {
+            errorType = ErrorType.paymentRequired;
+            break;
+          }
+        case 403:
+          {
+            errorType = ErrorType.forbidden;
+            break;
+          }
+        case 404:
+          {
+            errorType = ErrorType.notFound;
+            break;
+          }
+        case 408:
+          {
+            errorType = ErrorType.timeout;
+            break;
+          }
+        default:
+          errorType = ErrorType.none;
+      }
+      throw NetworkException(message: "message-$code".tr, errorType: errorType);
+    } else {
+      throw NetworkException(
+          message: "message-network-error".tr, errorType: errorType);
+    }
   }
 }

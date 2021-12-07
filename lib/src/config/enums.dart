@@ -19,5 +19,6 @@ enum ErrorType {
   badRequest,
   timeout,
   internalError,
+  paymentRequired,
   none
 }
