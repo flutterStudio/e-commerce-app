@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/config/app.config.dart';
 import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,9 +13,6 @@ class Application extends StatelessWidget {
     return GetMaterialApp(
       getPages: AppRoutes.pages,
       translations: AppTranslations(),
-      onInit: () async {
-        await AppConfig().initData();
-      },
       routingCallback: (routing) {},
       initialRoute: AppPaths.home,
       locale: Get.deviceLocale,

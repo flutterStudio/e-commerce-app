@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/app.config.dart';
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/discover_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
@@ -31,6 +32,7 @@ class AppRoutes {
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder.put(() {
+        AppConfig().initData();
         return HomeScreenController();
       }),
     ),
