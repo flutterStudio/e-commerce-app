@@ -179,6 +179,8 @@ class ProductRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
     }
   }
 
