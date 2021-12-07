@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
@@ -6,7 +7,9 @@ import 'package:e_commerce/src/view/shared/action.dialog.dart';
 import 'package:get/get.dart';
 
 abstract class BaseException implements Exception {
-  BaseException({this.errorType = ErrorType.none, required this.message});
+  BaseException({this.errorType = ErrorType.none, required this.message}) {
+    handleEception();
+  }
   final ErrorType? errorType;
   String message;
 
@@ -19,13 +22,17 @@ abstract class BaseException implements Exception {
         }
       case ErrorType.unauthorized:
         {
-          Get.dialog(ActionDialog(
-            title: "error-401".tr,
-            onApprove: () {
-              Get.find<AuthService>().removeUser();
-            },
-            onDeny: () {},
-          ));
+          Get.dialog(
+              ActionDialog(
+                title: 'message-401'.tr + '\n ' + 'question-login'.tr,
+                onApprove: () {
+                  Get.find<AuthService>().removeUser();
+                },
+                onDeny: () {
+                  exit(exitCode);
+                },
+              ),
+              barrierDismissible: false);
           break;
         }
       default:
@@ -39,11 +46,10 @@ class NetworkException extends BaseException {
   NetworkException(
       {required String message, String? logMessage, ErrorType? errorType})
       : super(errorType: errorType, message: message) {
-    log(message);
+    // log(message);
   }
 
-  @override
-  String get message => "Network Error, $message";
+  String get info => "Network Error, $message";
 }
 
 class DatabaseException extends BaseException {
@@ -55,8 +61,7 @@ class DatabaseException extends BaseException {
     log(logMessage ?? message);
   }
 
-  @override
-  String get message => "Database Error, $message";
+  String get info => "Database Error, $message";
 }
 
 class DataFormatException extends BaseException {
@@ -68,6 +73,5 @@ class DataFormatException extends BaseException {
     log(logMessage ?? message);
   }
 
-  @override
-  String get message => "DataFormat Error, $message";
+  String get info => "DataFormat Error, $message";
 }
