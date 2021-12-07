@@ -14,7 +14,7 @@ class ActionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("question-delete-cart-product".tr),
+      title: Text(title),
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         TextButton.icon(
