@@ -8,6 +8,8 @@ import 'package:e_commerce/src/controller/profile.controller.dart';
 import 'package:e_commerce/src/controller/search_screen.controller.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
+import 'package:e_commerce/src/view/cms/home.screen.dart';
+import 'package:e_commerce/src/view/cms/products/products.screen.dart';
 import 'package:e_commerce/src/view/evaluations/evaluations.screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
 import 'package:e_commerce/src/view/login/login.screen.dart';
@@ -36,6 +38,19 @@ class AppRoutes {
         return HomeScreenController();
       }),
     ),
+    GetPage(
+        name: AppPaths.admin,
+        page: () => const CMSHome(),
+        participatesInRootNavigator: true,
+        preventDuplicates: true,
+        children: [
+          GetPage(
+            name: AppPaths.products,
+            page: () => const CMSProducts(),
+            participatesInRootNavigator: true,
+            preventDuplicates: true,
+          ),
+        ]),
     GetPage(
       name: AppPaths.login,
       middlewares: [AuthGuard()],
