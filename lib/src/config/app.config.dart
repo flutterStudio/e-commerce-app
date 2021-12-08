@@ -8,6 +8,7 @@ import 'package:e_commerce/src/controller/stories.controller.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
+import 'package:e_commerce/src/view/cms/products/cms.products.controller.dart';
 import 'package:get/get.dart';
 
 class AppConfig {
@@ -20,6 +21,12 @@ class AppConfig {
     await Get.putAsync<MainRepo>(
         () async => MainRepo(apiService: ApiService()));
     await _initControllers();
+    await _initCMSControllers();
+  }
+
+  Future<void> _initCMSControllers() async {
+    await Get.putAsync<CMSProductsController>(
+        () async => CMSProductsController());
   }
 
   Future<void> _initControllers() async {

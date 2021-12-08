@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/view/cms/products/products.screen.dart';
+import '../products/cms.products.screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

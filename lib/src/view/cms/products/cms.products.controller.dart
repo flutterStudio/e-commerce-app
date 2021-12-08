@@ -5,12 +5,18 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/instance_manager.dart';
 
-class CMSPRoductsController extends GetxController {
+class CMSProductsController extends GetxController {
   int? type;
   Rx<int?> offer = Rx<int?>(null);
   Rx<Data<List<Product>>> products = Rx<Data<List<Product>>>(Data.empty());
 
-  CMSPRoductsController({this.type});
+  @override
+  void onInit() {
+    getProducts();
+    super.onInit();
+  }
+
+  CMSProductsController({this.type});
 
   Future<void> getProducts() async {
     products.value = Data.inProgress();
