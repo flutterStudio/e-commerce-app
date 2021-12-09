@@ -51,6 +51,7 @@ Map<String, String> _text = {
   "min-amount": "Minimum amount",
   "available-amount": "Available amount",
   "total-price": "Total price",
+  "price": "Price",
   "login": "Login",
   "login-with-email-password": "Login with your email and password",
   "welcome-back": "Welcome Back",
@@ -84,6 +85,19 @@ Map<String, String> _textFields = {
   "textField-evaluation-hint": "Write a comment",
   "textField-email-label": "Email",
   "textField-email-hint": "Enter your email",
+  "textField-product-price-label": "Product price",
+  "textField-product-price-hint": "Enter your product price",
+  "textField-product-title-label": "Product title",
+  "textField-product-title-hint": "Enter your product title",
+  "textField-product-description-label": "Product description",
+  "textField-product-description-hint": "Enter your product description",
+  "textField-product-min-quantity-label": "Product min quantity",
+  "textField-product-min-quantity-hint": "Enter your product min quantity",
+  "textField-product-discount-label": "Product discount",
+  "textField-product-discount-hint": "Enter your product discount",
+  "textField-product-available-quantity-label": "Product available quantity",
+  "textField-product-available-quantity-hint":
+      "Enter your product available quantity",
 };
 
 Map<String, String> _question = {

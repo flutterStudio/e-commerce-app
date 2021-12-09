@@ -8,6 +8,7 @@ import 'package:e_commerce/src/controller/stories.controller.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
+import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/products/cms.products.controller.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,9 @@ class AppConfig {
   Future<void> _initCMSControllers() async {
     await Get.putAsync<CMSProductsController>(
         () async => CMSProductsController());
+
+    await Get.putAsync<CMSAddProductController>(
+        () async => CMSAddProductController());
   }
 
   Future<void> _initControllers() async {

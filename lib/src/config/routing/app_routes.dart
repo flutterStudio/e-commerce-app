@@ -8,6 +8,8 @@ import 'package:e_commerce/src/controller/profile.controller.dart';
 import 'package:e_commerce/src/controller/search_screen.controller.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/cart/cart_screen.dart';
+import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
+import 'package:e_commerce/src/view/cms/add_product/cms.add_product.screen.dart';
 import 'package:e_commerce/src/view/cms/home/home.cms.screen.dart';
 import 'package:e_commerce/src/view/cms/products/cms.products.screen.dart';
 import 'package:e_commerce/src/view/evaluations/evaluations.screen.dart';
@@ -49,6 +51,15 @@ class AppRoutes {
             page: () => const CMSProducts(),
             participatesInRootNavigator: true,
             preventDuplicates: true,
+          ),
+          GetPage(
+            name: AppPaths.addProduct,
+            page: () => const CMSAddProduct(),
+            participatesInRootNavigator: true,
+            preventDuplicates: true,
+            binding: BindingsBuilder.put(() {
+              return CMSAddProductController();
+            }),
           ),
         ]),
     GetPage(

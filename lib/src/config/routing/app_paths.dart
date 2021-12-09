@@ -1,6 +1,5 @@
 class AppPaths {
   static const String root = "/";
-  static const String admin = "/admin";
   static const String home = "/home";
   static const String login = "/login";
   static const String logout = "/logout";
@@ -15,4 +14,7 @@ class AppPaths {
   // cart pahts
   static const String cart = "/cart";
   static const String addToCart = "/addToCart";
+  // Admin paths
+  static const String admin = "/admin";
+  static const String addProduct = "/addPoduct";
 }

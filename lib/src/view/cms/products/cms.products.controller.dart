@@ -25,4 +25,12 @@ class CMSProductsController extends GetxController {
 
     products.value = companyProducts;
   }
+
+  Future<void> addProduct() async {
+    products.value = Data.inProgress();
+    Data<List<Product>> companyProducts =
+        await Get.find<MainRepo>().productRepo.getActiveProducts();
+
+    products.value = companyProducts;
+  }
 }
