@@ -40,4 +40,21 @@ class FileUtils {
     }
     return MediaType.none;
   }
+
+  static String? getFileExtension(String file) {
+    int start = file.lastIndexOf(".");
+    if (start == -1) {
+      return null;
+    }
+    return file.substring(start + 1, file.length - 1);
+  }
+
+  static MediaType getFileType(String file) {
+    String? extension = getFileExtension(file);
+    if (extension != null) {
+      return getFileTypeByExtension(extension);
+    }
+
+    return MediaType.none;
+  }
 }
