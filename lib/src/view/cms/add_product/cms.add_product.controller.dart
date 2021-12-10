@@ -30,18 +30,25 @@ class CMSAddProductController extends GetxController {
   }
 
   void selectColor(ColorModel color) {
-    selectedColors?.value.addIf(
-        selectedColors?.value
-                .firstWhereOrNull((element) => element.id == color.id) ==
-            null,
-        color);
+    selectedColors?.update((val) {
+      selectedColors?.value.addIf(
+          selectedColors?.value
+                  .firstWhereOrNull((element) => element.id == color.id) ==
+              null,
+          color);
+    });
   }
 
   void unSelectColor(ColorModel color) {
-    selectedColors?.value.remove(color);
+    selectedColors?.update((val) {
+      selectedColors?.value.removeWhere((e) => e.id == color.id);
+    });
   }
 
   bool iscolorSelected(ColorModel color) {
-    return selectedColors?.value.contains(color) ?? false;
+    return selectedColors?.value.firstWhereOrNull((e) => color.id == e.id) ==
+            null
+        ? false
+        : true;
   }
 }

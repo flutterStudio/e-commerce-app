@@ -46,31 +46,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             children: [
               Text("product-colors".tr),
               IconButton(
-                  onPressed: () {
-                    controller.getColors();
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Obx(() {
-                            return RequestHandler<List<ColorModel>>(
-                              data: controller.availableColors.value,
-                              onSuccess: (context, data) => Wrap(
-                                children: data
-                                    .map((e) => ColorDot(
-                                        color: e.colorValue!,
-                                        isSelected:
-                                            controller.iscolorSelected(e),
-                                        onSelected: () {
-                                          controller.iscolorSelected(e)
-                                              ? controller.unSelectColor(e)
-                                              : controller.selectColor(e);
-                                        }))
-                                    .toList(),
-                              ),
-                            );
-                          });
-                        });
-                  },
+                  onPressed: () => _showColorsModal(context),
                   icon: const Icon(Icons.add))
             ],
           ),
@@ -103,5 +79,31 @@ class AddProductForm extends GetView<CMSAddProductController> {
         ],
       ),
     );
+  }
+
+  void _showColorsModal(BuildContext context) {
+    controller.getColors();
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return RequestHandler<List<ColorModel>>(
+            data: controller.availableColors.value,
+            onSuccess: (context, data) => Wrap(
+              children: data
+                  .map((e) =>
+                      GetX<CMSAddProductController>(builder: (controller) {
+                        return ColorDot(
+                            color: e.colorValue!,
+                            isSelected: controller.iscolorSelected(e),
+                            onSelected: () {
+                              controller.iscolorSelected(e)
+                                  ? controller.unSelectColor(e)
+                                  : controller.selectColor(e);
+                            });
+                      }))
+                  .toList(),
+            ),
+          );
+        });
   }
 }
