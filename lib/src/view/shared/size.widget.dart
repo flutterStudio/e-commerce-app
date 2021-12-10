@@ -3,23 +3,26 @@ import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class SizeWidget extends GetWidget<ProductController> {
   final Size value;
   final VoidCallback? onSelect;
   final double? size;
-  const SizeWidget({Key? key, this.size, required this.value, this.onSelect})
+  final bool isSelected;
+  const SizeWidget(
+      {Key? key,
+      this.size,
+      this.isSelected = false,
+      required this.value,
+      this.onSelect})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onSelect,
-      child: Obx(() {
-        final bool isSelected = controller.selectedSize.value == value;
-        return Container(
+        onTap: onSelect,
+        child: Container(
           height: size,
           alignment: Alignment.center,
           margin: const EdgeInsets.symmetric(
@@ -43,8 +46,6 @@ class SizeWidget extends GetWidget<ProductController> {
               color: isSelected
                   ? Theme.of(context).colorScheme.primaryVariant
                   : Theme.of(context).colorScheme.background),
-        );
-      }),
-    );
+        ));
   }
 }

@@ -19,9 +19,14 @@ class _SizeSerializer extends ModelSerializer<Size> {
 
   @override
   Size fromJson(Map<String, dynamic> json) {
-    model.id = json["sizeId"];
-    model.sizeValue = json['size']["sizeValue"];
-    model.joiningId = json['size']["productSizeId"];
+    model.id = json.containsKey(json['size'])
+        ? json["size"]["sizeId"]
+        : json["sizeId"];
+    model.sizeValue = json.containsKey(json['size'])
+        ? json["size"]["sizeValue"]
+        : json["sizeValue"];
+    model.joiningId =
+        json.containsKey(json['size']) ? json["productSizeId"] : null;
     return model;
   }
 

@@ -1,10 +1,12 @@
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/color.model.dart';
+import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
+import 'package:e_commerce/src/view/shared/size.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -60,7 +62,32 @@ class AddProductForm extends GetView<CMSAddProductController> {
                   colors.map((e) => ColorDot(color: e.colorValue!)).toList(),
             );
           }),
-          const SizedBox(height: 20),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
+          Row(
+            children: [
+              Text("product-sizes".tr),
+              IconButton(
+                  onPressed: () => _showSizesModal(context),
+                  icon: const Icon(Icons.add))
+            ],
+          ),
+          const SizedBox(
+            height: SizeConfig.verticalSpace,
+          ),
+          Obx(() {
+            List<Size> colors = controller.selectedSizes!.value;
+            return Wrap(
+              direction: Axis.horizontal,
+              runSpacing: SizeConfig.verticalSpace,
+              children: colors
+                  .map((e) => SizeWidget(
+                        value: e,
+                        isSelected: true,
+                      ))
+                  .toList(),
+            );
+          }),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
           DefaultButton(
             child: Text(
               "continue".tr,
@@ -86,24 +113,58 @@ class AddProductForm extends GetView<CMSAddProductController> {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return RequestHandler<List<ColorModel>>(
-            data: controller.availableColors.value,
-            onSuccess: (context, data) => Wrap(
-              children: data
-                  .map((e) =>
-                      GetX<CMSAddProductController>(builder: (controller) {
-                        return ColorDot(
-                            color: e.colorValue!,
-                            isSelected: controller.iscolorSelected(e),
-                            onSelected: () {
-                              controller.iscolorSelected(e)
-                                  ? controller.unSelectColor(e)
-                                  : controller.selectColor(e);
-                            });
-                      }))
-                  .toList(),
-            ),
-          );
+          return Obx(() {
+            return RequestHandler<List<ColorModel>>(
+              data: controller.availableColors.value,
+              onSuccess: (context, data) => Wrap(
+                children: data
+                    .map((e) =>
+                        GetX<CMSAddProductController>(builder: (controller) {
+                          bool isSelected = controller.iscolorSelected(e);
+                          return ColorDot(
+                              color: e.colorValue!,
+                              isSelected: isSelected,
+                              onSelected: () {
+                                isSelected
+                                    ? controller.unSelectColor(e)
+                                    : controller.selectColor(e);
+                              });
+                        }))
+                    .toList(),
+              ),
+            );
+          });
+        });
+  }
+
+  void _showSizesModal(BuildContext context) {
+    controller.getSizes();
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: false,
+        builder: (context) {
+          return Obx(() {
+            return RequestHandler<List<Size>>(
+              data: controller.availableSizes.value,
+              onSuccess: (context, data) => Wrap(
+                runSpacing: SizeConfig.verticalSpace,
+                children: data
+                    .map((e) =>
+                        GetX<CMSAddProductController>(builder: (controller) {
+                          bool isSelected = controller.isSizeSelected(e);
+                          return SizeWidget(
+                              value: e,
+                              isSelected: isSelected,
+                              onSelect: () {
+                                isSelected
+                                    ? controller.unSelectSize(e)
+                                    : controller.selectSize(e);
+                              });
+                        }))
+                    .toList(),
+              ),
+            );
+          });
         });
   }
 }

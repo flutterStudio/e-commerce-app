@@ -8,6 +8,7 @@ import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
+import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/utils/exceptions.utils.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
@@ -30,6 +31,7 @@ class ProductRepo {
   static const String _filterProducts = "Product/FilterProducts";
   static const String _searchProducts = "Product/search";
   static const String _colors = "Color";
+  static const String _sizes = "Size";
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
 
   Future<Data<List<Product>>> getCompanyProducts(
@@ -460,6 +462,37 @@ class ProductRepo {
     }
   }
 
+  ///
+  /// #### brief
+  /// Get all available sizes.
+  ///
+  ///
+  Future<Data<List<Size>>> getSizes() async {
+    try {
+      Data<List<Size>>? data = await _apiService.getRequest<Data<List<Size>>>(
+        _sizes,
+        (response) {
+          Data<List<Size>> data = Data.empty();
+
+          // Get pagination info if exists.
+          _initPaginationInfo(data, response);
+          // Get pagination info if exists.
+          data.data = _initSizes(response);
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
+    }
+  }
+
   /// Initalize pagination response.
   void _initPaginationInfo(Data data, Response response) {
     var paginationInfo = jsonDecode(response.bodyString!)["paginationInfo"];
@@ -504,6 +537,16 @@ class ProductRepo {
     var data = jsonDecode(response.bodyString!)["colors"] as List;
     for (var product in data) {
       evaluations.add(ColorModel().serilizer().fromJson(product));
+    }
+    return evaluations;
+  }
+
+  /// Initalize sizes response.
+  List<Size> _initSizes(Response response) {
+    List<Size> evaluations = [];
+    var data = jsonDecode(response.bodyString!)["sizes"] as List;
+    for (var product in data) {
+      evaluations.add(Size().serilizer().fromJson(product));
     }
     return evaluations;
   }
