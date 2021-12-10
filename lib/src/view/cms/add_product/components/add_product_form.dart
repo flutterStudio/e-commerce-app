@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
+import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
@@ -87,6 +88,8 @@ class AddProductForm extends GetView<CMSAddProductController> {
                   .toList(),
             );
           }),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
+          const FilesUpload(),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           DefaultButton(
             child: Text(
