@@ -1,6 +1,22 @@
 import 'package:e_commerce/src/config/enums.dart';
 
 class FileUtils {
+  static List<String> videoTypes = [
+    "mp4",
+    "mpeg",
+    "ogg",
+    "mp2t",
+    "webm",
+    "3gpp",
+    "3gpp2"
+  ];
+
+  static List<String> imageTypes = [
+    "png",
+    "jpeg",
+    "gif",
+  ];
+
   static Map<String, MediaType> filesTypes = {
     "image/png": MediaType.image,
     "image/jpeg": MediaType.image,
@@ -14,4 +30,14 @@ class FileUtils {
     "video/3gpp2": MediaType.video,
     "video/x-msvideo": MediaType.video,
   };
+
+  static MediaType getFileTypeByExtension(String extension) {
+    if (imageTypes.contains(extension)) {
+      return MediaType.image;
+    }
+    if (videoTypes.contains(extension)) {
+      return MediaType.video;
+    }
+    return MediaType.none;
+  }
 }
