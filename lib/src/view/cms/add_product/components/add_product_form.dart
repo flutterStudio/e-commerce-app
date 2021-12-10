@@ -1,8 +1,9 @@
-import 'package:e_commerce/src/model/product.model.dart';
+import 'package:e_commerce/src/config/size.config.dart';
+import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
+import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
-import 'package:e_commerce/src/view/shared/error_message.widget.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,15 +42,47 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-available-quantity-label".tr,
           ),
+          Row(
+            children: [
+              Text("product-colors".tr),
+              IconButton(
+                  onPressed: () {
+                    controller.getColors();
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Obx(() {
+                            return RequestHandler<List<ColorModel>>(
+                              data: controller.availableColors.value,
+                              onSuccess: (context, data) => Wrap(
+                                children: data
+                                    .map((e) => ColorDot(
+                                        color: e.colorValue!,
+                                        isSelected:
+                                            controller.iscolorSelected(e),
+                                        onSelected: () {
+                                          controller.iscolorSelected(e)
+                                              ? controller.unSelectColor(e)
+                                              : controller.selectColor(e);
+                                        }))
+                                    .toList(),
+                              ),
+                            );
+                          });
+                        });
+                  },
+                  icon: const Icon(Icons.add))
+            ],
+          ),
+          const SizedBox(
+            height: SizeConfig.verticalSpace,
+          ),
           Obx(() {
-            return RequestHandler<Product>(
-                onSuccess: (context, value) {
-                  return const Text("Logged in successfully");
-                },
-                onFailed: (error) => ErrorMessage(
-                      errors: [error],
-                    ),
-                data: controller.loginStatus.value);
+            List<ColorModel> colors = controller.selectedColors!.value;
+            return Wrap(
+              children:
+                  colors.map((e) => ColorDot(color: e.colorValue!)).toList(),
+            );
           }),
           const SizedBox(height: 20),
           DefaultButton(

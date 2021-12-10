@@ -4,6 +4,7 @@ import 'package:e_commerce/src/dto/add_to_cart.dto.dart';
 import 'package:e_commerce/src/dto/filter_products.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
 import 'package:e_commerce/src/model/category.model.dart';
+import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/evaluation.model.dart';
@@ -28,6 +29,7 @@ class ProductRepo {
   static const String _evaluationsOnProduct = "Evaluation/UserEvaluation";
   static const String _filterProducts = "Product/FilterProducts";
   static const String _searchProducts = "Product/search";
+  static const String _colors = "Color";
   ProductRepo({required ApiService apiService}) : _apiService = apiService;
 
   Future<Data<List<Product>>> getCompanyProducts(
@@ -426,6 +428,38 @@ class ProductRepo {
     }
   }
 
+  ///
+  /// #### brief
+  /// Get all available colors.
+  ///
+  ///
+  Future<Data<List<ColorModel>>> getColors() async {
+    try {
+      Data<List<ColorModel>>? data =
+          await _apiService.getRequest<Data<List<ColorModel>>>(
+        _colors,
+        (response) {
+          Data<List<ColorModel>> data = Data.empty();
+
+          // Get pagination info if exists.
+          _initPaginationInfo(data, response);
+          // Get pagination info if exists.
+          data.data = _initColors(response);
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
+    }
+  }
+
   /// Initalize pagination response.
   void _initPaginationInfo(Data data, Response response) {
     var paginationInfo = jsonDecode(response.bodyString!)["paginationInfo"];
@@ -460,6 +494,16 @@ class ProductRepo {
     var data = jsonDecode(response.bodyString!)["evaluations"] as List;
     for (var product in data) {
       evaluations.add(Evaluation().serilizer().fromJson(product));
+    }
+    return evaluations;
+  }
+
+  /// Initalize valuations response.
+  List<ColorModel> _initColors(Response response) {
+    List<ColorModel> evaluations = [];
+    var data = jsonDecode(response.bodyString!)["colors"] as List;
+    for (var product in data) {
+      evaluations.add(ColorModel().serilizer().fromJson(product));
     }
     return evaluations;
   }

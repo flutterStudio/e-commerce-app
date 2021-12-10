@@ -24,7 +24,7 @@ class CMSAddProduct extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                AddProductForm(),
+                const AddProductForm(),
               ],
             ),
           ),
