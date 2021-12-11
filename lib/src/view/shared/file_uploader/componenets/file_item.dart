@@ -4,6 +4,7 @@ import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class FileUploaderItem extends StatelessWidget {
   const FileUploaderItem({Key? key, required this.info}) : super(key: key);
@@ -12,13 +13,26 @@ class FileUploaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _contentBuilder(context),
+        info.status == FileUploadStatus.uploaded
+            ? const Icon(Icons.approval)
+            : info.status == FileUploadStatus.faild
+                ? const Icon(Icons.error)
+                : const CircularProgressIndicator()
+      ],
+    );
+  }
+
+  Widget _contentBuilder(BuildContext context) {
     switch (info.type) {
       case MediaType.image:
         {
           return _imageFile();
         }
       default:
-        return Container();
+        return const Icon(Icons.file_upload);
     }
   }
 

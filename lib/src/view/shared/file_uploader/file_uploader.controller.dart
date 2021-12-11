@@ -13,7 +13,6 @@ class FileUploaderController extends GetxController {
       // TODO : Show a toast
       return;
     }
-    // TODO : Start uploading file
     uploadFile(file);
     var fileInfo = FileUploaderInfo(file: file);
     fileInfo.status = FileUploadStatus.uploading;
@@ -34,9 +33,25 @@ class FileUploaderController extends GetxController {
   }
 
   Future<void> uploadFile(file) async {
-    Get.find<MainRepo>()
-        .attachmentsRepo
-        .uplaod(file)
-        .then((value) => value.isSucceed);
+    Get.find<MainRepo>().attachmentsRepo.uplaod(file).then((value) {
+      if (value.isSucceed) {
+        updateFileStatus(file, FileUploadStatus.uploaded);
+      }
+      if (value.isFaild) {
+        updateFileStatus(file, FileUploadStatus.faild);
+      }
+    });
+  }
+
+  void updateFileStatus(File file, FileUploadStatus status) {
+    FileUploaderInfo? fileUploaderInfo =
+        files.value.firstWhereOrNull((element) => element.file == file);
+    if (fileUploaderInfo != null) {
+      fileUploaderInfo.status = status;
+    }
+
+    files.update((val) {
+      files.value = files.value;
+    });
   }
 }

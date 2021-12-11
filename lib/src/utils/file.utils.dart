@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:e_commerce/src/config/enums.dart';
 
 class FileUtils {
@@ -46,7 +48,7 @@ class FileUtils {
     if (start == -1) {
       return null;
     }
-    return file.substring(start + 1, file.length - 1);
+    return file.substring(start + 1, file.length);
   }
 
   static MediaType getFileType(String file) {
@@ -56,5 +58,14 @@ class FileUtils {
     }
 
     return MediaType.none;
+  }
+
+  static String? getFileName(File file) {
+    var path = file.path;
+    int start = path.lastIndexOf("/");
+    if (start == -1) {
+      return null;
+    }
+    return path.substring(start + 1, path.length);
   }
 }
