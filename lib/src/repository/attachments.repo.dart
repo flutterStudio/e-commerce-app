@@ -18,15 +18,11 @@ class AttachmentsRepo {
   Future<Data<Attachment>> uplaod(File file) async {
     try {
       FormData fromData = FormData({'file': MultipartFile(file, filename: "")});
-      Data<Attachment>? data = await _apiService.postRequest<Data<Attachment>>(
-        _upload,
-        fromData,
-        (response) {
-          Data<Attachment> data = Data.empty();
-
-          return data;
-        },
-      );
+      Data<Attachment>? data = await _apiService
+          .postRequest<Data<Attachment>>(_upload, fromData, (response) {
+        Data<Attachment> data = Data.empty();
+        return data;
+      }, uploadProgress: (value) {});
 
       return data;
     } on NetworkException catch (e) {

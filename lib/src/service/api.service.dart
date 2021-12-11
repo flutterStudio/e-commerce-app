@@ -28,13 +28,12 @@ class ApiService extends GetConnect {
   }
 
   Future<T> postRequest<T>(String url, dynamic body, ModelDecoder<T> decoder,
-      {Map<String, dynamic>? query}) async {
-    Response result = await super.post(
-      url,
-      body,
-      headers: {"Authorization": _token},
-      query: query,
-    );
+      {Map<String, dynamic>? query,
+      dynamic Function(double)? uploadProgress}) async {
+    Response result = await super.post(url, body,
+        headers: {"Authorization": _token},
+        query: query,
+        uploadProgress: uploadProgress);
     if (result.isOk) {
       return decoder(result);
     }

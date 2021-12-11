@@ -3,6 +3,7 @@ import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:get/get.dart';
 
 class CMSAddProductController extends GetxController {
@@ -19,6 +20,8 @@ class CMSAddProductController extends GetxController {
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
   Rx<List<Size>>? selectedSizes = Rx([]);
+
+  FileUploaderController fileUploaderController = FileUploaderController();
 
   final MainRepo _mainRepo = Get.find<MainRepo>();
 
@@ -79,4 +82,8 @@ class CMSAddProductController extends GetxController {
         ? false
         : true;
   }
+
+  // files upload.
+
+  Future<void> uploadFiles() async {}
 }
