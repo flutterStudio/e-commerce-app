@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:e_commerce/src/model/attachment.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 
@@ -11,7 +13,9 @@ class FileUploaderController extends GetxController {
   Rx<List<FileUploaderInfo>> files = Rx([]);
   void addFile(File file) {
     if (files.value.any((element) => element.file.path == file.path)) {
-      // TODO : Show a toast
+      Utils.showSnackBar("message-file-already-exists".tr,
+          background: Get.theme.colorScheme.secondaryVariant,
+          color: Get.theme.colorScheme.primary);
       return;
     }
     uploadFile(file);
@@ -36,7 +40,8 @@ class FileUploaderController extends GetxController {
   Future<void> uploadFile(file) async {
     Get.find<MainRepo>().attachmentsRepo.uplaod(file).then((value) {
       if (value.isSucceed) {
-        updateFileStatus(file, FileUploadStatus.uploaded);
+        updateFileStatus(file, FileUploadStatus.uploaded,
+            attachment: value.data);
       }
       if (value.isFaild) {
         updateFileStatus(file, FileUploadStatus.faild);
@@ -68,5 +73,9 @@ class FileUploaderController extends GetxController {
           .toList();
     }
     return [];
+  }
+
+  void clearAll() {
+    files.value = [];
   }
 }

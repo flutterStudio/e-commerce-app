@@ -292,10 +292,9 @@ class ProductRepo {
         (response) {
           Data<Product> data = Data.empty();
 
-          Product product =
-              Product().serilizer().fromJson(jsonDecode(response.bodyString!));
+          var productJson = jsonDecode(response.bodyString!);
           // Get pagination info if exists.
-          data = Data.succeed(data: product);
+          data = Data.succeed(data: Product(id: productJson["productId"]));
 
           return data;
         },

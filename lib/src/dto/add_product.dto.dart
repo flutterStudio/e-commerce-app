@@ -51,8 +51,13 @@ class _AddProductDtoSerializer extends ModelSerializer<AddProductDto> {
               [
                 {"categoryId": 1}
               ],
-      "productImagesList":
-          model.images?.map((e) => {"attachmentId": e.attachmentId}).toList(),
+      "mainImageId": model.images!.isNotEmpty ? model.images![0] : null,
+      "productImagesList": model.images!.length <= 1
+          ? []
+          : model.images
+              ?.map((e) => {"attachmentId": e.attachmentId})
+              .toList()
+              .removeAt(0),
       "productSizes": model.sizes?.map((e) => {"sizeId": e.id}).toList(),
       "productColors": model.colors?.map((e) => {"colorId": e.id}).toList(),
       "title": model.title

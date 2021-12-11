@@ -113,7 +113,6 @@ class ProductController extends GetxController {
               comment: comment.value,
               productId: product.value.data?.id,
               rate: rate.value));
-      Get.closeCurrentSnackbar();
       if (userEvaluations.value.isSucceed) {
         Utils.showSnackBar(
           "message-evaluation-sent".tr,

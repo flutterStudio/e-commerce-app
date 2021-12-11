@@ -4,6 +4,7 @@ import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:get/get.dart';
 
@@ -87,7 +88,11 @@ class CMSAddProductController extends GetxController {
   // files upload.
 
   Future<void> addProduct() async {
-    _mainRepo.productRepo.postProduct(AddProductDto(
+    Utils.showSnackBar("message-adding-product".tr,
+        background: Get.theme.colorScheme.primaryVariant,
+        color: Get.theme.colorScheme.primary,
+        showProgressIndicator: true);
+    var result = await _mainRepo.productRepo.postProduct(AddProductDto(
         availableQuantity: availableQuntity.value,
         title: title.value,
         colors: selectedColors?.value ?? [],
@@ -96,5 +101,29 @@ class CMSAddProductController extends GetxController {
         minQuantity: minQuantity.value,
         price: price.value,
         sizes: selectedSizes?.value ?? []));
+
+    Get.closeCurrentSnackbar();
+    if (result.isSucceed) {
+      Utils.showSnackBar(
+        "message-product-added-successfully".tr,
+        background: Get.theme.colorScheme.primaryVariant,
+        color: Get.theme.colorScheme.primary,
+      );
+      clearAll();
+    }
+    if (result.isFaild) {
+      Utils.showSnackBar("message-error-add-product".tr);
+    }
+  }
+
+  void clearAll() {
+    selectedSizes?.value = [];
+    selectedColors?.value = [];
+    title.value = null;
+    description.value = null;
+    minQuantity.value = null;
+    availableQuntity.value = null;
+    price.value = null;
+    fileUploaderController.clearAll();
   }
 }

@@ -45,6 +45,10 @@ Map<String, String> _messages = {
   "message-error-evaluation-not-sent": "Evaluation was not Sent",
   "error-invalid-email": "Invalid Email",
   "no-selected-items": "Please select some items first",
+  "message-product-added-successfully": "Message product added successfully",
+  "message-adding-product": "Adding product",
+  "message-error-add-product": "Error happened while adding the product",
+  "message-file-already-exists": "This file already exists."
 };
 
 Map<String, String> _text = {
@@ -71,6 +75,7 @@ Map<String, String> _text = {
   "product-details": "Product details",
   "product-description": "Product description",
   "product-colors": "Product colors",
+  "add-product": "Add product",
   "available-colors": "Available colors",
   "product-sizes": "Product sizes",
   "available-sizes": "Available sizes",

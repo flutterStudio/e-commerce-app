@@ -12,6 +12,7 @@ class Utils {
       Color? background,
       Widget? button,
       bool showProgressIndicator = false}) {
+    Get.closeCurrentSnackbar();
     Get.showSnackbar(
       GetSnackBar(
         snackStyle: SnackStyle.FLOATING,
