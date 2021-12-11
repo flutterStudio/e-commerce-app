@@ -16,6 +16,7 @@ class FileUtils {
   static List<String> imageTypes = [
     "png",
     "jpeg",
+    "jpg",
     "gif",
   ];
 
@@ -54,7 +55,7 @@ class FileUtils {
   static MediaType getFileType(String file) {
     String? extension = getFileExtension(file);
     if (extension != null) {
-      return getFileTypeByExtension(extension);
+      return getFileTypeByExtension(extension.toLowerCase());
     }
 
     return MediaType.none;

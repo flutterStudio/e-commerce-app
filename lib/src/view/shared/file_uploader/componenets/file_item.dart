@@ -13,15 +13,23 @@ class FileUploaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _contentBuilder(context),
-        info.status == FileUploadStatus.uploaded
-            ? const Icon(Icons.approval)
-            : info.status == FileUploadStatus.faild
-                ? const Icon(Icons.error)
-                : const CircularProgressIndicator()
-      ],
+    return SizedBox(
+      width: 100,
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        fit: StackFit.loose,
+        children: [
+          _contentBuilder(context),
+          info.status == FileUploadStatus.uploaded
+              ? const Icon(
+                  Icons.cloud_upload,
+                  color: Colors.green,
+                )
+              : info.status == FileUploadStatus.faild
+                  ? const Icon(Icons.error)
+                  : const CircularProgressIndicator()
+        ],
+      ),
     );
   }
 
@@ -29,7 +37,8 @@ class FileUploaderItem extends StatelessWidget {
     switch (info.type) {
       case MediaType.image:
         {
-          return _imageFile();
+          return AspectRatio(
+              aspectRatio: 1, child: _imageFile(file: info.file));
         }
       default:
         return const Icon(Icons.file_upload);
@@ -37,11 +46,11 @@ class FileUploaderItem extends StatelessWidget {
   }
 
   Widget _imageFile({File? file, String? url, String? placeholderAsset}) {
-    assert(file == null && url == null && placeholderAsset == null,
-        """file and url can not be both null,
-     or You sould provide an asset to show as a placeholder .""");
-    assert(file != null && url != null,
-        "you can provide a file or a url, You can not use both.");
+    // assert(file == null && url == null && placeholderAsset == null,
+    //     """file and url can not be both null,
+    //  or You sould provide an asset to show as a placeholder .""");
+    // assert(file != null && url != null,
+    //     "you can provide a file or a url, You can not use both.");
 
     if (file != null) {
       return Image.file(file);

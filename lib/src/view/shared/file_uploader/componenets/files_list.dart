@@ -16,6 +16,8 @@ class FileUploaderList extends GetView<FileUploaderController> {
             child: items.isEmpty
                 ? const Text("Upload files")
                 : Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.start,
                     children: items,
                   ))
       ],
