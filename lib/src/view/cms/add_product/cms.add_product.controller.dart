@@ -110,10 +110,10 @@ class CMSAddProductController extends GetxController {
         background: Get.theme.colorScheme.primaryVariant,
         color: Get.theme.colorScheme.primary,
       );
-      clearAll();
+      // clearAll();
     }
     if (result.isFaild) {
-      Utils.showSnackBar("message-error-add-product".tr);
+      Utils.showSnackBar(result.message ?? "message-error-add-product".tr);
     }
   }
 
