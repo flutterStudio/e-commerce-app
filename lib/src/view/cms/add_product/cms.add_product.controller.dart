@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/dto/add_product.dto.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
@@ -85,5 +86,15 @@ class CMSAddProductController extends GetxController {
 
   // files upload.
 
-  Future<void> uploadFiles() async {}
+  Future<void> addProduct() async {
+    _mainRepo.productRepo.postProduct(AddProductDto(
+        availableQuantity: availableQuntity.value,
+        title: title.value,
+        colors: selectedColors?.value ?? [],
+        description: description.value,
+        images: await fileUploaderController.getAttachments(),
+        minQuantity: minQuantity.value,
+        price: price.value,
+        sizes: selectedSizes?.value ?? []));
+  }
 }

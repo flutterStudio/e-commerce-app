@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:e_commerce/src/model/attachment.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:file_picker/file_picker.dart';
@@ -43,15 +44,29 @@ class FileUploaderController extends GetxController {
     });
   }
 
-  void updateFileStatus(File file, FileUploadStatus status) {
+  void updateFileStatus(File file, FileUploadStatus status,
+      {Attachment? attachment}) {
     FileUploaderInfo? fileUploaderInfo =
         files.value.firstWhereOrNull((element) => element.file == file);
     if (fileUploaderInfo != null) {
       fileUploaderInfo.status = status;
+      if (status == FileUploadStatus.uploaded) {
+        fileUploaderInfo.attachment = attachment;
+      }
     }
 
     files.update((val) {
       files.value = files.value;
     });
+  }
+
+  Future<List<Attachment>> getAttachments() async {
+    if (files.value.isNotEmpty) {
+      return files.value
+          .where((element) => element.attachment != null)
+          .map((data) => data.attachment!)
+          .toList();
+    }
+    return [];
   }
 }

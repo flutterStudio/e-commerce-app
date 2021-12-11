@@ -24,4 +24,8 @@ class _CartSerializer extends ModelSerializer<Attachment> {
 
   @override
   Map<String, dynamic> toJson() => throw UnimplementedError();
+
+  Map<String, dynamic> toJsonPostMinimum() {
+    return {"attachmentId": model.attachmentId};
+  }
 }

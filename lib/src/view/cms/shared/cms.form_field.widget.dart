@@ -29,7 +29,7 @@ class CMSFromField extends StatelessWidget {
           autocorrect: false,
           decoration: InputDecoration(
             labelText: label,
-            hintText: "asd",
+            hintText: hint,
             floatingLabelBehavior: FloatingLabelBehavior.always,
           )),
     );

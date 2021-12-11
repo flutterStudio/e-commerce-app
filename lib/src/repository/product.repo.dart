@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
+import 'package:e_commerce/src/dto/add_product.dto.dart';
 import 'package:e_commerce/src/dto/add_to_cart.dto.dart';
 import 'package:e_commerce/src/dto/filter_products.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
@@ -283,19 +284,18 @@ class ProductRepo {
     }
   }
 
-  Future<Data<Product>> postProduct(String url, Product product) async {
+  Future<Data<Product>> postProduct(AddProductDto dto) async {
     try {
       Data<Product>? data = await _apiService.postRequest<Data<Product>>(
-        url,
-        product.serilizer().toJson(),
+        _product,
+        dto.serializer().toJson(),
         (response) {
           Data<Product> data = Data.empty();
 
+          Product product =
+              Product().serilizer().fromJson(jsonDecode(response.bodyString!));
           // Get pagination info if exists.
-          _initPaginationInfo(data, response);
-
-          // Get pagination info if exists.
-          data.data = _initProductData(response);
+          data = Data.succeed(data: product);
 
           return data;
         },

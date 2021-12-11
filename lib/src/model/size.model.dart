@@ -34,4 +34,8 @@ class _SizeSerializer extends ModelSerializer<Size> {
   Map<String, dynamic> toJson() {
     throw UnimplementedError();
   }
+
+  Map<String, dynamic> toJsonPostMinimum() {
+    return {"sizeId": model.id};
+  }
 }

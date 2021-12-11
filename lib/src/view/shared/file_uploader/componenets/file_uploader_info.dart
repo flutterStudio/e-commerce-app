@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/model/attachment.model.dart';
 import 'package:e_commerce/src/utils/file.utils.dart';
 
 class FileUploaderInfo {
@@ -13,6 +14,7 @@ class FileUploaderInfo {
   File get file => _file;
 
   MediaType? type;
+  Attachment? attachment;
   FileUploadStatus? status;
 }
 

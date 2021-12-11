@@ -26,24 +26,57 @@ class AddProductForm extends GetView<CMSAddProductController> {
         children: [
           CMSFromField(
             label: "textField-product-title-label".tr,
+            hint: "textField-product-title-hint".tr,
             validator: (value) {
-              return null;
+              return GetUtils.isNullOrBlank(value)!
+                  ? "please fill this field"
+                  : null;
+            },
+            onChanged: (value) {
+              controller.title.value = value;
             },
           ),
           CMSFromField(
             label: "textField-product-description-label".tr,
+            hint: "textField-product-description-hint".tr,
+            onChanged: (value) {
+              controller.description.value = value;
+            },
           ),
           CMSFromField(
             label: "textField-product-price-label".tr,
+            hint: "textField-product-price-hint".tr,
+            validator: (value) {
+              return GetUtils.isNullOrBlank(value)!
+                  ? "please fill this field"
+                  : !GetUtils.isNum(value!)
+                      ? "please write valid price"
+                      : null;
+            },
+            onChanged: (value) {
+              controller.price.value = double.parse(value);
+            },
           ),
-          CMSFromField(
-            label: "textField-product-discount-label".tr,
-          ),
+          // CMSFromField(
+          //   label: "textField-product-discount-label".tr,
+          //   hint: "textField-product-discount-hint".tr,
+          //   onChanged: (value) {
+          //     controller. .value = double.parse(value);
+          //   },
+          // ),
           CMSFromField(
             label: "textField-product-min-quantity-label".tr,
+            hint: "textField-product-min-quantity-hint".tr,
+            onChanged: (value) {
+              controller.minQuantity.value = int.parse(value);
+            },
           ),
           CMSFromField(
             label: "textField-product-available-quantity-label".tr,
+            hint: "textField-product-available-quantity-hint".tr,
+            onChanged: (value) {
+              controller.availableQuntity.value = int.parse(value);
+            },
           ),
           Row(
             children: [
@@ -102,7 +135,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             press: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-                // controller.login();
+                controller.addProduct();
               }
             },
           ),

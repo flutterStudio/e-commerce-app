@@ -36,4 +36,8 @@ class _ColorSerializer extends ModelSerializer<ColorModel> {
   Map<String, dynamic> toJson() {
     throw UnimplementedError();
   }
+
+  Map<String, dynamic> toJsonPostMinimum() {
+    return {"colorId": model.id};
+  }
 }

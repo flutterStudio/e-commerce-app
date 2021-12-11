@@ -27,4 +27,8 @@ class _CategorySerializer extends ModelSerializer<Category> {
   Map<String, dynamic> toJson() {
     throw UnimplementedError();
   }
+
+  Map<String, dynamic> toJsonPostMinimum() {
+    return {"categoryId": model.id};
+  }
 }
