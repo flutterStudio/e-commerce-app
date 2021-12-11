@@ -103,6 +103,9 @@ Map<String, String> _textFields = {
   "textField-product-available-quantity-label": "Product available quantity",
   "textField-product-available-quantity-hint":
       "Enter your product available quantity",
+  "textField-validation-not-vaild-value": "Please enter a valid @field value.",
+  "textField-validation-not-valid-type": "You can only enter @type.",
+  "textField-validation-general": "@field1 @case @field2.",
 };
 
 Map<String, String> _question = {

@@ -5,7 +5,6 @@ import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 
