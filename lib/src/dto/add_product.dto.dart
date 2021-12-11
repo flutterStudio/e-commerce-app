@@ -51,7 +51,8 @@ class _AddProductDtoSerializer extends ModelSerializer<AddProductDto> {
               [
                 {"categoryId": 1}
               ],
-      "mainImageId": model.images!.isNotEmpty ? model.images![0] : null,
+      "mainImageId":
+          model.images!.isNotEmpty ? model.images![0].attachmentId : null,
       "productImagesList": model.images!.length <= 1
           ? []
           : model.images
