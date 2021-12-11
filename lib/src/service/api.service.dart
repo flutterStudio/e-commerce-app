@@ -68,14 +68,20 @@ class ApiService extends GetConnect {
     if (result.isOk) {
       return decoder(result);
     }
-    _processResponseError(result.statusCode);
+    _processResponseError(result.statusCode, body: result.bodyString);
     throw Exception("message-network-error".tr);
   }
 
-  void _processResponseError(int? code) {
+  void _processResponseError(int? code, {String? body}) {
     ErrorType errorType = ErrorType.none;
     if (code != null) {
       switch (code) {
+        case 400:
+          {
+            errorType = ErrorType.badRequest;
+            throw NetworkException(
+                message: body ?? "message-$code".tr, errorType: errorType);
+          }
         case 401:
           {
             errorType = ErrorType.unauthorized;
