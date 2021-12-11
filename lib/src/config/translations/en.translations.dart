@@ -45,7 +45,7 @@ Map<String, String> _messages = {
   "message-error-evaluation-not-sent": "Evaluation was not Sent",
   "error-invalid-email": "Invalid Email",
   "no-selected-items": "Please select some items first",
-  "message-product-added-successfully": "Message product added successfully",
+  "message-product-added-successfully": "Product added successfully",
   "message-adding-product": "Adding product",
   "message-error-add-product": "Error happened while adding the product",
   "message-file-already-exists": "This file already exists."
@@ -103,9 +103,10 @@ Map<String, String> _textFields = {
   "textField-product-available-quantity-label": "Product available quantity",
   "textField-product-available-quantity-hint":
       "Enter your product available quantity",
-  "textField-validation-not-vaild-value": "Please enter a valid @field value.",
+  "textField-validation-not-valid": "Please use a @field value @criteria.",
+  "textField-validation-needed": "@field is needed.",
   "textField-validation-not-valid-type": "You can only enter @type.",
-  "textField-validation-general": "@field1 @case @field2.",
+  "textField-validation-general": "@field1 can not be @case @field2.",
 };
 
 Map<String, String> _question = {

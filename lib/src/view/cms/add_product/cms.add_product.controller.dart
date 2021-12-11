@@ -19,6 +19,7 @@ class CMSAddProductController extends GetxController {
   Rx<int?> minQuantity = Rx(null);
   Rx<int?> availableQuntity = Rx(null);
   Rx<double?> price = Rx(null);
+  Rx<double?> discount = Rx(0);
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
   Rx<List<Size>>? selectedSizes = Rx([]);
@@ -122,6 +123,7 @@ class CMSAddProductController extends GetxController {
     title.value = null;
     description.value = null;
     minQuantity.value = null;
+    discount.value = null;
     availableQuntity.value = null;
     price.value = null;
     fileUploaderController.clearAll();

@@ -30,7 +30,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             inputType: TextInputType.text,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
-                  ? "please fill this field"
+                  ? "textField-validation-needed".trParams({"field": "Title"})
                   : null;
             },
             onChanged: (value) {
@@ -41,6 +41,12 @@ class AddProductForm extends GetView<CMSAddProductController> {
             label: "textField-product-description-label".tr,
             hint: "textField-product-description-hint".tr,
             inputType: TextInputType.multiline,
+            validator: (value) {
+              return GetUtils.isNullOrBlank(value)!
+                  ? "textField-validation-needed"
+                      .trParams({"field": "Description"})
+                  : null;
+            },
             onChanged: (value) {
               controller.description.value = value;
             },
@@ -51,9 +57,10 @@ class AddProductForm extends GetView<CMSAddProductController> {
             inputType: TextInputType.number,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
-                  ? "please fill this field"
+                  ? "textField-validation-needed".trParams({"field": "Price"})
                   : !GetUtils.isNum(value!)
-                      ? "please write valid price"
+                      ? "textField-validation-not-valid-type"
+                          .trParams({"type": "positive numbers"})
                       : null;
             },
             onChanged: (value) {
@@ -64,7 +71,23 @@ class AddProductForm extends GetView<CMSAddProductController> {
             label: "textField-product-discount-label".tr,
             hint: "textField-product-discount-hint".tr,
             inputType: TextInputType.number,
-            onChanged: (value) {},
+            onChanged: (value) {
+              controller.discount.value = double.parse(value);
+            },
+            validator: (value) {
+              return GetUtils.isNullOrBlank(value)!
+                  ? "textField-validation-needed"
+                      .trParams({"field": "Discount"})
+                  : !GetUtils.isNum(value!)
+                      ? "textField-validation-not-valid-type"
+                          .trParams({"type": "positive numbers"})
+                      : controller.discount.value! > 100
+                          ? "textField-validation-not-valid".trParams({
+                              "field": "discount",
+                              "criteria": "under than 100%"
+                            })
+                          : null;
+            },
           ),
           CMSFromField(
             label: "textField-product-min-quantity-label".tr,
@@ -73,12 +96,43 @@ class AddProductForm extends GetView<CMSAddProductController> {
             onChanged: (value) {
               controller.minQuantity.value = int.parse(value);
             },
+            validator: (value) {
+              return GetUtils.isNullOrBlank(value)!
+                  ? "textField-validation-needed"
+                      .trParams({"field": "Minimum 1uantity"})
+                  : !GetUtils.isNumericOnly(value!)
+                      ? "textField-validation-not-valid-type"
+                          .trParams({"type": "positive numbers"})
+                      : controller.minQuantity.value! >
+                              controller.availableQuntity.value!
+                          ? "textField-validation-general".trParams({
+                              "field1": "Product's minimum amount",
+                              "case": "more than ",
+                              "field2": "available amount"
+                            })
+                          : null;
+            },
           ),
           CMSFromField(
             label: "textField-product-available-quantity-label".tr,
             hint: "textField-product-available-quantity-hint".tr,
             inputType: TextInputType.number,
-            validator: (value) {},
+            validator: (value) {
+              return GetUtils.isNullOrBlank(value)!
+                  ? "textField-validation-needed"
+                      .trParams({"field": "Available 1uantity"})
+                  : !GetUtils.isNumericOnly(value!)
+                      ? "textField-validation-not-valid-type"
+                          .trParams({"type": "positive numbers"})
+                      : controller.minQuantity.value! >
+                              controller.availableQuntity.value!
+                          ? "textField-validation-general".trParams({
+                              "field1": "Product's minimum amount",
+                              "case": "more than ",
+                              "field2": "available amount"
+                            })
+                          : null;
+            },
             onChanged: (value) {
               controller.availableQuntity.value = int.parse(value);
             },
