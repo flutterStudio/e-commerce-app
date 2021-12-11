@@ -27,6 +27,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-title-label".tr,
             hint: "textField-product-title-hint".tr,
+            initialValue: controller.title.value,
             inputType: TextInputType.text,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
@@ -41,6 +42,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             label: "textField-product-description-label".tr,
             hint: "textField-product-description-hint".tr,
             inputType: TextInputType.multiline,
+            initialValue: controller.description.value,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
@@ -54,6 +56,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-price-label".tr,
             hint: "textField-product-price-hint".tr,
+            initialValue: controller.price.value?.toString() ?? "",
             inputType: TextInputType.number,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
@@ -70,6 +73,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-discount-label".tr,
             hint: "textField-product-discount-hint".tr,
+            initialValue: controller.discount.value?.toString() ?? "",
             inputType: TextInputType.number,
             onChanged: (value) {
               controller.discount.value = double.parse(value);
@@ -93,6 +97,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             label: "textField-product-min-quantity-label".tr,
             hint: "textField-product-min-quantity-hint".tr,
             inputType: TextInputType.number,
+            initialValue: controller.minQuantity.value?.toString() ?? "",
             onChanged: (value) {
               controller.minQuantity.value = int.parse(value);
             },
@@ -116,6 +121,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-available-quantity-label".tr,
             hint: "textField-product-available-quantity-hint".tr,
+            initialValue: controller.availableQuntity.value?.toString() ?? "",
             inputType: TextInputType.number,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!

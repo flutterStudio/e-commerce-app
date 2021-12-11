@@ -10,7 +10,8 @@ class CMSFromField extends StatelessWidget {
       this.label,
       this.hint,
       this.onChanged,
-      this.inputType = TextInputType.none})
+      this.inputType = TextInputType.none,
+      this.initialValue})
       : super(key: key);
 
   final void Function(String?)? onSaved;
@@ -19,6 +20,7 @@ class CMSFromField extends StatelessWidget {
   final String? hint;
   final void Function(String)? onChanged;
   final TextInputType? inputType;
+  final String? initialValue;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,6 +29,7 @@ class CMSFromField extends StatelessWidget {
           keyboardType: inputType,
           onSaved: onSaved,
           validator: validator,
+          initialValue: initialValue,
           onChanged: onChanged,
           autocorrect: false,
           decoration: InputDecoration(
