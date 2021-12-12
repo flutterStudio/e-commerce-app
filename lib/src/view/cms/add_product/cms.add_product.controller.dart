@@ -6,6 +6,8 @@ import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CMSAddProductController extends GetxController {
@@ -20,6 +22,8 @@ class CMSAddProductController extends GetxController {
   Rx<int?> availableQuntity = Rx(null);
   Rx<double?> price = Rx(null);
   Rx<double?> discount = Rx(0);
+  Rx<Color?> pickedColor = Rx(null);
+  Rx<Data<Color>?> upoadedColor = Rx(null);
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
   Rx<List<Size>>? selectedSizes = Rx([]);
@@ -42,6 +46,11 @@ class CMSAddProductController extends GetxController {
               null,
           color);
     });
+  }
+
+  void uploadColor(ColorModel color) {
+    upoadedColor.value = Data.inProgress();
+    _mainRepo.productRepo.postColor(color);
   }
 
   void unSelectColor(ColorModel color) {

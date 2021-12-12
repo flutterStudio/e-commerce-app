@@ -2,7 +2,6 @@ import 'package:e_commerce/src/middleware/model_serilizer.middleware.dart';
 import 'package:e_commerce/src/model/model.dart';
 import 'package:e_commerce/src/utils/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ColorModel extends Model {
   int? id;

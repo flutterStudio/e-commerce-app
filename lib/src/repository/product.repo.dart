@@ -463,6 +463,35 @@ class ProductRepo {
 
   ///
   /// #### brief
+  /// Post color to backend.
+  ///
+  ///
+  Future<Data<ColorModel>> postColor(ColorModel color) async {
+    try {
+      Data<ColorModel>? data = await _apiService.postRequest<Data<ColorModel>>(
+        _colors,
+        color.serilizer().toJson(),
+        (response) {
+          Data<ColorModel> data = Data.empty();
+
+          data.data = _initColors(response);
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
+    }
+  }
+
+  ///
+  /// #### brief
   /// Get all available sizes.
   ///
   ///

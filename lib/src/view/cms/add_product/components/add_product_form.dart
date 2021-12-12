@@ -10,6 +10,7 @@ import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/shared/size.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart' as color_picker;
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/get.dart';
 
@@ -219,48 +220,90 @@ class AddProductForm extends GetView<CMSAddProductController> {
             child: Obx(() {
               return RequestHandler<List<ColorModel>>(
                 data: controller.availableColors.value,
-                onSuccess: (context, data) => Column(
-                  children: [
-                    const SizedBox(height: SizeConfig.verticalSpace),
-                    Text(
-                      "Select product colors",
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    const SizedBox(height: SizeConfig.verticalSpace * 2),
-                    Expanded(
-                      child: Wrap(
-                        children: data
-                            .map((e) => GetX<CMSAddProductController>(
-                                    builder: (controller) {
-                                  bool isSelected =
-                                      controller.iscolorSelected(e);
-                                  return ColorDot(
-                                      color: e.colorValue!,
-                                      size: 50,
-                                      shape: BoxShape.circle,
-                                      isSelected: isSelected,
-                                      onSelected: () {
-                                        isSelected
-                                            ? controller.unSelectColor(e)
-                                            : controller.selectColor(e);
-                                      });
-                                }))
-                            .toList(),
+                onSuccess: (context, data) {
+                  List<Widget> colorsList = _initColorsList(
+                      context, controller.availableColors.value.data!);
+                  return Column(
+                    children: [
+                      const SizedBox(height: SizeConfig.verticalSpace),
+                      Text(
+                        "Select product colors",
+                        style: Theme.of(context).textTheme.headline4,
                       ),
-                    ),
-                    DefaultButton(
-                        child: Text(
-                      "add-new-color",
-                      style: Theme.of(context).textTheme.headline4?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary),
-                    ))
-                  ],
-                ),
+                      const SizedBox(height: SizeConfig.verticalSpace * 2),
+                      Expanded(
+                          child: Wrap(children: [
+                        Wrap(children: colorsList),
+                        IconButton(
+                            onPressed: () {
+                              Get.dialog<Color>(Dialog(
+                                child: Container(
+                                  color: Colors.white,
+                                  child: Column(
+                                    children: [
+                                      color_picker.ColorPicker(
+                                        displayThumbColor: true,
+                                        onColorChanged: (color) {
+                                          controller.pickedColor.value = color;
+                                        },
+                                        pickerColor: Colors.white,
+                                        pickerAreaBorderRadius:
+                                            BorderRadius.circular(1000),
+                                        paletteType:
+                                            color_picker.PaletteType.hueWheel,
+                                      ),
+                                      DefaultButton(
+                                        child: Text(
+                                          "add".tr,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6
+                                              ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimary),
+                                        ),
+                                        press: () {},
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ));
+                            },
+                            icon: Icon(Icons.add,
+                                color: Get.theme.colorScheme.primary))
+                      ])),
+                      DefaultButton(
+                          child: Text(
+                        "add-new-color",
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ))
+                    ],
+                  );
+                },
               );
             }),
           );
         });
   }
+
+  List<Widget> _initColorsList(BuildContext context, List<ColorModel> colors) =>
+      colors
+          .map((e) => GetX<CMSAddProductController>(builder: (controller) {
+                bool isSelected = controller.iscolorSelected(e);
+                return ColorDot(
+                    color: e.colorValue!,
+                    size: 50,
+                    shape: BoxShape.circle,
+                    isSelected: isSelected,
+                    onSelected: () {
+                      isSelected
+                          ? controller.unSelectColor(e)
+                          : controller.selectColor(e);
+                    });
+              }))
+          .toList();
 
   void _showSizesModal(BuildContext context) {
     controller.getSizes();

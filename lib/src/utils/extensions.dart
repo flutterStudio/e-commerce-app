@@ -24,6 +24,8 @@ extension CustomColor on Color {
     // return null;
   }
 
+  String? toHex() => '#${value.toRadixString(16)}';
+
   Color? darken(double value) {
     HSLColor color = HSLColor.fromColor(this);
 
