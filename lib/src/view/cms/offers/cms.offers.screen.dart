@@ -1,19 +1,33 @@
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/image_element.component.dart';
 import 'package:e_commerce/src/view/cms/offers/components/images_slider.component.dart';
-import 'package:e_commerce/src/view/mixinx/refreshable.mixin.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/stories/components/stories_list.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller>
-    with RefreshableMixin {
+class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller> {
   const CMSOffersScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(AppPaths.admin + AppPaths.addOffer);
+          },
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          child: Icon(
+            Icons.add,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
+        body: SafeArea(child: _cmsOffersScreenSContentBuilder(context)));
+  }
 
   Widget _cmsOffersScreenSContentBuilder(BuildContext context) {
     return Center(
@@ -82,16 +96,6 @@ class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller>
     );
   }
 
-  @override
-  Widget body(context) {
-    return SafeArea(
-      child: Padding(
-          padding: const EdgeInsets.all(SizeConfig.verticalSpace),
-          child: _cmsOffersScreenSContentBuilder(context)),
-    );
-  }
-
-  @override
   Future<void> onRefresh() {
     var items = controller.getMainScreenItems();
     return items;

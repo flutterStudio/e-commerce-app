@@ -17,4 +17,5 @@ class AppPaths {
   // Admin paths
   static const String admin = "/admin";
   static const String addProduct = "/addPoduct";
+  static const String addOffer = "/addOffer";
 }
