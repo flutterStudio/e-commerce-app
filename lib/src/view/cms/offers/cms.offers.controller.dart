@@ -8,7 +8,9 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class CMSOfferScreenCopntroller extends GetxController {
   Rx<Data<List<ScreenItem>>> screenItems =
       Rx<Data<List<ScreenItem>>>(Data.empty());
-  CMSOfferScreenCopntroller();
+  CMSOfferScreenCopntroller() {
+    getMainScreenItems();
+  }
 
   final MainRepo _mainRepo = Get.find<MainRepo>();
 

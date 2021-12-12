@@ -1,11 +1,9 @@
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/config/size.config.dart';
-import 'package:e_commerce/src/controller/main_screen.controller.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/image_element.component.dart';
 import 'package:e_commerce/src/view/cms/offers/components/images_slider.component.dart';
-import 'package:e_commerce/src/view/cms/offers/components/top_bar.component.dart';
 import 'package:e_commerce/src/view/mixinx/refreshable.mixin.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/stories/components/stories_list.widget.dart';
@@ -21,7 +19,6 @@ class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller>
     return Center(
       child: Column(
         children: [
-          const TopBar(),
           Expanded(
             child: Obx(() {
               return RequestHandler<List<ScreenItem>>(
@@ -87,9 +84,11 @@ class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller>
 
   @override
   Widget body(context) {
-    return Padding(
-        padding: const EdgeInsets.all(SizeConfig.verticalSpace),
-        child: _cmsOffersScreenSContentBuilder(context));
+    return SafeArea(
+      child: Padding(
+          padding: const EdgeInsets.all(SizeConfig.verticalSpace),
+          child: _cmsOffersScreenSContentBuilder(context)),
+    );
   }
 
   @override

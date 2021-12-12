@@ -19,9 +19,11 @@ class ImagesSlider extends StatelessWidget {
               aspectRatio: 2,
               initialPage: 2,
             ),
-            itemBuilder:
-                (BuildContext context, int itemIndex, int pageViewIndex) =>
-                    ImageItem(item: items[itemIndex]))
+            itemBuilder: (BuildContext context, int itemIndex,
+                    int pageViewIndex) =>
+                itemIndex > items.length
+                    ? IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+                    : ImageItem(item: items[itemIndex]))
         : Container();
   }
 }

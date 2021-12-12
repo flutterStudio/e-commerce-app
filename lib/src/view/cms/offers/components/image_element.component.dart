@@ -3,6 +3,7 @@ import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/utils/network.utils.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
 class ImageItem extends StatelessWidget {
@@ -12,20 +13,44 @@ class ImageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          switch (item.actionType) {
-            case ScreenItemActionType.External:
-              {
-                NetworkUtils.launchURL(item.externalLink ?? "");
-                break;
+    return Stack(
+      children: [
+        GestureDetector(
+            onTap: () {
+              switch (item.actionType) {
+                case ScreenItemActionType.External:
+                  {
+                    NetworkUtils.launchURL(item.externalLink ?? "");
+                    break;
+                  }
+                default:
+                  {
+                    Get.toNamed("/productsOffer/${item.screenItemId}");
+                  }
               }
-            default:
-              {
-                Get.toNamed("/productsOffer/${item.screenItemId}");
-              }
-          }
-        },
-        child: CustomNetworkImage(url: item.image ?? ""));
+            },
+            child: CustomNetworkImage(url: item.image ?? "")),
+        Container(
+          height: 50,
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                Colors.black54,
+                Colors.black38,
+                Colors.black12,
+                Colors.transparent
+              ])),
+        ),
+        PositionedDirectional(
+            child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.more_vert_outlined,
+                  color: Colors.white,
+                ))),
+      ],
+    );
   }
 }
