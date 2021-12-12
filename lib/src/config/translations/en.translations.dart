@@ -76,6 +76,8 @@ Map<String, String> _text = {
   "product-description": "Product description",
   "product-colors": "Product colors",
   "add-product": "Add product",
+  "select-product-sizes": "Select product sizes",
+  "select-product-colors": "Select product colors",
   "available-colors": "Available colors",
   "product-sizes": "Product sizes",
   "available-sizes": "Available sizes",

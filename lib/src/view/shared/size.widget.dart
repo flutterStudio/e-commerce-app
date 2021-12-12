@@ -1,11 +1,11 @@
 import 'package:e_commerce/src/config/size.config.dart';
-import 'package:e_commerce/src/controller/product.controller.dart';
 import 'package:e_commerce/src/model/size.model.dart';
+import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-class SizeWidget extends GetWidget<ProductController> {
+class SizeWidget extends GetView<CMSAddProductController> {
   final Size value;
   final VoidCallback? onSelect;
   final double? size;

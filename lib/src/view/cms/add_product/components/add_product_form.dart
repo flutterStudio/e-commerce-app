@@ -3,6 +3,7 @@ import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
+import 'package:e_commerce/src/view/cms/add_product/components/select_slize.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
@@ -227,7 +228,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
                     children: [
                       const SizedBox(height: SizeConfig.verticalSpace),
                       Text(
-                        "Select product colors",
+                        "select-product-colors".tr,
                         style: Theme.of(context).textTheme.headline4,
                       ),
                       const SizedBox(height: SizeConfig.verticalSpace * 2),
@@ -311,28 +312,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
         context: context,
         isScrollControlled: false,
         builder: (context) {
-          return Obx(() {
-            return RequestHandler<List<Size>>(
-              data: controller.availableSizes.value,
-              onSuccess: (context, data) => Wrap(
-                runSpacing: SizeConfig.verticalSpace,
-                children: data
-                    .map((e) =>
-                        GetX<CMSAddProductController>(builder: (controller) {
-                          bool isSelected = controller.isSizeSelected(e);
-                          return SizeWidget(
-                              value: e,
-                              isSelected: isSelected,
-                              onSelect: () {
-                                isSelected
-                                    ? controller.unSelectSize(e)
-                                    : controller.selectSize(e);
-                              });
-                        }))
-                    .toList(),
-              ),
-            );
-          });
+          return const SelectSizeWidget();
         });
   }
 }
