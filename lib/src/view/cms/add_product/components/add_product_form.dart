@@ -214,27 +214,51 @@ class AddProductForm extends GetView<CMSAddProductController> {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Obx(() {
-            return RequestHandler<List<ColorModel>>(
-              data: controller.availableColors.value,
-              onSuccess: (context, data) => Wrap(
-                children: data
-                    .map((e) =>
-                        GetX<CMSAddProductController>(builder: (controller) {
-                          bool isSelected = controller.iscolorSelected(e);
-                          return ColorDot(
-                              color: e.colorValue!,
-                              isSelected: isSelected,
-                              onSelected: () {
-                                isSelected
-                                    ? controller.unSelectColor(e)
-                                    : controller.selectColor(e);
-                              });
-                        }))
-                    .toList(),
-              ),
-            );
-          });
+          return Padding(
+            padding: const EdgeInsets.all(SizeConfig.verticalSpace),
+            child: Obx(() {
+              return RequestHandler<List<ColorModel>>(
+                data: controller.availableColors.value,
+                onSuccess: (context, data) => Column(
+                  children: [
+                    const SizedBox(height: SizeConfig.verticalSpace),
+                    Text(
+                      "Select product colors",
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    const SizedBox(height: SizeConfig.verticalSpace * 2),
+                    Expanded(
+                      child: Wrap(
+                        children: data
+                            .map((e) => GetX<CMSAddProductController>(
+                                    builder: (controller) {
+                                  bool isSelected =
+                                      controller.iscolorSelected(e);
+                                  return ColorDot(
+                                      color: e.colorValue!,
+                                      size: 50,
+                                      shape: BoxShape.circle,
+                                      isSelected: isSelected,
+                                      onSelected: () {
+                                        isSelected
+                                            ? controller.unSelectColor(e)
+                                            : controller.selectColor(e);
+                                      });
+                                }))
+                            .toList(),
+                      ),
+                    ),
+                    DefaultButton(
+                        child: Text(
+                      "add-new-color",
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary),
+                    ))
+                  ],
+                ),
+              );
+            }),
+          );
         });
   }
 

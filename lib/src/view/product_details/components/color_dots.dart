@@ -45,9 +45,11 @@ class ColorDots extends GetView<ProductController> {
 }
 
 class ColorDot extends StatelessWidget {
+  final BoxShape? shape;
   const ColorDot({
     Key? key,
     required this.color,
+    this.shape = BoxShape.rectangle,
     this.isSelected = false,
     this.onSelected,
     this.size = 40,
@@ -64,15 +66,24 @@ class ColorDot extends StatelessWidget {
       onTap: onSelected,
       child: Container(
         margin: const EdgeInsets.only(right: SizeConfig.horizontalSpace),
-        height: isSelected ? size + 10 : size,
-        width: isSelected ? size + 10 : size,
-        clipBehavior: Clip.hardEdge,
+        height: size,
+        width: size,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: BoxDecoration(
+          shape: shape!,
           color: Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: shape == null ? BorderRadius.circular(10) : null,
         ),
         child: DecoratedBox(
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 10,
+                  spreadRadius: 0,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.secondaryVariant)
+            ],
             color: color,
           ),
           child: isSelected
