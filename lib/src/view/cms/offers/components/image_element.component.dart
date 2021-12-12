@@ -30,26 +30,29 @@ class ImageItem extends StatelessWidget {
               }
             },
             child: CustomNetworkImage(url: item.image ?? "")),
-        Container(
-          height: 50,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                Colors.black54,
-                Colors.black38,
-                Colors.black12,
-                Colors.transparent
-              ])),
-        ),
         PositionedDirectional(
+          start: 0,
+          end: 0,
+          child: Container(
+            alignment: Alignment.centerLeft,
             child: IconButton(
                 onPressed: () {},
                 icon: const Icon(
                   Icons.more_vert_outlined,
                   color: Colors.white,
-                ))),
+                )),
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                  Colors.black54,
+                  Colors.black38,
+                  Colors.black12,
+                  Colors.transparent
+                ])),
+          ),
+        ),
       ],
     );
   }
