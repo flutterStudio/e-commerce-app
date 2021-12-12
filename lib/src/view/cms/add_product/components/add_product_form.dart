@@ -189,7 +189,13 @@ class AddProductForm extends GetView<CMSAddProductController> {
             );
           }),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
-          const FilesUpload(),
+          FilesUpload(
+            title: "product-attachments".tr,
+            uploaderController: controller.fileUploaderController,
+            onPickFiles: () {
+              controller.fileUploaderController.pickFiles();
+            },
+          ),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           DefaultButton(
             child: Text(
