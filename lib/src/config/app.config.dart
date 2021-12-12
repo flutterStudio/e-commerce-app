@@ -9,6 +9,7 @@ import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/service/api.service.dart';
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
+import 'package:e_commerce/src/view/cms/home/cms.home.controller.dart';
 import 'package:e_commerce/src/view/cms/products/cms.products.controller.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +32,8 @@ class AppConfig {
 
     await Get.putAsync<CMSAddProductController>(
         () async => CMSAddProductController());
+
+    await Get.putAsync<CMSHomeController>(() async => CMSHomeController());
   }
 
   Future<void> _initControllers() async {

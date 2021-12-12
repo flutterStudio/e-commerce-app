@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class CMSProducts extends GetView<CMSProductsController> {
   const CMSProducts({Key? key}) : super(key: key);
-
+  final screenTitle = "Product";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

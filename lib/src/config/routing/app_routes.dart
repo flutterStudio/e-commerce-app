@@ -42,7 +42,7 @@ class AppRoutes {
     ),
     GetPage(
         name: AppPaths.admin,
-        page: () => const CMSHome(),
+        page: () => CMSHome(),
         participatesInRootNavigator: true,
         preventDuplicates: true,
         children: [
