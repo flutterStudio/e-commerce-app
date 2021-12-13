@@ -20,21 +20,6 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
       key: formKey,
       child: Column(
         children: [
-          DefaultButton(
-            child: Text(
-              "pick-products".tr,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-            press: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                // controller.addProduct();
-              }
-            },
-          ),
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
           Row(
             children: [
