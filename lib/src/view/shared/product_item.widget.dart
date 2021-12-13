@@ -11,10 +11,16 @@ class ProductCard extends StatefulWidget {
     this.width = 140,
     this.aspectRetio = 1.02,
     required this.product,
+    this.selectable = false,
+    this.isSelected = false,
+    this.onSelected,
   }) : super(key: key);
 
   final double width, aspectRetio;
   final Product product;
+  final bool? selectable;
+  final bool? isSelected;
+  final void Function(bool?)? onSelected;
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -83,12 +89,16 @@ class _ProductCardState extends State<ProductCard> {
                             : kSecondaryColor.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Heart Icon.svg",
-                        color: widget.product.isFavourite!
-                            ? const Color(0xFFFF4848)
-                            : const Color(0xFFDBDEE4),
-                      ),
+                      child: widget.selectable!
+                          ? Checkbox(
+                              value: widget.isSelected,
+                              onChanged: widget.onSelected)
+                          : SvgPicture.asset(
+                              "assets/icons/Heart Icon.svg",
+                              color: widget.product.isFavourite!
+                                  ? const Color(0xFFFF4848)
+                                  : const Color(0xFFDBDEE4),
+                            ),
                     ),
                   ),
                 ],

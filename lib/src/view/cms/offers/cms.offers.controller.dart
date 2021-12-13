@@ -15,6 +15,7 @@ class CMSOfferScreenCopntroller extends GetxController {
 
   Rx<ScreenItemActionType> offerActionType = Rx(ScreenItemActionType.Internal);
   Rx<ScreenItemtype> offerType = Rx(ScreenItemtype.Item);
+  RxString offerLink = RxString("");
   CMSOfferScreenCopntroller() {
     getMainScreenItems();
   }

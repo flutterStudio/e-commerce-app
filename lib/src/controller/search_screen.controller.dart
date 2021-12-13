@@ -22,6 +22,39 @@ class SearchController extends GetxController {
   SearchController.filter(List<Category> categories);
   SearchController.search(String key);
 
+  // For picking mode.
+  RxList<Product> pickedProducts = RxList<Product>();
+  RxBool pickingMode = RxBool(false);
+  SearchController.pick() {
+    pickingMode.value = true;
+  }
+
+  /// ### picking mode
+  ///
+  /// #### breif
+  /// Add the given [product] to the `pickedProducts` list.
+  ///
+  void pickProduct(Product product) {
+    pickedProducts.addIf(
+        pickedProducts
+                .firstWhereOrNull((element) => element.id == product.id) ==
+            null,
+        product);
+  }
+
+  /// ### picking mode
+  ///
+  /// #### breif
+  /// Remve the given [product] from the `pickedProducts` list.
+  ///
+  void unPickProduct(Product product) {
+    pickedProducts.remove(product);
+  }
+
+  bool isPicked(Product product) {
+    return pickedProducts.any((element) => element.id == product.id);
+  }
+
   Future<void> searchProduct(String key) async {
     searchTerm.value = key;
     products.value = Data.inProgress();
