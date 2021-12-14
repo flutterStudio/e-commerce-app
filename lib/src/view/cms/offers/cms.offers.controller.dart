@@ -1,8 +1,10 @@
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/view/cms/offers/components/pick_products.component.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -33,5 +35,11 @@ class CMSOfferScreenCopntroller extends GetxController {
 
     screenItems.value = companyProducts;
     return screenItems.value.data ?? [];
+  }
+
+  Future<void> pickProducts() async {
+    pickedProducts.value =
+        (await Get.toNamed(AppPaths.admin + AppPaths.pickProducts)
+            as RxList<Product>);
   }
 }

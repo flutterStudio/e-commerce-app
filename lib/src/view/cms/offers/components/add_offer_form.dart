@@ -46,19 +46,8 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           FileUploader(
             title: "offer-attachments".tr,
-
             controller: controller.fileUploaderController,
-
-            //   )
-            // ],
           ),
-          // FilesUpload(
-          //   title: "offer-attachments".tr,
-          //   uploaderController: controller.fileUploaderController,
-          //   onPickFiles: () {
-          //     controller.fileUploaderController.pickFiles();
-          //   },
-          // ),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
@@ -80,10 +69,9 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
             ],
           ),
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
-          Obx(() {
-            return controller.offerActionType.value ==
-                    ScreenItemActionType.External
-                ? CMSFromField(
+          controller.offerActionType.value == ScreenItemActionType.External
+              ? Obx(() {
+                  return CMSFromField(
                     label: "textField-offer-link-label".tr,
                     hint: "textField-offer-link-hint".tr,
                     inputType: TextInputType.text,
@@ -99,24 +87,21 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                     onChanged: (value) {
                       controller.offerLink.value = value;
                     },
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("pick-offer-products".tr),
-                      const SizedBox(height: SizeConfig.horizontalSpace * 2),
-                      PickProducts(
-                        count: controller.pickedProducts.length,
-                        onPick: () async {
-                          // Get the result of pick products route.
-                          controller.pickedProducts.value = (await Get.toNamed(
-                                  AppPaths.admin + AppPaths.pickProducts) as Rx)
-                              .value;
-                        },
-                      )
-                    ],
                   );
-          }),
+                })
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("pick-offer-products".tr),
+                    const SizedBox(height: SizeConfig.horizontalSpace * 2),
+                    PickProducts(
+                      count: controller.pickedProducts.length,
+                      onPick: () async {
+                        controller.pickProducts();
+                      },
+                    )
+                  ],
+                ),
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
           Row(
             children: [

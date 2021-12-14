@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/size.config.dart';
+import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +31,12 @@ class PickProducts extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle2,
               ),
               Expanded(child: Container()),
-              Text(
-                "$count " + "picked".tr,
-                style: Theme.of(context).textTheme.bodyText2,
-              )
+              GetX<CMSOfferScreenCopntroller>(builder: (controller) {
+                return Text(
+                  "${controller.pickedProducts.length} " + "picked".tr,
+                  style: Theme.of(context).textTheme.bodyText2,
+                );
+              })
             ],
           ),
           const SizedBox(
