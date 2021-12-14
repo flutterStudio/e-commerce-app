@@ -80,9 +80,12 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                                           .colorScheme
                                           .onPrimary),
                             ),
-                            press: () {
-                              Get.toNamed(
-                                  AppPaths.admin + AppPaths.pickProducts);
+                            press: () async {
+                              // Get the result of pick products route.
+                              controller.pickedProducts.value =
+                                  (await Get.toNamed(AppPaths.admin +
+                                          AppPaths.pickProducts) as Rx)
+                                      .value;
                             },
                           ),
                           DefaultButton(

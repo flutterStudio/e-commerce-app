@@ -17,6 +17,17 @@ class SearchScreen extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: controller.pickingMode.value
+          ? AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.check, color: Get.theme.colorScheme.onPrimary),
+                onPressed: () {
+                  Get.back(result: controller.pickedProducts);
+                },
+              ),
+              title: Text("pick-products".tr),
+            )
+          : null,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(SizeConfig.verticalSpace),
@@ -44,15 +55,13 @@ class SearchScreen extends GetView<SearchController> {
                                           controller.pickingMode.value &&
                                               controller.isPicked(items[index]),
                                       product: items[index],
-                                      onSelected: controller.pickingMode.value
-                                          ? (value) {
-                                              value!
-                                                  ? controller
-                                                      .pickProduct(items[index])
-                                                  : controller.unPickProduct(
-                                                      items[index]);
-                                            }
-                                          : null,
+                                      onSelected: (value) {
+                                        value!
+                                            ? controller
+                                                .pickProduct(items[index])
+                                            : controller
+                                                .unPickProduct(items[index]);
+                                      },
                                     );
                                   }),
                                 )),

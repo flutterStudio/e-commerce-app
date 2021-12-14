@@ -73,34 +73,41 @@ class _ProductCardState extends State<ProductCard> {
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                      height: getProportionateScreenWidth(28),
-                      width: getProportionateScreenWidth(28),
-                      decoration: BoxDecoration(
-                        color: widget.product.isFavourite!
-                            ? Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.15)
-                            : kSecondaryColor.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: widget.selectable!
-                          ? Checkbox(
+                  widget.selectable!
+                      ? SizedBox(
+                          height: getProportionateScreenWidth(28),
+                          width: getProportionateScreenWidth(28),
+                          child: Checkbox(
                               value: widget.isSelected,
-                              onChanged: widget.onSelected)
-                          : SvgPicture.asset(
+                              onChanged: (value) {
+                                widget.onSelected!(value);
+                              }),
+                        )
+                      : InkWell(
+                          borderRadius: BorderRadius.circular(50),
+                          onTap: () {},
+                          child: Container(
+                            padding:
+                                EdgeInsets.all(getProportionateScreenWidth(8)),
+                            height: getProportionateScreenWidth(28),
+                            width: getProportionateScreenWidth(28),
+                            decoration: BoxDecoration(
+                              color: widget.product.isFavourite!
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.15)
+                                  : kSecondaryColor.withOpacity(0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: SvgPicture.asset(
                               "assets/icons/Heart Icon.svg",
                               color: widget.product.isFavourite!
                                   ? const Color(0xFFFF4848)
                                   : const Color(0xFFDBDEE4),
                             ),
-                    ),
-                  ),
+                          ),
+                        ),
                 ],
               )
             ],

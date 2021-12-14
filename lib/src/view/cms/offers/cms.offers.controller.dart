@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
+import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,9 @@ class CMSOfferScreenCopntroller extends GetxController {
   Rx<ScreenItemActionType> offerActionType = Rx(ScreenItemActionType.Internal);
   Rx<ScreenItemtype> offerType = Rx(ScreenItemtype.Item);
   RxString offerLink = RxString("");
+
+  RxList<Product> pickedProducts = RxList([]);
+
   CMSOfferScreenCopntroller() {
     getMainScreenItems();
   }
