@@ -12,23 +12,26 @@ class FilesUpload extends StatelessWidget {
       : super(key: key);
 
   final void Function()? onPickFiles;
-  final String? title;
+  final String title;
   final FileUploaderController? uploaderController;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(title ?? ""),
-            IconButton(onPressed: onPickFiles, icon: const Icon(Icons.add))
-          ],
-        ),
+    return
+        // Column(
+        //   children: [
+        // Row(
+        //   children: [
+        //     Text(title),
+        //     IconButton(onPressed: onPickFiles, icon: const Icon(Icons.add))
+        //   ],
+        // ),
         FileUploader(
-          controller: uploaderController!,
-        )
-      ],
+      title: title,
+
+      controller: uploaderController!,
+      //   )
+      // ],
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/pick_products.component.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
+import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -43,13 +44,21 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
             ],
           ),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
-          FilesUpload(
+          FileUploader(
             title: "offer-attachments".tr,
-            uploaderController: controller.fileUploaderController,
-            onPickFiles: () {
-              controller.fileUploaderController.pickFiles();
-            },
+
+            controller: controller.fileUploaderController,
+
+            //   )
+            // ],
           ),
+          // FilesUpload(
+          //   title: "offer-attachments".tr,
+          //   uploaderController: controller.fileUploaderController,
+          //   onPickFiles: () {
+          //     controller.fileUploaderController.pickFiles();
+          //   },
+          // ),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
