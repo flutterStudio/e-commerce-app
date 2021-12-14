@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
@@ -79,7 +80,10 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                                           .colorScheme
                                           .onPrimary),
                             ),
-                            press: () {},
+                            press: () {
+                              Get.toNamed(
+                                  AppPaths.admin + AppPaths.pickProducts);
+                            },
                           ),
                           DefaultButton(
                             color: Theme.of(context).colorScheme.primaryVariant,

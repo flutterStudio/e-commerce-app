@@ -18,4 +18,5 @@ class AppPaths {
   static const String admin = "/admin";
   static const String addProduct = "/addPoduct";
   static const String addOffer = "/addOffer";
+  static const String pickProducts = "/pickProducts";
 }

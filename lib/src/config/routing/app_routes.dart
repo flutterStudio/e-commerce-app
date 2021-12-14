@@ -72,6 +72,15 @@ class AppRoutes {
               return CMSOfferScreenCopntroller();
             }),
           ),
+          GetPage(
+            name: AppPaths.pickProducts,
+            page: () => const SearchScreen(),
+            participatesInRootNavigator: true,
+            preventDuplicates: true,
+            binding: BindingsBuilder.put(() {
+              return SearchController.pick();
+            }),
+          ),
         ]),
     GetPage(
       name: AppPaths.login,
