@@ -3,6 +3,7 @@ import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
+import 'package:e_commerce/src/view/cms/offers/components/pick_products.component.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,34 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
       child: Column(
         children: [
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
+          Row(
+            children: [
+              Text("offer-view-type".tr),
+              const SizedBox(width: SizeConfig.horizontalSpace * 2),
+              Obx(() {
+                return DropdownButton<ScreenItemtype>(
+                    onChanged: (value) {
+                      controller.offerType.value = value!;
+                    },
+                    value: controller.offerType.value,
+                    items: ScreenItemtype.values
+                        .map((e) => DropdownMenuItem(
+                              value: e,
+                              child: Text(e.toString().split(".").last),
+                            ))
+                        .toList());
+              }),
+            ],
+          ),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
+          FilesUpload(
+            title: "offer-attachments".tr,
+            uploaderController: controller.fileUploaderController,
+            onPickFiles: () {
+              controller.fileUploaderController.pickFiles();
+            },
+          ),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
               Text("offer-type".tr),
@@ -67,47 +96,14 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                     children: [
                       Text("pick-offer-products".tr),
                       const SizedBox(height: SizeConfig.horizontalSpace * 2),
-                      Row(
-                        children: [
-                          DefaultButton(
-                            child: Text(
-                              "pick".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary),
-                            ),
-                            press: () async {
-                              // Get the result of pick products route.
-                              controller.pickedProducts.value =
-                                  (await Get.toNamed(AppPaths.admin +
-                                          AppPaths.pickProducts) as Rx)
-                                      .value;
-                            },
-                          ),
-                          DefaultButton(
-                            color: Theme.of(context).colorScheme.primaryVariant,
-                            child: Text(
-                              "show".tr,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary),
-                            ),
-                            press: () {
-                              if (formKey.currentState!.validate()) {
-                                formKey.currentState!.save();
-                                // controller.addProduct();
-                              }
-                            },
-                          ),
-                        ],
+                      PickProducts(
+                        count: controller.pickedProducts.length,
+                        onPick: () async {
+                          // Get the result of pick products route.
+                          controller.pickedProducts.value = (await Get.toNamed(
+                                  AppPaths.admin + AppPaths.pickProducts) as Rx)
+                              .value;
+                        },
                       )
                     ],
                   );
@@ -115,46 +111,22 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
           Row(
             children: [
-              Text("offer-view-type".tr),
-              const SizedBox(width: SizeConfig.horizontalSpace * 2),
-              Obx(() {
-                return DropdownButton<ScreenItemtype>(
-                    onChanged: (value) {
-                      controller.offerType.value = value!;
-                    },
-                    value: controller.offerType.value,
-                    items: ScreenItemtype.values
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e.toString().split(".").last),
-                            ))
-                        .toList());
-              }),
+              Expanded(
+                child: DefaultButton(
+                  child: Text(
+                    "continue".tr,
+                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  ),
+                  press: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      // controller.addProduct();
+                    }
+                  },
+                ),
+              ),
             ],
-          ),
-          const SizedBox(height: SizeConfig.verticalSpace * 2),
-          FilesUpload(
-            title: "offer-attachments".tr,
-            uploaderController: controller.fileUploaderController,
-            onPickFiles: () {
-              controller.fileUploaderController.pickFiles();
-            },
-          ),
-          const SizedBox(height: SizeConfig.verticalSpace * 2),
-          DefaultButton(
-            child: Text(
-              "continue".tr,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-            press: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                // controller.addProduct();
-              }
-            },
           ),
         ],
       ),
