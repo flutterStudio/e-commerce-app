@@ -8,7 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 
-class FileUploaderController extends GetxController {
+class FileUploaderController {
   Rx<List<FileUploaderInfo>> files = Rx([]);
   void addFile(File file) {
     if (files.value.any((element) => element.file.path == file.path)) {
