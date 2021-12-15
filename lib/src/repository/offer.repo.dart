@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_commerce/src/dto/screen%20_item.dto.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/service/api.service.dart';
@@ -11,12 +12,29 @@ class OfferRepo {
 
   static const String _allScreenItems = "ScreenItem/all/";
   static const String _screenItem = "ScreenItem/";
+  static const String _externalScreenItem = _screenItem + "External/";
+  static const String _internalScreenItem = _screenItem + "Internal/";
 
   OfferRepo({required ApiService apiService}) : _apiService = apiService;
 
   Future<Data<List<ScreenItem>>> getAllScreenItems(
       {int? page, int? pageSize}) async {
     Data<List<ScreenItem>> data = await _getScreenItems(_allScreenItems);
+    return data;
+  }
+
+  Future<Data<ScreenItem>> postSCreenItem(ScreenItemDTO dto,
+      {int? page, int? pageSize, bool isExternal = false}) async {
+    Data<ScreenItem> data = await _apiService.postRequest(
+        isExternal ? _externalScreenItem : _internalScreenItem,
+        dto.serializer().toJson(), (response) {
+      Data<ScreenItem> data = Data.empty();
+
+      // Get pagination info if exists.
+      data.data =
+          ScreenItem().serilizer().fromJson(jsonDecode(response.bodyString!));
+      return data;
+    });
     return data;
   }
 

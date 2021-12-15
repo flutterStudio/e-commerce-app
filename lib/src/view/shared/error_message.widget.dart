@@ -16,16 +16,19 @@ class ErrorMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          vertical: SizeConfig.verticalSpace,
-          horizontal: SizeConfig.horizontalSpace),
-      decoration: BoxDecoration(color: Theme.of(context).colorScheme.error),
-      child: Column(
-        children: List.generate(errors.length,
-            (index) => _errorMessageText(context, error: errors[index]!)),
-      ),
-    );
+    return errors.isEmpty
+        ? Container()
+        : Container(
+            padding: const EdgeInsets.symmetric(
+                vertical: SizeConfig.verticalSpace,
+                horizontal: SizeConfig.horizontalSpace),
+            decoration:
+                BoxDecoration(color: Theme.of(context).colorScheme.error),
+            child: Column(
+              children: List.generate(errors.length,
+                  (index) => _errorMessageText(context, error: errors[index]!)),
+            ),
+          );
   }
 
   Row _errorMessageText(BuildContext context, {required String error}) {

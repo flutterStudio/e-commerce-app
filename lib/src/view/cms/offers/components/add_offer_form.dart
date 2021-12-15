@@ -1,11 +1,10 @@
 import 'package:e_commerce/src/config/enums.dart';
-import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/config/size.config.dart';
-import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/pick_products.component.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
+import 'package:e_commerce/src/view/shared/error_message.widget.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -69,40 +68,46 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
             ],
           ),
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
-          controller.offerActionType.value == ScreenItemActionType.External
-              ? Obx(() {
-                  return CMSFromField(
+          Obx(() {
+            return controller.offerActionType.value ==
+                    ScreenItemActionType.External
+                ? CMSFromField(
                     label: "textField-offer-link-label".tr,
                     hint: "textField-offer-link-hint".tr,
                     inputType: TextInputType.text,
                     validator: (value) {
-                      return GetUtils.isNullOrBlank(value)!
-                          ? "textField-validation-needed"
-                              .trParams({"field": "Title"})
-                          : !GetUtils.isURL(value!)
-                              ? "textField-validation-not-valid"
-                                  .trParams({"field": "link"})
-                              : null;
+                      if (controller.offerActionType.value ==
+                          ScreenItemActionType.External) {
+                        return GetUtils.isNullOrBlank(value)!
+                            ? "textField-validation-needed"
+                                .trParams({"field": "Title"})
+                            : !GetUtils.isURL(value!)
+                                ? "textField-validation-not-valid"
+                                    .trParams({"field": "link"})
+                                : null;
+                      }
+                      return null;
                     },
                     onChanged: (value) {
                       controller.offerLink.value = value;
                     },
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("pick-offer-products".tr),
+                      const SizedBox(height: SizeConfig.horizontalSpace * 2),
+                      PickProducts(
+                        count: controller.pickedProducts.length,
+                        onPick: () async {
+                          controller.pickProducts();
+                        },
+                      )
+                    ],
                   );
-                })
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("pick-offer-products".tr),
-                    const SizedBox(height: SizeConfig.horizontalSpace * 2),
-                    PickProducts(
-                      count: controller.pickedProducts.length,
-                      onPick: () async {
-                        controller.pickProducts();
-                      },
-                    )
-                  ],
-                ),
+          }),
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
+          Obx(() => ErrorMessage(errors: controller.errors)),
           Row(
             children: [
               Expanded(
@@ -115,7 +120,7 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                   press: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      // controller.addProduct();
+                      controller.addOffer();
                     }
                   },
                 ),

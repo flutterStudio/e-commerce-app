@@ -1,10 +1,10 @@
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/config/routing/app_paths.dart';
+import 'package:e_commerce/src/dto/screen%20_item.dto.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
-import 'package:e_commerce/src/view/cms/offers/components/pick_products.component.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -15,7 +15,7 @@ class CMSOfferScreenCopntroller extends GetxController {
       Rx<Data<List<ScreenItem>>>(Data.empty());
 
   FileUploaderController fileUploaderController = FileUploaderController();
-
+  RxList<String> errors = RxList([]);
   Rx<ScreenItemActionType> offerActionType = Rx(ScreenItemActionType.Internal);
   Rx<ScreenItemtype> offerType = Rx(ScreenItemtype.Item);
   RxString offerLink = RxString("");
@@ -41,5 +41,31 @@ class CMSOfferScreenCopntroller extends GetxController {
     pickedProducts.value =
         (await Get.toNamed(AppPaths.admin + AppPaths.pickProducts)
             as RxList<Product>);
+  }
+
+  Future<void> addOffer() async {
+    errors.clear();
+
+    if (fileUploaderController.files.value.isEmpty) {
+      errors.add("message-error-no-offer-image".tr);
+    }
+    var attachments = await fileUploaderController.getAttachments();
+    if (attachments.isEmpty) {
+      errors.add("message-error-offer-image-not-uploaded".tr);
+    }
+    if (offerActionType.value == ScreenItemActionType.Internal &&
+        pickedProducts.isEmpty) {
+      errors.add("message-error-offer-no-products".tr);
+    }
+
+    if (errors.isNotEmpty) {
+      return;
+    }
+    ScreenItemDTO dto = offerActionType.value == ScreenItemActionType.External
+        ? ScreenItemDTO.external(
+            offerType.value.toString().split(".").last, offerLink.value, "", 1)
+        : ScreenItemDTO.internal(offerType.value.toString().split(".").last,
+            pickedProducts, "image id", 2);
+    _mainRepo.offerRepo.postSCreenItem(dto);
   }
 }
