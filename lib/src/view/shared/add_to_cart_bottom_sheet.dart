@@ -1,7 +1,7 @@
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
-import 'package:e_commerce/src/view/product_details/components/rounded_icon_btn.dart';
 import 'package:e_commerce/src/view/product_details/components/sizes_list.widget.dart';
+import 'package:e_commerce/src/view/shared/rounded_icon_btn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
