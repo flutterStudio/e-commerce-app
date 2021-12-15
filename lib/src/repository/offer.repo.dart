@@ -25,17 +25,37 @@ class OfferRepo {
 
   Future<Data<ScreenItem>> postSCreenItem(ScreenItemDTO dto,
       {int? page, int? pageSize, bool isExternal = false}) async {
-    Data<ScreenItem> data = await _apiService.postRequest(
-        isExternal ? _externalScreenItem : _internalScreenItem,
-        dto.serializer().toJson(), (response) {
-      Data<ScreenItem> data = Data.empty();
+    try {
+      Data<ScreenItem> data = await _apiService.postRequest(
+          isExternal ? _externalScreenItem : _internalScreenItem,
+          dto.serializer().toJson(), (response) {
+        Data<ScreenItem> data = Data.empty();
 
-      // Get pagination info if exists.
-      data.data =
-          ScreenItem().serilizer().fromJson(jsonDecode(response.bodyString!));
+        // Get pagination info if exists.
+        data.data = Data.succeed(
+            showSnackbar: true,
+            data: ScreenItem()
+                .serilizer()
+                .fromJson(jsonDecode(response.bodyString!)));
+        return data;
+      });
       return data;
-    });
-    return data;
+    } on NetworkException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } on FormatException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } catch (e) {
+      return Data.faild(
+        message: e.toString(),
+        showSnackbar: true,
+      );
+    }
   }
 
   Future<Data<List<ScreenItem>>> _getScreenItems(String url,
@@ -57,6 +77,8 @@ class OfferRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: e.toString());
     }
   }
 
@@ -80,6 +102,8 @@ class OfferRepo {
       return Data.faild(message: e.message);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: e.toString());
     }
   }
 

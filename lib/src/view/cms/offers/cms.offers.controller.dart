@@ -22,7 +22,7 @@ class CMSOfferScreenCopntroller extends GetxController {
 
   RxList<Product> pickedProducts = RxList([]);
 
-  Rx<Data<ScreenItem>> offer = Rx(Data.empty()..showSnakbar = true);
+  Rx<Data<ScreenItem>> offer = Rx(Data.empty());
   CMSOfferScreenCopntroller() {
     getMainScreenItems();
   }
@@ -68,13 +68,12 @@ class CMSOfferScreenCopntroller extends GetxController {
     if (errors.value.isNotEmpty) {
       return;
     }
-    offer.value.inProgress();
+    offer.value = Data.inProgress(showSnackbar: true, message: "Sending offer");
     ScreenItemDTO dto = offerActionType.value == ScreenItemActionType.External
         ? ScreenItemDTO.external(
             offerType.value.toString().split(".").last, offerLink.value, "", 1)
         : ScreenItemDTO.internal(offerType.value.toString().split(".").last,
             pickedProducts, "image id", 2);
-    offer.value = await _mainRepo.offerRepo.postSCreenItem(dto)
-      ..showSnakbar = true;
+    offer.value = await _mainRepo.offerRepo.postSCreenItem(dto);
   }
 }

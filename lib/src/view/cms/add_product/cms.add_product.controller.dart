@@ -98,7 +98,7 @@ class CMSAddProductController extends GetxController {
   // files upload.
 
   Future<void> addProduct() async {
-    loginStatus.value = Data.inProgress()..showSnakbar = true;
+    loginStatus.value = Data.inProgress(showSnackbar: true);
     loginStatus.value = await _mainRepo.productRepo.postProduct(AddProductDto(
         availableQuantity: availableQuntity.value,
         title: title.value,

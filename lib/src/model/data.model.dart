@@ -11,7 +11,7 @@ class Data<T> {
   bool _hasData = false;
   bool _hasNext = false;
   bool _hasPrevious = false;
-  bool showSnakbar = false;
+  bool _showSnackbar = false;
   bool get isSucceed => _status == DataStatus.succeed;
   bool get isFaild => _status == DataStatus.faild;
 
@@ -54,14 +54,14 @@ class Data<T> {
     _hasPrevious = _page > 1;
   }
 
-  Data.faild({
-    T? previousData,
-    required String message,
-  }) : _status = DataStatus.faild {
+  Data.faild(
+      {T? previousData, required String message, bool showSnackbar = false})
+      : _status = DataStatus.faild,
+        _showSnackbar = showSnackbar {
     _data = previousData;
 
     _message = message;
-    if (showSnakbar) {
+    if (_showSnackbar) {
       Utils.showSnackBar(message);
     }
   }
@@ -71,8 +71,10 @@ class Data<T> {
       String? message,
       int page = 0,
       int totalPages = 0,
+      bool showSnackbar = false,
       int totalResults = 0})
-      : _status = DataStatus.succeed {
+      : _status = DataStatus.succeed,
+        _showSnackbar = showSnackbar {
     _data = data;
     _message = message;
     _page = page;
@@ -81,7 +83,7 @@ class Data<T> {
     _hasData = _data != null;
     _hasNext = page < totalPages;
     _hasPrevious = page > 1;
-    if (showSnakbar) {
+    if (_showSnackbar) {
       Utils.showSnackBar("$message",
           background: Get.theme.colorScheme.primaryVariant,
           color: Get.theme.colorScheme.primary,
@@ -92,13 +94,16 @@ class Data<T> {
   Data.inProgress({
     String? message,
     T? initialData,
-  }) : _status = DataStatus.inProgress {
+    bool showSnackbar = false,
+  })  : _status = DataStatus.inProgress,
+        _showSnackbar = showSnackbar {
     _hasData = initialData == null ? false : true;
     _data = initialData;
     _message = message;
-    if (showSnakbar) {
+    if (_showSnackbar) {
       Utils.showSnackBar(
         "$message",
+        showProgressIndicator: true,
         background: Get.theme.colorScheme.primaryVariant,
         color: Get.theme.colorScheme.primary,
       );
