@@ -3,11 +3,13 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/pick_products.component.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
+import 'package:e_commerce/src/view/product_details/components/rounded_icon_btn.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/error_message.widget.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/get.dart';
 
@@ -43,6 +45,58 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
             ],
           ),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
+          Row(
+            children: [
+              Text("offer-order".tr),
+              const SizedBox(width: SizeConfig.horizontalSpace * 2),
+              RoundedIconBtn(
+                  icon: Icons.remove,
+                  background: Theme.of(context).colorScheme.primaryVariant,
+                  press: () {
+                    controller.decreaseOrder();
+                  }),
+              const SizedBox(width: SizeConfig.verticalSpace * 2),
+              Obx(() {
+                return Text("${controller.offerOrder.value}".tr);
+              }),
+              const SizedBox(width: SizeConfig.verticalSpace * 2),
+
+              // Obx(() {
+              //   return Expanded(
+              //       child: CMSFromField(
+              //     label: "textField-offer-order-label".tr,
+              //     hint: "textField-offer-order-hint".tr,
+              //     enabled: false,
+              //     inputType: const TextInputType.numberWithOptions(
+              //         signed: false, decimal: false),
+              //     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              //     validator: (value) {
+              //       return GetUtils.isNullOrBlank(value)!
+              //           ? "textField-validation-needed"
+              //               .trParams({"field": "Title"})
+              //           : controller.isOrderValid(value!)
+              //               ? "textField-validation-not-valid"
+              //                   .trParams({"field": "link"})
+              //               : null;
+              //     },
+              //     initialValue: controller
+              //             .screenItems.value.data?.last.orderNumber
+              //             .toString() ??
+              //         controller.offerOrder.value.toString(),
+              //     onChanged: (value) {
+              //       controller.offerOrder.value = int.parse(value);
+              //     },
+              //   ));
+              // }),
+              RoundedIconBtn(
+                  icon: Icons.add,
+                  background: Theme.of(context).colorScheme.primaryVariant,
+                  press: () {
+                    controller.increaseOrder();
+                  })
+            ],
+          ),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
           FileUploader(
             title: "offer-attachments".tr,
             controller: controller.fileUploaderController,
@@ -73,6 +127,7 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                     ScreenItemActionType.External
                 ? CMSFromField(
                     label: "textField-offer-link-label".tr,
+                    enabled: false,
                     hint: "textField-offer-link-hint".tr,
                     inputType: TextInputType.text,
                     validator: (value) {
@@ -87,9 +142,6 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                                 : null;
                       }
                       return null;
-                    },
-                    onChanged: (value) {
-                      controller.offerLink.value = value;
                     },
                   )
                 : Column(

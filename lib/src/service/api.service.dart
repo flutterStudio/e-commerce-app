@@ -37,7 +37,7 @@ class ApiService extends GetConnect {
     if (result.isOk) {
       return decoder(result);
     }
-    _processResponseError(result.statusCode);
+    _processResponseError(result.statusCode, body: result.bodyString);
     throw Exception("message-network-error".tr);
   }
 
@@ -52,7 +52,7 @@ class ApiService extends GetConnect {
     if (result.isOk) {
       return decoder(result);
     }
-    _processResponseError(result.statusCode);
+    _processResponseError(result.statusCode, body: result.bodyString);
     throw Exception("message-network-error".tr);
   }
 

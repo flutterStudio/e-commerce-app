@@ -23,6 +23,7 @@ class CMSOfferScreenCopntroller extends GetxController {
   RxList<Product> pickedProducts = RxList([]);
 
   Rx<Data<ScreenItem>> offer = Rx(Data.empty());
+  RxInt offerOrder = RxInt(0);
   CMSOfferScreenCopntroller() {
     getMainScreenItems();
   }
@@ -71,9 +72,35 @@ class CMSOfferScreenCopntroller extends GetxController {
     offer.value = Data.inProgress(showSnackbar: true, message: "Sending offer");
     ScreenItemDTO dto = offerActionType.value == ScreenItemActionType.External
         ? ScreenItemDTO.external(
-            offerType.value.toString().split(".").last, offerLink.value, "", 1)
-        : ScreenItemDTO.internal(offerType.value.toString().split(".").last,
-            pickedProducts, "image id", 2);
+            offerType.value.toString().split(".").last,
+            offerLink.value,
+            attachments.first.attachmentId.toString(),
+            offerOrder.value)
+        : ScreenItemDTO.internal(
+            offerType.value.toString().split(".").last,
+            pickedProducts,
+            attachments.first.attachmentId.toString(),
+            offerOrder.value);
     offer.value = await _mainRepo.offerRepo.postSCreenItem(dto);
+  }
+
+  bool isOrderValid(String value) {
+    int? order = int.tryParse(value);
+    if (order == null || order < 0) {
+      return false;
+    }
+    return screenItems.value.data
+            ?.firstWhere((element) => element.orderNumber == order) ==
+        null;
+  }
+
+  void increaseOrder() {
+    // if (isOrderValid((offerOrder.value + 1).toString()))
+    offerOrder.value += 1;
+  }
+
+  void decreaseOrder() {
+    // if (isOrderValid((offerOrder.value - 1).toString()))
+    offerOrder.value -= 1;
   }
 }
