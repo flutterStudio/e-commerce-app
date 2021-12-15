@@ -48,7 +48,12 @@ Map<String, String> _messages = {
   "message-product-added-successfully": "Product added successfully",
   "message-adding-product": "Adding product",
   "message-error-add-product": "Error happened while adding the product",
-  "message-file-already-exists": "This file already exists."
+  "message-file-already-exists": "This file already exists.",
+  "message-error-no-offer-image": "No image specified for the offer.",
+  "message-error-offer-image-not-uploaded": "Offer image was not uploaded.",
+  "message-error-offer-no-products": "No products were selected for the offer.",
+  "message-error-offer-no-external-link":
+      "No external link was selected for the offer.",
 };
 
 Map<String, String> _text = {
