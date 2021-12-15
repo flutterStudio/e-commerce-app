@@ -98,11 +98,8 @@ class CMSAddProductController extends GetxController {
   // files upload.
 
   Future<void> addProduct() async {
-    Utils.showSnackBar("message-adding-product".tr,
-        background: Get.theme.colorScheme.primaryVariant,
-        color: Get.theme.colorScheme.primary,
-        showProgressIndicator: true);
-    var result = await _mainRepo.productRepo.postProduct(AddProductDto(
+    loginStatus.value = Data.inProgress()..showSnakbar = true;
+    loginStatus.value = await _mainRepo.productRepo.postProduct(AddProductDto(
         availableQuantity: availableQuntity.value,
         title: title.value,
         colors: selectedColors?.value ?? [],
@@ -113,16 +110,13 @@ class CMSAddProductController extends GetxController {
         sizes: selectedSizes?.value ?? []));
 
     Get.closeCurrentSnackbar();
-    if (result.isSucceed) {
+    if (loginStatus.value.isSucceed) {
       Utils.showSnackBar(
         "message-product-added-successfully".tr,
         background: Get.theme.colorScheme.primaryVariant,
         color: Get.theme.colorScheme.primary,
       );
       // clearAll();
-    }
-    if (result.isFaild) {
-      Utils.showSnackBar(result.message ?? "message-error-add-product".tr);
     }
   }
 

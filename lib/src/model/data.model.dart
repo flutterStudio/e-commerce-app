@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:get/get.dart';
 
 class Data<T> {
@@ -10,6 +11,7 @@ class Data<T> {
   bool _hasData = false;
   bool _hasNext = false;
   bool _hasPrevious = false;
+  bool showSnakbar = false;
   bool get isSucceed => _status == DataStatus.succeed;
   bool get isFaild => _status == DataStatus.faild;
 
@@ -59,6 +61,9 @@ class Data<T> {
     _data = previousData;
 
     _message = message;
+    if (showSnakbar) {
+      Utils.showSnackBar(message);
+    }
   }
 
   Data.succeed(
@@ -76,6 +81,12 @@ class Data<T> {
     _hasData = _data != null;
     _hasNext = page < totalPages;
     _hasPrevious = page > 1;
+    if (showSnakbar) {
+      Utils.showSnackBar("$message",
+          background: Get.theme.colorScheme.primaryVariant,
+          color: Get.theme.colorScheme.primary,
+          showProgressIndicator: true);
+    }
   }
 
   Data.inProgress({
@@ -85,6 +96,13 @@ class Data<T> {
     _hasData = initialData == null ? false : true;
     _data = initialData;
     _message = message;
+    if (showSnakbar) {
+      Utils.showSnackBar(
+        "$message",
+        background: Get.theme.colorScheme.primaryVariant,
+        color: Get.theme.colorScheme.primary,
+      );
+    }
   }
 
   Data.withData({
@@ -112,6 +130,22 @@ class Data<T> {
     _hasData = _data != null;
     _hasNext = _page < totalPages;
     _hasPrevious = _page > 1;
+  }
+
+  void inProgress({String? message}) {
+    _status = DataStatus.inProgress;
+    _message = message;
+  }
+
+  void faild({String? message}) {
+    _status = DataStatus.faild;
+    _message = message;
+  }
+
+  void succeed(T data, {String? message}) {
+    _status = DataStatus.succeed;
+    _message = message;
+    _data = data;
   }
 
   set data(data) {

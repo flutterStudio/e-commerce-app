@@ -15,13 +15,14 @@ class CMSOfferScreenCopntroller extends GetxController {
       Rx<Data<List<ScreenItem>>>(Data.empty());
 
   FileUploaderController fileUploaderController = FileUploaderController();
-  RxList<String> errors = RxList([]);
+  Rx<List<String>> errors = Rx([]);
   Rx<ScreenItemActionType> offerActionType = Rx(ScreenItemActionType.Internal);
   Rx<ScreenItemtype> offerType = Rx(ScreenItemtype.Item);
   RxString offerLink = RxString("");
 
   RxList<Product> pickedProducts = RxList([]);
 
+  Rx<Data<ScreenItem>> offer = Rx(Data.empty()..showSnakbar = true);
   CMSOfferScreenCopntroller() {
     getMainScreenItems();
   }
@@ -44,28 +45,36 @@ class CMSOfferScreenCopntroller extends GetxController {
   }
 
   Future<void> addOffer() async {
-    errors.clear();
+    errors.value.clear();
 
     if (fileUploaderController.files.value.isEmpty) {
-      errors.add("message-error-no-offer-image".tr);
+      errors.update((val) {
+        val?.add("message-error-no-offer-image".tr);
+      });
     }
     var attachments = await fileUploaderController.getAttachments();
     if (attachments.isEmpty) {
-      errors.add("message-error-offer-image-not-uploaded".tr);
+      errors.update((val) {
+        val?.add("message-error-offer-image-not-uploaded".tr);
+      });
     }
     if (offerActionType.value == ScreenItemActionType.Internal &&
         pickedProducts.isEmpty) {
-      errors.add("message-error-offer-no-products".tr);
+      errors.update((val) {
+        val?.add("message-error-offer-no-products".tr);
+      });
     }
 
-    if (errors.isNotEmpty) {
+    if (errors.value.isNotEmpty) {
       return;
     }
+    offer.value.inProgress();
     ScreenItemDTO dto = offerActionType.value == ScreenItemActionType.External
         ? ScreenItemDTO.external(
             offerType.value.toString().split(".").last, offerLink.value, "", 1)
         : ScreenItemDTO.internal(offerType.value.toString().split(".").last,
             pickedProducts, "image id", 2);
-    _mainRepo.offerRepo.postSCreenItem(dto);
+    offer.value = await _mainRepo.offerRepo.postSCreenItem(dto)
+      ..showSnakbar = true;
   }
 }

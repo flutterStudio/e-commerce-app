@@ -107,7 +107,7 @@ class AddOfferForm extends GetView<CMSOfferScreenCopntroller> {
                   );
           }),
           const SizedBox(height: SizeConfig.horizontalSpace * 2),
-          Obx(() => ErrorMessage(errors: controller.errors)),
+          Obx(() => ErrorMessage(errors: controller.errors.value)),
           Row(
             children: [
               Expanded(
