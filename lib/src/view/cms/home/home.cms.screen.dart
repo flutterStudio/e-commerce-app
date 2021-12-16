@@ -1,7 +1,6 @@
 import 'package:e_commerce/src/service/auth_service.dart';
 import 'package:e_commerce/src/view/cms/home/cms.home.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.screen.dart';
-import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
 import 'package:e_commerce/src/view/cms/stories/cms.stories.screen.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
