@@ -10,6 +10,7 @@ class StoriesRepo {
   final ApiService _apiService;
   static const String _allMarketsStories = "Story/groupedByUser";
   static const String _marketStories = "Story/userStories";
+  static const String _story = "Story/";
 
   StoriesRepo({required ApiService apiService}) : _apiService = apiService;
 
@@ -66,6 +67,32 @@ class StoriesRepo {
           return Data.succeed(data: stories);
         }
         return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  ///
+  /// #### brief
+  /// Post a new story using the given [attachmentId].
+  ///
+  /// #### return
+  /// `Data<Story>` : a Data instance that contains the added story if the
+  /// result was `ok`, or an empty list if the request fails.
+  Future<Data<Story>> postStory(String attachmentId) async {
+    try {
+      Data<Story> data = await _apiService.postRequest<Data<Story>>(
+          _story, {"attachmentId": attachmentId}, (response) {
+        var jsonStory = jsonDecode(response.bodyString!);
+        Story story = Story().serilizer().fromJson(jsonStory);
+        return Data.succeed(data: story, showSnackbar: true);
       });
 
       return data;
