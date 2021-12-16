@@ -32,8 +32,9 @@ class OfferRepo {
         Data<ScreenItem> data = Data.empty();
 
         // Get pagination info if exists.
-        data.data = Data.succeed(
+        data = Data.succeed(
             showSnackbar: true,
+            message: "offer-uploaded-successfully",
             data: ScreenItem()
                 .serilizer()
                 .fromJson(jsonDecode(response.bodyString!)));

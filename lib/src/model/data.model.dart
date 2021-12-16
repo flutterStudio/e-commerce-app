@@ -87,7 +87,7 @@ class Data<T> {
       Utils.showSnackBar("$message",
           background: Get.theme.colorScheme.primaryVariant,
           color: Get.theme.colorScheme.primary,
-          showProgressIndicator: true);
+          showProgressIndicator: false);
     }
   }
 

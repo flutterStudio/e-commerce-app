@@ -25,8 +25,13 @@ class _ScreenItemModelSerializer extends ModelSerializer<ScreenItem> {
   @override
   ScreenItem fromJson(Map<String, dynamic> json) {
     model.screenItemId = json["screenItemId"];
-    model.image = _emulatorImage(json["image"]["downloadUrl"]);
-    model.externalLink = json["externalLink"];
+    model.image = json.containsKey("image")
+        ? json["image"] == null
+            ? null
+            : _emulatorImage(json["image"]?["downloadUrl"])
+        : null;
+    model.externalLink =
+        json.containsKey("externalLink") ? json["externalLink"] : null;
     model.orderNumber = json["orderNumber"];
 
     try {
