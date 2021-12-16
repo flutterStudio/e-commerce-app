@@ -82,6 +82,11 @@ class CMSOfferScreenCopntroller extends GetxController {
             attachments.first.attachmentId.toString(),
             offerOrder.value);
     offer.value = await _mainRepo.offerRepo.postSCreenItem(dto);
+
+    // Fetch offers again
+    if (offer.value.isSucceed) {
+      getMainScreenItems();
+    }
   }
 
   bool isOrderValid(String value) {
