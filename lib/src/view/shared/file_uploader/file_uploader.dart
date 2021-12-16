@@ -55,6 +55,7 @@ class FileUploader extends StatelessWidget {
                           child: FileUploaderList(controller.files.value
                               .map((e) => FileUploaderItem(
                                     info: e,
+                                    controller: controller,
                                   ))
                               .toList()),
                         )

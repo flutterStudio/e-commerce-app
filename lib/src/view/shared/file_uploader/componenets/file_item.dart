@@ -3,13 +3,17 @@ import 'dart:io';
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
+import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FileUploaderItem extends StatelessWidget {
-  const FileUploaderItem({Key? key, required this.info}) : super(key: key);
+  const FileUploaderItem(
+      {Key? key, required this.info, required this.controller})
+      : super(key: key);
 
   final FileUploaderInfo info;
+  final FileUploaderController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,15 @@ class FileUploaderItem extends StatelessWidget {
                   color: Colors.green,
                 )
               : info.status == FileUploadStatus.faild
-                  ? const Icon(Icons.error)
+                  ? IconButton(
+                      onPressed: () {
+                        controller.reUploadFile(info);
+                      },
+                      icon: Icon(
+                        Icons.replay_outlined,
+                        color: Theme.of(context).errorColor,
+                      ),
+                    )
                   : const CircularProgressIndicator()
         ],
       ),
@@ -46,12 +58,6 @@ class FileUploaderItem extends StatelessWidget {
   }
 
   Widget _imageFile({File? file, String? url, String? placeholderAsset}) {
-    // assert(file == null && url == null && placeholderAsset == null,
-    //     """file and url can not be both null,
-    //  or You sould provide an asset to show as a placeholder .""");
-    // assert(file != null && url != null,
-    //     "you can provide a file or a url, You can not use both.");
-
     if (file != null) {
       return Image.file(file);
     }

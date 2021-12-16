@@ -10,15 +10,15 @@ import 'package:get/get_rx/get_rx.dart';
 
 class FileUploaderController {
   Rx<List<FileUploaderInfo>> files = Rx([]);
-  void addFile(File file) {
-    if (files.value.any((element) => element.file.path == file.path)) {
+
+  void addFile(FileUploaderInfo fileInfo) {
+    if (files.value.any((element) => element.file.path == fileInfo.file.path)) {
       Utils.showSnackBar("message-file-already-exists".tr,
           background: Get.theme.colorScheme.secondaryVariant,
           color: Get.theme.colorScheme.primary);
       return;
     }
-    uploadFile(file);
-    var fileInfo = FileUploaderInfo(file: file);
+    uploadFile(fileInfo);
     fileInfo.status = FileUploadStatus.uploading;
     files.update((val) {
       val?.add(fileInfo);
@@ -30,28 +30,42 @@ class FileUploaderController {
     if (result != null) {
       for (var element in result.files) {
         if (element.path != null) {
-          addFile(File(element.path!));
+          addFile(FileUploaderInfo(file: File(element.path!)));
         }
       }
     }
   }
 
-  Future<void> uploadFile(file) async {
-    Get.find<MainRepo>().attachmentsRepo.uplaod(file).then((value) {
+  Future<void> reUploadFaild() async {
+    for (var info in files.value) {
+      if (info.attachment == null && info.status == FileUploadStatus.faild) {
+        info.status = FileUploadStatus.uploading;
+        uploadFile(info);
+      }
+    }
+  }
+
+  Future<void> reUploadFile(FileUploaderInfo info) async {
+    info.status = FileUploadStatus.uploading;
+    uploadFile(info);
+  }
+
+  Future<void> uploadFile(FileUploaderInfo info) async {
+    Get.find<MainRepo>().attachmentsRepo.uplaod(info.file).then((value) {
       if (value.isSucceed) {
-        updateFileStatus(file, FileUploadStatus.uploaded,
+        updateFileStatus(info, FileUploadStatus.uploaded,
             attachment: value.data);
       }
       if (value.isFaild) {
-        updateFileStatus(file, FileUploadStatus.faild);
+        updateFileStatus(info, FileUploadStatus.faild);
       }
     });
   }
 
-  void updateFileStatus(File file, FileUploadStatus status,
+  void updateFileStatus(FileUploaderInfo info, FileUploadStatus status,
       {Attachment? attachment}) {
     FileUploaderInfo? fileUploaderInfo =
-        files.value.firstWhereOrNull((element) => element.file == file);
+        files.value.firstWhereOrNull((element) => element.file == info.file);
     if (fileUploaderInfo != null) {
       fileUploaderInfo.status = status;
       if (status == FileUploadStatus.uploaded) {
