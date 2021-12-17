@@ -92,7 +92,10 @@ class StoriesRepo {
           _story, {"attachmentId": attachmentId}, (response) {
         var jsonStory = jsonDecode(response.bodyString!);
         Story story = Story().serilizer().fromJson(jsonStory);
-        return Data.succeed(data: story, showSnackbar: true);
+        return Data.succeed(
+            data: story,
+            showSnackbar: true,
+            message: "attachment-uploaded-successfully".tr);
       });
 
       return data;
@@ -103,6 +106,26 @@ class StoriesRepo {
     } catch (e) {
       return Data.faild(message: "message-error".tr);
     }
+  }
+
+  ///
+  /// #### brief
+  /// Post a  collection of stories using a list given [attachments] ids.
+  ///
+  /// #### return
+  /// `List<Data<Story>>` : a Data instance that contains the added story if the
+  /// result was `ok`, or an empty list if the request fails.
+  Future<Data<List<Data<Story>>>> postStories(List<String> attachments) async {
+    List<Data<Story>> result = [];
+    for (var attachment in attachments) {
+      result.add(await postStory(attachment));
+    }
+    if (result.any((element) => element.isFaild || !element.hasData)) {
+      return Data.faild(
+          message: "faild-to-post-all-stories", showSnackbar: true);
+    }
+    return Data.succeed(
+        data: result, message: "faild-to-post-stories", showSnackbar: true);
   }
 
   List<Story> _initStoriesData(List<dynamic> jsonList) {

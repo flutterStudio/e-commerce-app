@@ -21,11 +21,21 @@ class _StorySerializer extends ModelSerializer<Story> {
 
   @override
   Story fromJson(Map<String, dynamic> json) {
-    model.id = json.containsKey('StoryId') ? json["StoryId"] : null;
-    model.attachment = json.containsKey('attachment')
-        ? _emulatorImage(json['attachment']["downloadUrl"])
+    model.id = json.containsKey('StoryId')
+        ? json['StoryId'] == null
+            ? null
+            : json["StoryId"]
         : null;
-    model.userId = json.containsKey('user') ? json['user']["userId"] : null;
+    model.attachment = json.containsKey('attachment')
+        ? json['attachment'] == null
+            ? null
+            : _emulatorImage(json['attachment']["downloadUrl"])
+        : null;
+    model.userId = json.containsKey('user')
+        ? json['user'] == null
+            ? null
+            : json['user']["userId"]
+        : null;
     model.mediaType = model.attachment != null
         ? FileUtils.filesTypes[json['attachment']['type']]
         : null;

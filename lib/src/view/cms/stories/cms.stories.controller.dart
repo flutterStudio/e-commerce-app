@@ -9,7 +9,8 @@ import 'package:story_view/controller/story_controller.dart';
 
 class CMSStoriesController extends GetxController {
   Rx<Data<List<Story>>> stories = Rx<Data<List<Story>>>(Data.empty());
-  Rx<Data<Story>> addedStory = Rx<Data<Story>>(Data.empty());
+  Rx<Data<List<Data<Story>>>> addedStory =
+      Rx<Data<List<Data<Story>>>>(Data.empty());
   FileUploaderController fileUploaderController = FileUploaderController();
   Rx<List<String>> errors = Rx([]);
 
@@ -31,16 +32,18 @@ class CMSStoriesController extends GetxController {
 
   Future<void> addStory() async {
     var attachments = await fileUploaderController.getAttachments();
+
     if (attachments.isEmpty) {
       errors.update((val) {
         val?.add("message-error-no-attachment-file".tr);
       });
       return;
     }
-    addedStory.value = Data.inProgress(showSnackbar: true);
+    addedStory.value =
+        Data.inProgress(showSnackbar: true, message: "posting-stories");
 
-    addedStory.value = await _mainRepo.storiesRepo
-        .postStory(attachments.first.attachmentId.toString());
+    addedStory.value = await _mainRepo.storiesRepo.postStories(
+        attachments.map((e) => e.attachmentId.toString()).toList());
   }
 
   void openStoriesView() {
