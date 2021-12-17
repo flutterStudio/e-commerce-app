@@ -6,6 +6,7 @@ import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_upload
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class FileUploaderItem extends StatelessWidget {
   const FileUploaderItem(
@@ -46,8 +47,11 @@ class FileUploaderItem extends StatelessWidget {
     switch (info.type) {
       case MediaType.image:
         {
-          return AspectRatio(
-              aspectRatio: 1, child: _imageFile(file: info.file));
+          return _imageFile(file: info.file);
+        }
+      case MediaType.video:
+        {
+          return _videoFile(file: info.file);
         }
       default:
         return const Icon(Icons.file_upload);
@@ -65,6 +69,22 @@ class FileUploaderItem extends StatelessWidget {
     }
     if (placeholderAsset != null) {
       return Image.asset(placeholderAsset);
+    }
+    return Container();
+  }
+
+  Widget _videoFile({File? file, String? url, String? placeholderAsset}) {
+    if (file != null) {
+      return VideoPlayer(
+        VideoPlayerController.file(file)..initialize(),
+      );
+    }
+    if (url != null) {
+      return VideoPlayer(VideoPlayerController.network(url)..initialize());
+    }
+    if (placeholderAsset != null) {
+      return VideoPlayer(
+          VideoPlayerController.asset(placeholderAsset)..initialize());
     }
     return Container();
   }
