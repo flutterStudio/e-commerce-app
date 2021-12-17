@@ -6,7 +6,6 @@ import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/image_element.component.dart';
 import 'package:e_commerce/src/view/cms/offers/components/images_slider.component.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
-import 'package:e_commerce/src/view/stories/components/stories_list.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -68,9 +67,6 @@ class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller> {
                 const Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: SizeConfig.verticalSpace),
-                  child: StoriesList(
-                    height: 90,
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
