@@ -121,7 +121,7 @@ class Data<T> {
 
   Data.empty({
     T? initialData,
-  }) : _status = DataStatus.none {
+  }) : _status = DataStatus.empty {
     _data = initialData;
     _hasData = initialData == null ? false : true;
   }

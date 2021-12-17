@@ -16,7 +16,7 @@ class CMSStoriesController extends GetxController {
   CMSStoriesController() {
     getStories();
   }
-  final StoryController storyController = StoryController();
+  final StoryController storiesController = StoryController();
   final MainRepo _mainRepo = Get.find<MainRepo>();
 
   Future<void> getStories() async {
@@ -24,6 +24,8 @@ class CMSStoriesController extends GetxController {
     var userId = Get.find<AuthService>().currentUser.value?.id;
     if (userId != null) {
       stories.value = await _mainRepo.storiesRepo.getCompanyStories(userId);
+    } else {
+      stories.value = Data.faild(message: "no current user");
     }
   }
 
@@ -39,5 +41,9 @@ class CMSStoriesController extends GetxController {
 
     addedStory.value = await _mainRepo.storiesRepo
         .postStory(attachments.first.attachmentId.toString());
+  }
+
+  void openStoriesView() {
+    // storiesController.
   }
 }

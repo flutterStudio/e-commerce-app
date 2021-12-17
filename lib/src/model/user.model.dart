@@ -29,7 +29,7 @@ class _UserSerializer extends ModelSerializer<User> {
 
   @override
   User fromJson(Map<String, dynamic> json) {
-    model.id = json["id"];
+    model.id = json["userId"];
     model.deviceToken = json["deviceToken"];
     model.token = json["token"];
     model.firstName = json["firstName"];
@@ -42,7 +42,7 @@ class _UserSerializer extends ModelSerializer<User> {
   @override
   Map<String, dynamic> toJson() {
     return {
-      "id": model.id,
+      "userId": model.id,
       "deviceToken": model.deviceToken,
       "token": model.token,
       "lastName": model.lastName,

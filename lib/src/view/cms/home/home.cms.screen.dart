@@ -16,10 +16,14 @@ class CMSHome extends GetView<CMSHomeController> {
   final List<Widget> pages = [
     const CMSProducts(),
     const CMSOffersScreen(),
-    CMSStoriesScreen()
+    const CMSStoriesScreen()
   ];
   final List<String> titles = ["products".tr, "offers".tr, "stories".tr];
-  final List<IconData> icons = const [Icons.inventory, Icons.new_releases];
+  final List<IconData> icons = const [
+    Icons.inventory,
+    Icons.new_releases,
+    Icons.auto_awesome_motion_sharp
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

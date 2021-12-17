@@ -14,7 +14,6 @@ import 'package:e_commerce/src/view/cms/home/home.cms.screen.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.add_offer.screen.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/products/cms.products.screen.dart';
-import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
 import 'package:e_commerce/src/view/cms/stories/cms.stories.screen.dart';
 import 'package:e_commerce/src/view/evaluations/evaluations.screen.dart';
 import 'package:e_commerce/src/view/home/home.screen.dart';
@@ -85,12 +84,9 @@ class AppRoutes {
           ),
           GetPage(
             name: AppPaths.stories,
-            page: () => CMSStoriesScreen(),
+            page: () => const CMSStoriesScreen(),
             participatesInRootNavigator: true,
             preventDuplicates: true,
-            binding: BindingsBuilder.put(() {
-              return CMSStoriesController();
-            }),
           ),
         ]),
     GetPage(
