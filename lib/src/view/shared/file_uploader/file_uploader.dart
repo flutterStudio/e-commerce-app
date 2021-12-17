@@ -44,13 +44,12 @@ class FileUploader extends StatelessWidget {
         const SizedBox(
           height: SizeConfig.verticalSpace,
         ),
-        // GetX<FileUploaderController>(builder: (context) {
         StreamBuilder(
             stream: controller.files.stream,
             builder: (context, files) {
               return files.hasError
                   ? ErrorMessage(errors: [files.error.toString()])
-                  : files.hasData
+                  : controller.files.value.isNotEmpty
                       ? SizedBox(
                           height: 100,
                           child: FileUploaderList(controller.files.value
@@ -62,8 +61,6 @@ class FileUploader extends StatelessWidget {
                         )
                       : Container();
             }),
-
-        // }),
         const SizedBox(
           height: SizeConfig.verticalSpace,
         ),
