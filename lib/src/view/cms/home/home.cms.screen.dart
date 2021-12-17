@@ -27,6 +27,11 @@ class CMSHome extends GetView<CMSHomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Obx(() {
+            return Text(titles[controller.currentPage.value]);
+          }),
+        ),
         drawer: Drawer(
           child: Column(
             children: [
