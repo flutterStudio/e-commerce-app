@@ -23,7 +23,7 @@ class CMSOfferScreenCopntroller extends GetxController {
   RxList<Product> pickedProducts = RxList([]);
 
   Rx<Data<ScreenItem>> offer = Rx(Data.empty());
-  RxInt offerOrder = RxInt(0);
+  RxInt offerOrder = RxInt(1);
   CMSOfferScreenCopntroller() {
     getMainScreenItems();
   }
@@ -101,23 +101,35 @@ class CMSOfferScreenCopntroller extends GetxController {
     }
   }
 
-  bool isOrderValid(String value) {
-    int? order = int.tryParse(value);
-    if (order == null || order < 0) {
+  bool isOrderValid(int value) {
+    if (value <= 0) {
       return false;
     }
     return screenItems.value.data
-            ?.firstWhere((element) => element.orderNumber == order) ==
-        null;
+            ?.every((element) => element.orderNumber != value) ??
+        false;
   }
 
   void increaseOrder() {
-    // if (isOrderValid((offerOrder.value + 1).toString()))
-    offerOrder.value += 1;
+    int order = offerOrder.value + 1;
+    while (!isOrderValid(order)) {
+      order++;
+    }
+    offerOrder.value = order;
   }
 
   void decreaseOrder() {
-    // if (isOrderValid((offerOrder.value - 1).toString()))
-    offerOrder.value -= 1;
+    int order = offerOrder.value - 1;
+    if (order <= 0) {
+      return;
+    }
+    while (!isOrderValid(order)) {
+      order--;
+      if (order <= 0) {
+        break;
+      }
+    }
+    // if (isOrderValid((offerOrder.value + 1).toString()))
+    offerOrder.value = order;
   }
 }
