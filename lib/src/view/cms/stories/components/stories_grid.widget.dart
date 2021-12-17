@@ -44,22 +44,39 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
             childAspectRatio: .7,
             mainAxisSpacing: SizeConfig.verticalSpace),
         scrollDirection: Axis.vertical,
-        itemCount: stories.length,
-        itemBuilder: (context, index) => StoryGridItem(
-              story: stories[index],
-              onTapOptions: () {
-                showModalBottomSheet(
-                    isScrollControlled: false,
-                    isDismissible: true,
-                    context: context,
-                    builder: (context) => StotyOptionsList(stories[index]));
-              },
-              onTap: () {
-                Get.to(StoriesView(
-                  stories: stories,
-                ));
-              },
-            ));
+        itemCount: stories.length + 1,
+        itemBuilder: (context, index) => index == 0
+            ? Container(
+                margin: const EdgeInsets.only(right: 10),
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(SizeConfig.borderRadius),
+                    color: Theme.of(context).colorScheme.secondaryVariant),
+                child: IconButton(
+                    onPressed: () {
+                      showAddStoryBottomSheet(context);
+                    },
+                    icon: Icon(
+                      Icons.add_a_photo_rounded,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: ICONSIZE.lg,
+                    )))
+            : StoryGridItem(
+                story: stories[index - 1],
+                onTapOptions: () {
+                  showModalBottomSheet(
+                      isScrollControlled: false,
+                      isDismissible: true,
+                      context: context,
+                      builder: (context) => StotyOptionsList(stories[index]));
+                },
+                onTap: () {
+                  Get.to(StoriesView(
+                    stories: stories,
+                  ));
+                },
+              ));
   }
 
   void showAddStoryBottomSheet(BuildContext context) {

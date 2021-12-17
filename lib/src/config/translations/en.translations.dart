@@ -95,7 +95,11 @@ Map<String, String> _text = {
   "offer-view-type": "Offer view type",
   "offer-type": "Offer type",
   "offer-attachments": "Offer attachments",
-  "offer-uploaded-successfully": "Offer uploaded successfully"
+  "offer-uploaded-successfully": "Offer uploaded successfully",
+  "item-uploaded-successfully": "@item uploaded successfully",
+  "item-deleted-successfully": "@item deleted successfully",
+  "item-posted-successfully": "@item posted successfully",
+  "item-updated-successfully": "@item updated successfully",
 };
 
 Map<String, String> _textFields = {

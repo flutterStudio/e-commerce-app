@@ -95,7 +95,8 @@ class StoriesRepo {
         return Data.succeed(
             data: story,
             showSnackbar: true,
-            message: "attachment-uploaded-successfully".tr);
+            message:
+                "item-posted-successfully".trParams({"item": attachmentId}));
       });
 
       return data;
@@ -122,7 +123,8 @@ class StoriesRepo {
         return Data.succeed(
             data: true,
             showSnackbar: true,
-            message: "story-deleted-successfully".tr);
+            message:
+                "item-deleted-successfully".trParams({"item": "Story $id"}));
       });
 
       return data;
@@ -147,12 +149,14 @@ class StoriesRepo {
     for (var attachment in attachments) {
       result.add(await postStory(attachment));
     }
-    if (result.any((element) => element.isFaild || !element.hasData)) {
+    if (result.any((element) => element.isFaild)) {
       return Data.faild(
           message: "faild-to-post-all-stories", showSnackbar: true);
     }
     return Data.succeed(
-        data: result, message: "faild-to-post-stories", showSnackbar: true);
+        data: result,
+        message: "item-posted-successfully".trParams({"item": "Story"}),
+        showSnackbar: true);
   }
 
   List<Story> _initStoriesData(List<dynamic> jsonList) {
