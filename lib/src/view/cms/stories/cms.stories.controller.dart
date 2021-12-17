@@ -46,4 +46,6 @@ class CMSStoriesController extends GetxController {
   void openStoriesView() {
     // storiesController.
   }
+
+  void addStoryModal() {}
 }
