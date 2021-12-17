@@ -112,15 +112,23 @@ class RequestHandler<T> extends StatelessWidget {
   Widget _emptyResponseWidget(String message) {
     return Column(
       children: [
-        Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
-        const SizedBox(
-          height: SizeConfig.verticalSpace,
-        ),
-        Text(
-          message,
-          style: Get.textTheme.headline5
-              ?.copyWith(color: Get.theme.colorScheme.primary),
-        )
+        const Spacer(),
+        Expanded(
+            child: Column(children: [
+          Column(
+            children: [
+              Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
+              const SizedBox(
+                height: SizeConfig.verticalSpace,
+              ),
+              Text(
+                message,
+                style: Get.textTheme.headline5
+                    ?.copyWith(color: Get.theme.colorScheme.primary),
+              )
+            ],
+          )
+        ]))
       ],
     );
   }
