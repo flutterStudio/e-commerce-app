@@ -9,6 +9,7 @@ typedef ModelDecoder<T> = T Function(Response);
 class ApiService extends GetConnect {
   ApiService() {
     baseUrl = "http://94.242.58.41:5002/api/";
+    timeout = const Duration(seconds: 100);
   }
   String get _token =>
       "Bearer ${Get.find<AuthService>().currentUser.value?.token}";
