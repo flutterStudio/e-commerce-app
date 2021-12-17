@@ -75,6 +75,10 @@ class RequestHandler<T> extends StatelessWidget {
         {
           return _onEmpty ?? _emptyResponseWidget("message-empty-response".tr);
         }
+      case DataStatus.none:
+        {
+          return Container();
+        }
       default:
         {
           return _other ?? Container();
@@ -115,23 +119,15 @@ class RequestHandler<T> extends StatelessWidget {
   Widget _emptyResponseWidget(String message) {
     return Column(
       children: [
-        const Spacer(),
-        Expanded(
-            child: Column(children: [
-          Column(
-            children: [
-              Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
-              const SizedBox(
-                height: SizeConfig.verticalSpace,
-              ),
-              Text(
-                message,
-                style: Get.textTheme.headline5
-                    ?.copyWith(color: Get.theme.colorScheme.primary),
-              )
-            ],
-          )
-        ]))
+        Icon(Icons.error_outline, color: Get.theme.colorScheme.primary),
+        const SizedBox(
+          height: SizeConfig.verticalSpace,
+        ),
+        Text(
+          message,
+          style: Get.textTheme.headline5
+              ?.copyWith(color: Get.theme.colorScheme.primary),
+        )
       ],
     );
   }
