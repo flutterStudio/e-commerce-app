@@ -100,7 +100,34 @@ class StoriesRepo {
 
       return data;
     } on NetworkException catch (e) {
+      return Data.faild(message: e.message, showSnackbar: true);
+    } on FormatException catch (e) {
       return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  ///
+  /// #### brief
+  /// Delete the story with the given [id].
+  ///
+  /// #### return
+  /// `Data<Story>` : a Data instance that contains the added story if the
+  /// result was `ok`, or an empty list if the request fails.
+  Future<Data<bool>> deleteStory(String id) async {
+    try {
+      Data<bool> data =
+          await _apiService.deleteRequest<Data<bool>>(_story + id, (response) {
+        return Data.succeed(
+            data: true,
+            showSnackbar: true,
+            message: "story-deleted-successfully".tr);
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message, showSnackbar: true);
     } on FormatException catch (e) {
       return Data.faild(message: e.message);
     } catch (e) {

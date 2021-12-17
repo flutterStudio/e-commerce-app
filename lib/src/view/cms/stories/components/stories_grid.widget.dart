@@ -4,6 +4,7 @@ import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
 import 'package:e_commerce/src/view/cms/stories/components/add_story_from.compnent.dart';
 import 'package:e_commerce/src/view/cms/stories/components/stories_view.dart';
 import 'package:e_commerce/src/view/cms/stories/components/story_grid_item.widget.dart';
+import 'package:e_commerce/src/view/cms/stories/components/story_options_list.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -46,6 +47,13 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
         itemCount: stories.length,
         itemBuilder: (context, index) => StoryGridItem(
               story: stories[index],
+              onTapOptions: () {
+                showModalBottomSheet(
+                    isScrollControlled: false,
+                    isDismissible: true,
+                    context: context,
+                    builder: (context) => StotyOptionsList(stories[index]));
+              },
               onTap: () {
                 Get.to(StoriesView(
                   stories: stories,

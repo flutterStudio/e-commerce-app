@@ -40,15 +40,24 @@ class CMSStoriesController extends GetxController {
       return;
     }
     addedStory.value =
-        Data.inProgress(showSnackbar: true, message: "posting-stories");
+        Data.inProgress(showSnackbar: true, message: "posting-stories".tr);
 
     addedStory.value = await _mainRepo.storiesRepo.postStories(
         attachments.map((e) => e.attachmentId.toString()).toList());
+    if (addedStory.value.isSucceed) {
+      stories.update((val) {
+        val?.data?.addAll(addedStory.value.data!.map((e) => e.data!));
+      });
+    }
   }
 
-  void openStoriesView() {
-    // storiesController.
+  Future<void> deleteStory(String id) async {
+    Data.inProgress(showSnackbar: true, message: "deleting @item".tr);
+    var result = await _mainRepo.storiesRepo.deleteStory(id);
+    if (result.isSucceed) {
+      stories.update((val) {
+        val?.data?.removeWhere((element) => element.id.toString() == id);
+      });
+    }
   }
-
-  void addStoryModal() {}
 }

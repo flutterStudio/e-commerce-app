@@ -7,25 +7,36 @@ import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
 
 class StoryGridItem extends StatelessWidget {
-  const StoryGridItem({
-    Key? key,
-    required this.story,
-    this.onTap,
-  }) : super(key: key);
+  const StoryGridItem(
+      {Key? key,
+      required this.story,
+      this.onTap,
+      this.onLongPress,
+      this.onTapOptions})
+      : super(key: key);
   final Story story;
   final void Function()? onTap;
+  final void Function()? onTapOptions;
+  final void Function()? onLongPress;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-          margin: const EdgeInsets.only(right: 10),
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SizeConfig.borderRadius),
-            color: Colors.white,
-          ),
-          child: _contentBuilder(context)),
+    return GridTile(
+      footer: GridTileBar(
+          leading: IconButton(
+              onPressed: onTapOptions,
+              icon: const Icon(
+                Icons.more_horiz_outlined,
+              ))),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+            margin: const EdgeInsets.only(right: 10),
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(SizeConfig.borderRadius),
+                color: Theme.of(context).colorScheme.secondaryVariant),
+            child: _contentBuilder(context)),
+      ),
     );
   }
 

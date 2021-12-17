@@ -21,10 +21,10 @@ class _StorySerializer extends ModelSerializer<Story> {
 
   @override
   Story fromJson(Map<String, dynamic> json) {
-    model.id = json.containsKey('StoryId')
-        ? json['StoryId'] == null
+    model.id = json.containsKey('storyId')
+        ? json['storyId'] == null
             ? null
-            : json["StoryId"]
+            : json["storyId"]
         : null;
     model.attachment = json.containsKey('attachment')
         ? json['attachment'] == null
