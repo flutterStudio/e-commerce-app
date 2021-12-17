@@ -100,6 +100,10 @@ Map<String, String> _text = {
   "item-deleted-successfully": "@item deleted successfully",
   "item-posted-successfully": "@item posted successfully",
   "item-updated-successfully": "@item updated successfully",
+  "uploading-item": "Uploading @item",
+  "deleting-item": "Deleting @item",
+  "posting-item": "Posting @item",
+  "updating-item": "Updating @item",
 };
 
 Map<String, String> _textFields = {

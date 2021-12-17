@@ -4,6 +4,7 @@ import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class CMSProductsController extends GetxController {
   int? type;
@@ -32,5 +33,18 @@ class CMSProductsController extends GetxController {
         await Get.find<MainRepo>().productRepo.getActiveProducts();
 
     products.value = companyProducts;
+  }
+
+  Future<void> deleteProduct(int id) async {
+    Data.inProgress(
+        showSnackbar: true,
+        message: "deleting-item".trParams({"item": "product"}));
+    Data<bool> deletedProduct =
+        await Get.find<MainRepo>().productRepo.deleteProduct(id);
+    if (deletedProduct.isSucceed) {
+      products.update((val) {
+        val?.data?.removeWhere((element) => element.id == id);
+      });
+    }
   }
 }

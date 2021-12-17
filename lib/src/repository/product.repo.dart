@@ -315,6 +315,34 @@ class ProductRepo {
   /// Get users evaluations on a specific product.
   ///
   ///
+  Future<Data<bool>> deleteProduct(int productId) async {
+    try {
+      Data<bool>? data = await _apiService.deleteRequest<Data<bool>>(
+        _product + "/$productId",
+        (response) {
+          return Data.succeed(
+              data: true,
+              showSnackbar: true,
+              message: "item-deleted-successfully"
+                  .trParams({"item": "product $productId"}));
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-unknown-error".tr);
+    }
+  }
+
+  ///
+  /// #### brief
+  /// Get users evaluations on a specific product.
+  ///
+  ///
   Future<Data<List<Evaluation>>> getProductEvaluations(int productId) async {
     try {
       Data<List<Evaluation>>? data =

@@ -22,25 +22,26 @@ class CMSProductsList extends GetWidget<CMSProductsController> {
               ListView.builder(
                   itemCount: controller.products.value.data!.length,
                   itemBuilder: (context, index) {
-                    Product? product = controller.products.value.data?[index];
+                    Product product = items[index];
                     return ExpansionTile(
-                      // onTap: () {
-                      //   Get.toNamed("/product/${product?.id}");
-                      // },
-
                       children: [
                         Row(children: [
                           IconButton(
-                              onPressed: () {}, icon: const Icon(Icons.delete)),
+                              onPressed: product.id == null
+                                  ? null
+                                  : () {
+                                      controller.deleteProduct(product.id!);
+                                    },
+                              icon: const Icon(Icons.delete)),
                           IconButton(
                               onPressed: () {}, icon: const Icon(Icons.edit)),
                         ])
                       ],
                       leading: CustomNetworkImage(
-                        url: product?.mainImage ?? "",
+                        url: product.mainImage ?? "",
                       ),
                       title: Text(
-                        product?.title ?? "",
+                        product.title ?? "",
                         style:
                             const TextStyle(color: Colors.black, fontSize: 16),
                         overflow: TextOverflow.clip,
@@ -48,14 +49,14 @@ class CMSProductsList extends GetWidget<CMSProductsController> {
                       ),
                       subtitle: Text.rich(
                         TextSpan(
-                          text: "\$${product?.price}",
+                          text: "\$${product.price}",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Theme.of(context).colorScheme.primary),
                           children: [
-                            product?.discount != null
+                            product.discount != null
                                 ? TextSpan(
-                                    text: " disount: ${product?.discount}",
+                                    text: " disount: ${product.discount}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         color: Theme.of(context)
@@ -65,9 +66,6 @@ class CMSProductsList extends GetWidget<CMSProductsController> {
                           ],
                         ),
                       ),
-                      // child: CMSProductItem(
-                      //   product: product,
-                      // ),
                     );
                   }),
         );
