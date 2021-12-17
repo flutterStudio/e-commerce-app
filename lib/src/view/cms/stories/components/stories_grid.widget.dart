@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/story.model.dart';
 import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
+import 'package:e_commerce/src/view/cms/stories/components/add_story_from.compnent.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:e_commerce/src/view/stories/components/story_list_item.widget.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,9 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
         onSuccess: _onSucess,
         onEmpty: Center(
           child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showAddStoryBottomSheet(context);
+              },
               icon: Icon(
                 Icons.add_a_photo_rounded,
                 color: Theme.of(context).colorScheme.primary,
@@ -42,5 +45,10 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
               story: stories[index],
               onTap: () {},
             ));
+  }
+
+  void showAddStoryBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context, builder: (context) => const AddStoryForm());
   }
 }
