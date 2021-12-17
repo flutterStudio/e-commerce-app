@@ -34,7 +34,7 @@ class OfferRepo {
         // Get pagination info if exists.
         data = Data.succeed(
             showSnackbar: true,
-            message: "offer-uploaded-successfully",
+            message: "item-uploaded-successfully".trParams({"item": "Offer"}),
             data: ScreenItem()
                 .serilizer()
                 .fromJson(jsonDecode(response.bodyString!)));
