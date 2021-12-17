@@ -2,8 +2,8 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/story.model.dart';
 import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
 import 'package:e_commerce/src/view/cms/stories/components/add_story_from.compnent.dart';
+import 'package:e_commerce/src/view/cms/stories/components/story_grid_item.widget.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
-import 'package:e_commerce/src/view/stories/components/story_list_item.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -37,10 +37,12 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
   Widget _onSucess(BuildContext context, List<Story> stories) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 2),
-        scrollDirection: Axis.horizontal,
+            crossAxisCount: 2,
+            childAspectRatio: .7,
+            mainAxisSpacing: SizeConfig.verticalSpace),
+        scrollDirection: Axis.vertical,
         itemCount: stories.length,
-        itemBuilder: (context, index) => StoryListItem(
+        itemBuilder: (context, index) => StoryGridItem(
               height: 30,
               story: stories[index],
               onTap: () {},
