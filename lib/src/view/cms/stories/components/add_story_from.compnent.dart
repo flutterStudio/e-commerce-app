@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
+import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
@@ -28,21 +29,29 @@ class AddStoryForm extends GetView<CMSAddProductController> {
               },
             ),
             const SizedBox(height: SizeConfig.verticalSpace * 2),
-            DefaultButton(
-              child: Text(
-                "continue".tr,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
-              ),
-              press: () {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  controller.addProduct();
-                }
+            StreamBuilder(
+              stream: controller.fileUploaderController.files.stream,
+              builder: (context, files) {
+                var filesInfo = controller.fileUploaderController
+                    .getFilesByStatus(FileUploadStatus.uploaded);
+
+                return DefaultButton(
+                  child: Text(
+                    "upload".tr,
+                    style: Theme.of(context).textTheme.headline6?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary),
+                  ),
+                  press: filesInfo.isNotEmpty
+                      ? () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            controller.addProduct();
+                          }
+                        }
+                      : null,
+                );
               },
-            ),
+            )
           ],
         ),
       ),

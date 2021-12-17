@@ -16,7 +16,6 @@ class DefaultButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: 56,
       child: TextButton(
         style: TextButton.styleFrom(
           padding: const EdgeInsets.all(SizeConfig.buttonPadding),
