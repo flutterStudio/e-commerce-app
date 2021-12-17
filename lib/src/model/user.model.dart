@@ -1,4 +1,6 @@
+import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/middleware/model_serilizer.middleware.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 
 import 'model.dart';
 
@@ -9,6 +11,7 @@ class User implements Model {
   String? email;
   String? lastName;
   String? password;
+  UserRole? userRole;
   String? token;
 
   User({this.id, this.deviceToken});
@@ -34,6 +37,12 @@ class _UserSerializer extends ModelSerializer<User> {
     model.token = json["token"];
     model.firstName = json["firstName"];
     model.lastName = json["lastName"];
+    try {
+      model.userRole =
+          Utils.enumFromString<UserRole>(UserRole.values, json["userRole"]);
+    } catch (e) {
+      model.userRole = null;
+    }
     model.email = json["email"];
     model.password = json["password"];
     return model;
@@ -46,6 +55,7 @@ class _UserSerializer extends ModelSerializer<User> {
       "deviceToken": model.deviceToken,
       "token": model.token,
       "lastName": model.lastName,
+      "userRole": model.userRole.toString().split(".").last,
       "firstName": model.firstName,
       "password": model.password,
       "email": model.email

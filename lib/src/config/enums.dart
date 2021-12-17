@@ -11,6 +11,7 @@ enum ScreenItemtype {
 enum ScreenItemActionType { External, Internal }
 
 enum MediaType { image, video, audio, none }
+enum UserRole { User, Company }
 
 enum ErrorType {
   forbidden,
