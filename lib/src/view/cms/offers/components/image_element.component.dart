@@ -9,8 +9,9 @@ import 'package:get/route_manager.dart';
 class ImageItem extends StatelessWidget {
   final ScreenItem item;
 
-  const ImageItem({Key? key, required this.item}) : super(key: key);
-
+  const ImageItem({Key? key, required this.item, required this.onShowOptions})
+      : super(key: key);
+  final void Function() onShowOptions;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -36,7 +37,7 @@ class ImageItem extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerLeft,
             child: IconButton(
-                onPressed: () {},
+                onPressed: onShowOptions,
                 icon: const Icon(
                   Icons.more_vert_outlined,
                   color: Colors.white,

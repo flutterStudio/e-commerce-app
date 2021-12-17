@@ -59,6 +59,37 @@ class OfferRepo {
     }
   }
 
+  Future<Data<bool>> deleteScreenItem(int id,
+      {int? page, int? pageSize, bool isExternal = false}) async {
+    try {
+      Data<bool> data = await _apiService
+          .deleteRequest(_screenItem + id.toString(), (response) {
+        // Get pagination info if exists.
+        return Data.succeed(
+            showSnackbar: true,
+            message:
+                "item-deleted-successfully".trParams({"item": "Offer $id"}),
+            data: true);
+      });
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } on FormatException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } catch (e) {
+      return Data.faild(
+        message: e.toString(),
+        showSnackbar: true,
+      );
+    }
+  }
+
   Future<Data<List<ScreenItem>>> _getScreenItems(String url,
       {int? page, int? pageSize}) async {
     try {

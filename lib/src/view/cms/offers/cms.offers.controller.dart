@@ -89,6 +89,18 @@ class CMSOfferScreenCopntroller extends GetxController {
     }
   }
 
+  Future<void> deleteOffer(int id) async {
+    Data.inProgress(
+        showSnackbar: true,
+        message: "deleting-item".trParams({"item": "Offer"}));
+    var result = await _mainRepo.offerRepo.deleteScreenItem(id);
+    if (result.isSucceed) {
+      screenItems.update((val) {
+        val?.data?.removeWhere((element) => element.screenItemId == id);
+      });
+    }
+  }
+
   bool isOrderValid(String value) {
     int? order = int.tryParse(value);
     if (order == null || order < 0) {

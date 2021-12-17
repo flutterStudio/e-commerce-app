@@ -104,6 +104,10 @@ Map<String, String> _text = {
   "deleting-item": "Deleting @item",
   "posting-item": "Posting @item",
   "updating-item": "Updating @item",
+  "upload-item": "Upload @item",
+  "delete-item": "Delete @item",
+  "post-item": "Post @item",
+  "update-item": "Update @item",
 };
 
 Map<String, String> _textFields = {

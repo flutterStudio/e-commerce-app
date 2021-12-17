@@ -5,6 +5,7 @@ import 'package:e_commerce/src/model/main_screen_item.model.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/components/image_element.component.dart';
 import 'package:e_commerce/src/view/cms/offers/components/images_slider.component.dart';
+import 'package:e_commerce/src/view/cms/offers/components/offer_options_list.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -80,8 +81,16 @@ class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller> {
                     color: Theme.of(context).colorScheme.secondaryVariant,
                     margin: const EdgeInsets.symmetric(
                         vertical: SizeConfig.verticalSpace),
-                    child:
-                        AspectRatio(aspectRatio: 3, child: ImageItem(item: e)),
+                    child: AspectRatio(
+                        aspectRatio: 3,
+                        child: ImageItem(
+                          item: e,
+                          onShowOptions: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => OfferOptionsList(e));
+                          },
+                        )),
                   );
                 }).toList()
               ],
