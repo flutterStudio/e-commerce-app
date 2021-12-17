@@ -91,4 +91,8 @@ class FileUploaderController {
   void clearAll() {
     files.value = [];
   }
+
+  List<FileUploaderInfo> getFilesByStatus(FileUploadStatus status) {
+    return files.value.where((element) => element.status == status).toList();
+  }
 }
