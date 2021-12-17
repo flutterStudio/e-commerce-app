@@ -2,12 +2,15 @@ import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/story.model.dart';
 import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
 import 'package:e_commerce/src/view/cms/stories/components/add_story_from.compnent.dart';
+import 'package:e_commerce/src/view/cms/stories/components/stories_view.dart';
 import 'package:e_commerce/src/view/cms/stories/components/story_grid_item.widget.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:story_view/story_view.dart';
 
 class StoriesGrid extends GetWidget<CMSStoriesController> {
   const StoriesGrid({
@@ -43,9 +46,12 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
         scrollDirection: Axis.vertical,
         itemCount: stories.length,
         itemBuilder: (context, index) => StoryGridItem(
-              height: 30,
               story: stories[index],
-              onTap: () {},
+              onTap: () {
+                Get.to(StoriesView(
+                  stories: stories,
+                ));
+              },
             ));
   }
 
