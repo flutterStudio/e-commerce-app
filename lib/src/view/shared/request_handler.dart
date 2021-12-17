@@ -22,6 +22,7 @@ class RequestHandler<T> extends StatelessWidget {
   final Widget Function(String? error)? _onFailed;
   final Widget? _inProgress;
   final Widget? _other;
+  final Widget? _onEmpty;
   final VoidCallback? onErrorRetry;
 
   const RequestHandler(
@@ -29,6 +30,7 @@ class RequestHandler<T> extends StatelessWidget {
       required OnSucess<T> onSuccess,
       Widget Function(String? error)? onFailed,
       inProgress,
+      Widget? onEmpty,
       other,
       required Data<T> data,
       this.onErrorRetry})
@@ -37,6 +39,7 @@ class RequestHandler<T> extends StatelessWidget {
         _inProgress = inProgress,
         _other = other,
         _data = data,
+        _onEmpty = onEmpty,
         super(key: key);
 
   @override
@@ -70,7 +73,7 @@ class RequestHandler<T> extends StatelessWidget {
         }
       case DataStatus.empty:
         {
-          return _emptyResponseWidget("message-empty-response".tr);
+          return _onEmpty ?? _emptyResponseWidget("message-empty-response".tr);
         }
       default:
         {
