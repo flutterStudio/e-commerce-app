@@ -15,10 +15,13 @@ class FileUploaderList extends GetView<FileUploaderController> {
         Expanded(
             child: items.isEmpty
                 ? const Text("Upload files")
-                : Wrap(
-                    direction: Axis.horizontal,
-                    alignment: WrapAlignment.start,
-                    children: items,
+                : GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4, childAspectRatio: 1),
+                    scrollDirection: Axis.vertical,
+                    itemCount: items.length,
+                    itemBuilder: (context, index) => items[index],
                   ))
       ],
     );

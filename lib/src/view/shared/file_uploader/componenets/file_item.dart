@@ -17,31 +17,28 @@ class FileUploaderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        fit: StackFit.loose,
-        children: [
-          _contentBuilder(context),
-          info.status == FileUploadStatus.uploaded
-              ? const Icon(
-                  Icons.cloud_upload,
-                  color: Colors.green,
-                )
-              : info.status == FileUploadStatus.faild
-                  ? IconButton(
-                      onPressed: () {
-                        controller.reUploadFile(info);
-                      },
-                      icon: Icon(
-                        Icons.replay_outlined,
-                        color: Theme.of(context).errorColor,
-                      ),
-                    )
-                  : const CircularProgressIndicator()
-        ],
-      ),
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      fit: StackFit.loose,
+      children: [
+        _contentBuilder(context),
+        info.status == FileUploadStatus.uploaded
+            ? const Icon(
+                Icons.cloud_upload,
+                color: Colors.green,
+              )
+            : info.status == FileUploadStatus.faild
+                ? IconButton(
+                    onPressed: () {
+                      controller.uploadFile(info);
+                    },
+                    icon: Icon(
+                      Icons.replay_outlined,
+                      color: Theme.of(context).errorColor,
+                    ),
+                  )
+                : const CircularProgressIndicator()
+      ],
     );
   }
 

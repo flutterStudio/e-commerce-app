@@ -18,11 +18,10 @@ class FileUploaderController {
           color: Get.theme.colorScheme.primary);
       return;
     }
-    uploadFile(fileInfo);
-    fileInfo.status = FileUploadStatus.uploading;
     files.update((val) {
       val?.add(fileInfo);
     });
+    uploadFile(fileInfo);
   }
 
   Future<void> pickFiles() async {
@@ -39,18 +38,16 @@ class FileUploaderController {
   Future<void> reUploadFaild() async {
     for (var info in files.value) {
       if (info.attachment == null && info.status == FileUploadStatus.faild) {
-        info.status = FileUploadStatus.uploading;
         uploadFile(info);
       }
     }
   }
 
-  Future<void> reUploadFile(FileUploaderInfo info) async {
-    info.status = FileUploadStatus.uploading;
-    uploadFile(info);
-  }
-
   Future<void> uploadFile(FileUploaderInfo info) async {
+    updateFileStatus(info, FileUploadStatus.uploading);
+    // files.update((val) {
+    //   val?.firstWhere((fileInfo) => fileInfo.file == info.file);
+    // });
     Get.find<MainRepo>().attachmentsRepo.uplaod(info.file).then((value) {
       if (value.isSucceed) {
         updateFileStatus(info, FileUploadStatus.uploaded,
