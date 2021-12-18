@@ -1,7 +1,7 @@
+import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
@@ -23,23 +23,21 @@ class _ProductImagesState extends State<ProductImages> {
       children: [
         SizedBox(
           width: 238,
-          child: widget.product.allImages()!.isEmpty
-              ? Text("message-no-product-images".tr)
-              : AspectRatio(
-                  aspectRatio: 1,
-                  child: Hero(
-                    tag: widget.product.id.toString(),
-                    child: CustomNetworkImage(
-                      url: widget.product.images![selectedImage],
-                    ),
-                  ),
-                ),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Hero(
+              tag: widget.product.id.toString(),
+              child: CustomNetworkImage(
+                url: widget.product.allImages()[selectedImage],
+              ),
+            ),
+          ),
         ),
-        // SizedBox(height: 20),
+        const SizedBox(height: SizeConfig.verticalSpace),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(widget.product.allImages()?.length ?? 0,
+            ...List.generate(widget.product.allImages().length,
                 (index) => buildSmallProductPreview(index)),
           ],
         )
@@ -70,7 +68,7 @@ class _ProductImagesState extends State<ProductImages> {
                   .withOpacity(selectedImage == index ? 1 : 0)),
         ),
         child: CustomNetworkImage(
-          url: widget.product.allImages()![index],
+          url: widget.product.allImages()[index],
         ),
       ),
     );

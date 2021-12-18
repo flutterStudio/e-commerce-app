@@ -30,60 +30,54 @@ class ProductScreen extends GetView<ProductController> {
         children: [
           Expanded(
               child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Obx(() => RequestHandler<Product>(
-                      data: controller.product.value,
-                      onSuccess: (context, data) =>
-                          ProductImages(product: data),
-                      inProgress: const RefreshProgressIndicator(),
-                    )),
-                TopRoundedContainer(
-                    color: Colors.white,
-                    child: Obx(() {
-                      return RequestHandler<Product>(
-                        data: controller.product.value,
-                        onSuccess: (context, data) => Column(
-                          children: [
-                            _SectionWidget(
-                              child: ProductDescription(
-                                product: data,
-                                pressOnSeeMore: () {},
-                              ),
-                              title: data.title!,
+            child: Obx(() => RequestHandler<Product>(
+                  data: controller.product.value,
+                  onSuccess: (context, data) => Column(children: [
+                    data.allImages().isEmpty
+                        ? Container()
+                        : ProductImages(product: data),
+                    TopRoundedContainer(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          _SectionWidget(
+                            child: ProductDescription(
+                              product: data,
+                              pressOnSeeMore: () {},
                             ),
-                            _SectionWidget(
-                              child: ProductStats(product: data),
-                              title: "product-details",
-                            ),
-                            data.colors.isBlank!
-                                ? Container()
-                                : _SectionWidget(
-                                    child: ColorDots(
-                                      interactive: true,
-                                      product: data,
-                                    ),
-                                    title: "available-colors".tr,
+                            title: data.title!,
+                          ),
+                          _SectionWidget(
+                            child: ProductStats(product: data),
+                            title: "product-details",
+                          ),
+                          data.colors.isBlank!
+                              ? Container()
+                              : _SectionWidget(
+                                  child: ColorDots(
+                                    interactive: true,
+                                    product: data,
                                   ),
-                            data.sizes.isBlank!
-                                ? Container()
-                                : _SectionWidget(
-                                    child: SizesList(data),
-                                    title: "available-sizes".tr,
-                                  ),
-                            data.availableQuantity! > 0
-                                ? _SectionWidget(
-                                    child: AddToCart(data),
-                                    title: "add-to-cart".tr,
-                                  )
-                                : Container(),
-                            const UserEvaluation()
-                          ],
-                        ),
-                      );
-                    })),
-              ],
-            ),
+                                  title: "available-colors".tr,
+                                ),
+                          data.sizes.isBlank!
+                              ? Container()
+                              : _SectionWidget(
+                                  child: SizesList(data),
+                                  title: "available-sizes".tr,
+                                ),
+                          data.availableQuantity! > 0
+                              ? _SectionWidget(
+                                  child: AddToCart(data),
+                                  title: "add-to-cart".tr,
+                                )
+                              : Container(),
+                          const UserEvaluation()
+                        ],
+                      ),
+                    )
+                  ]),
+                )),
           ))
         ],
       ),

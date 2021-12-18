@@ -14,7 +14,7 @@ class Product implements Model {
   int? minQuantity, availableQuantity;
   bool? isFavourite, isPopular, isActive;
 
-  List<String>? allImages() => [mainImage!, ...images!];
+  List<String> allImages() => [mainImage!, ...images!];
   Product({
     this.id,
     this.images,

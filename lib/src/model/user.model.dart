@@ -38,8 +38,9 @@ class _UserSerializer extends ModelSerializer<User> {
     model.firstName = json["firstName"];
     model.lastName = json["lastName"];
     try {
-      model.userRole =
-          Utils.enumFromString<UserRole>(UserRole.values, json["userRole"]);
+      model.userRole = json.containsKey("userRole")
+          ? Utils.enumFromString<UserRole>(UserRole.values, json["userRole"])
+          : null;
     } catch (e) {
       model.userRole = null;
     }
