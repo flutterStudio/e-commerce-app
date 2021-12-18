@@ -14,7 +14,8 @@ class CMSFromField extends StatelessWidget {
       this.inputType = TextInputType.none,
       this.initialValue,
       this.inputFormatters,
-      this.enabled})
+      this.enabled,
+      this.suffix})
       : super(key: key);
 
   final void Function(String?)? onSaved;
@@ -22,6 +23,7 @@ class CMSFromField extends StatelessWidget {
   final String? label;
   final String? hint;
   final bool? enabled;
+  final Widget? suffix;
   final void Function(String)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? inputType;
@@ -42,6 +44,7 @@ class CMSFromField extends StatelessWidget {
           decoration: InputDecoration(
             labelText: label,
             hintText: hint,
+            suffix: suffix,
             floatingLabelBehavior: FloatingLabelBehavior.always,
           )),
     );

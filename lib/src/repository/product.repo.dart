@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_commerce/src/dto/add_category.dto.dart';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/dto/add_product.dto.dart';
 import 'package:e_commerce/src/dto/add_to_cart.dto.dart';
@@ -67,6 +68,37 @@ class ProductRepo {
           return Data.succeed(data: categories);
         }
         return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  ///
+  /// * brief:
+  ///
+  ///     Add new categort to the system the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains the added category, or an exception.
+  ///
+  Future<Data<Category>> postCategory(AddCategoryDTO dto) async {
+    try {
+      Data<Category> data = await _apiService.postRequest<Data<Category>>(
+          _category, dto.serializer().toJson(), (response) {
+        var jsonResponse = jsonDecode(response.bodyString!);
+        return Data.succeed(
+            showSnackbar: true,
+            message: "item-posted-successfully"
+                .trParams({"item": "Category ${dto.title}"}),
+            data: Category().serilizer().fromJson(jsonResponse));
       });
 
       return data;
