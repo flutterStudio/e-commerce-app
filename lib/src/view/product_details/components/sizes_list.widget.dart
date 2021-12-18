@@ -14,14 +14,15 @@ class SizesList extends GetView<ProductController> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: product?.sizes?.length ?? 0,
-        itemBuilder: (context, index) => product?.sizes?[index] == null
-            ? Container()
-            : SizeWidget(
-                onSelect: () {
-                  controller.selectSize(product!.sizes![index]);
-                },
-                value: product!.sizes![index],
-              ),
+        itemBuilder: (context, index) =>
+            product?.sizes?[index].sizeValue == null
+                ? Container()
+                : SizeWidget(
+                    onSelect: () {
+                      controller.selectSize(product!.sizes![index]);
+                    },
+                    value: product!.sizes![index],
+                  ),
       ),
     );
   }

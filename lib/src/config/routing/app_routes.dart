@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/app.config.dart';
+import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/controller/cart_screen.controller.dart';
 import 'package:e_commerce/src/controller/discover_screen.controller.dart';
 import 'package:e_commerce/src/controller/home_screen.controller.dart';
@@ -35,7 +36,7 @@ class AppRoutes {
     GetPage(
       name: AppPaths.root,
       page: () => const HomeScreen(),
-      middlewares: [AuthGuard()],
+      middlewares: [AuthGuard(), RoleGuard()],
       participatesInRootNavigator: true,
       preventDuplicates: true,
       binding: BindingsBuilder.put(() {
@@ -219,6 +220,31 @@ class AuthGuard extends GetMiddleware {
       // Get.resetRootNavigator();
       return const RouteSettings(
         name: AppPaths.login,
+      );
+    } else {
+      return null;
+    }
+  }
+}
+
+class RoleGuard extends GetMiddleware {
+  final AuthService _service;
+
+  RoleGuard()
+      : _service = Get.find<AuthService>(),
+        super();
+
+  @override
+  RouteSettings? redirect(String? route) {
+    if (_service.currentUser.value?.userRole == UserRole.Company &&
+        route != AppPaths.admin) {
+      return const RouteSettings(
+        name: AppPaths.admin,
+      );
+    } else if (_service.currentUser.value?.userRole == UserRole.User &&
+        route != AppPaths.home) {
+      return const RouteSettings(
+        name: AppPaths.home,
       );
     } else {
       return null;

@@ -14,7 +14,7 @@ class Application extends StatelessWidget {
       getPages: AppRoutes.pages,
       translations: AppTranslations(),
       routingCallback: (routing) {},
-      initialRoute: AppPaths.admin,
+      initialRoute: AppPaths.root,
       locale: Get.deviceLocale,
       supportedLocales: AppTranslations().supportedLocales,
       theme: ThemeConfigs.getTheme(themeMode: ThemeMode.light),
