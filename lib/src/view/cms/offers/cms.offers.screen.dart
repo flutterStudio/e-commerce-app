@@ -30,27 +30,19 @@ class CMSOffersScreen extends GetView<CMSOfferScreenCopntroller> {
   }
 
   Widget _cmsOffersScreenSContentBuilder(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Expanded(
-            child: Obx(() {
-              return RequestHandler<List<ScreenItem>>(
-                data: controller.screenItems.value,
-                onSuccess: (BuildContext context, List<ScreenItem> items) =>
-                    _itemsBuilder(
-                  context,
-                  items,
-                ),
-                onErrorRetry: () {
-                  controller.getMainScreenItems();
-                },
-              );
-            }),
-          ),
-        ],
-      ),
-    );
+    return Obx(() {
+      return RequestHandler<List<ScreenItem>>(
+        data: controller.screenItems.value,
+        onSuccess: (BuildContext context, List<ScreenItem> items) =>
+            _itemsBuilder(
+          context,
+          items,
+        ),
+        onErrorRetry: () {
+          controller.getMainScreenItems();
+        },
+      );
+    });
   }
 
   Widget _itemsBuilder(BuildContext context, List<ScreenItem> items) {

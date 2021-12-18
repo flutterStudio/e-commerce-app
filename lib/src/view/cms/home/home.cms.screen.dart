@@ -64,7 +64,9 @@ class CMSHome extends GetView<CMSHomeController> {
         ),
         body: PageView(
           controller: controller.pageController,
+          allowImplicitScrolling: false,
           children: pages,
+          physics: const NeverScrollableScrollPhysics(),
           onPageChanged: (page) {
             controller.currentPage.value = page;
           },
