@@ -22,6 +22,9 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
       return RequestHandler<List<Story>>(
         data: controller.stories.value,
         onSuccess: _onSucess,
+        onErrorRetry: () {
+          controller.getStories();
+        },
         onEmpty: Center(
           child: IconButton(
               onPressed: () {
@@ -69,7 +72,8 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
                       isScrollControlled: false,
                       isDismissible: true,
                       context: context,
-                      builder: (context) => StotyOptionsList(stories[index]));
+                      builder: (context) =>
+                          StotyOptionsList(stories[index - 1]));
                 },
                 onTap: () {
                   Get.to(StoriesView(
