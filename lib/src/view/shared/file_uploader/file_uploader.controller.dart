@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/model/attachment.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
 import 'package:e_commerce/src/utils/utils.dart';
@@ -24,8 +25,31 @@ class FileUploaderController {
     uploadFile(fileInfo);
   }
 
-  Future<void> pickFiles() async {
-    var result = await FilePicker.platform.pickFiles();
+  Future<void> pickFiles({MediaType mediaType = MediaType.any}) async {
+    FileType fileType = FileType.any;
+
+    switch (mediaType) {
+      case MediaType.video:
+        {
+          fileType = FileType.video;
+          break;
+        }
+      case MediaType.image:
+        {
+          fileType = FileType.image;
+          break;
+        }
+      case MediaType.audio:
+        {
+          fileType = FileType.audio;
+          break;
+        }
+
+      default:
+        fileType = FileType.media;
+    }
+    var result = await FilePicker.platform
+        .pickFiles(type: fileType, withReadStream: true);
     if (result != null) {
       for (var element in result.files) {
         if (element.path != null) {
