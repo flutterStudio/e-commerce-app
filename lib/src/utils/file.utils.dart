@@ -73,8 +73,9 @@ class FileUtils {
 
   static Future<bool> checkFileSize(File file) async {
     MediaType type = getFileType(file.path);
-
-    return ((await file.length()).toInt() <=
-        NetworkConfig.fileUploadSizeLimit[type]!.toInt());
+    var fileSize = await file.length();
+    var allowedSized =
+        NetworkConfig.fileUploadSizeLimit[type]!.toInt() * 1024 * 1024;
+    return fileSize <= allowedSized;
   }
 }
