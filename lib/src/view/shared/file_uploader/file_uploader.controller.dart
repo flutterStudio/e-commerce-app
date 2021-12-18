@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/model/attachment.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
+import 'package:e_commerce/src/utils/file.utils.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:file_picker/file_picker.dart';
@@ -11,6 +12,7 @@ import 'package:get/get_rx/get_rx.dart';
 
 class FileUploaderController {
   Rx<List<FileUploaderInfo>> files = Rx([]);
+  Rx<MediaType> allowedFileTypes = Rx(MediaType.any);
 
   void addFile(FileUploaderInfo fileInfo) {
     if (files.value.any((element) => element.file.path == fileInfo.file.path)) {
@@ -25,10 +27,10 @@ class FileUploaderController {
     uploadFile(fileInfo);
   }
 
-  Future<void> pickFiles({MediaType mediaType = MediaType.any}) async {
+  Future<void> pickFiles() async {
     FileType fileType = FileType.any;
 
-    switch (mediaType) {
+    switch (allowedFileTypes.value) {
       case MediaType.video:
         {
           fileType = FileType.video;
@@ -48,12 +50,20 @@ class FileUploaderController {
       default:
         fileType = FileType.media;
     }
-    var result = await FilePicker.platform
-        .pickFiles(type: fileType, withReadStream: true);
+    var result = await FilePicker.platform.pickFiles(
+      type: fileType,
+
+      /// TODO: withReadStream: true,
+    );
+
     if (result != null) {
       for (var element in result.files) {
         if (element.path != null) {
-          addFile(FileUploaderInfo(file: File(element.path!)));
+          File file = File(element.path!);
+          bool isSizeOk = await FileUtils.checkFileSize(file);
+          if (isSizeOk) {
+            addFile(FileUploaderInfo(file: file));
+          }
         }
       }
     }

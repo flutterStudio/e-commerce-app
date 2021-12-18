@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:e_commerce/src/config/enums.dart';
+import 'package:e_commerce/src/config/network.config.dart';
 
 class FileUtils {
   static List<String> videoTypes = [
@@ -41,7 +42,7 @@ class FileUtils {
     if (videoTypes.contains(extension)) {
       return MediaType.video;
     }
-    return MediaType.none;
+    return MediaType.any;
   }
 
   static String? getFileExtension(String file) {
@@ -68,5 +69,12 @@ class FileUtils {
       return null;
     }
     return path.substring(start + 1, path.length);
+  }
+
+  static Future<bool> checkFileSize(File file) async {
+    MediaType type = getFileType(file.path);
+
+    return ((await file.length()).toInt() <=
+        NetworkConfig.fileUploadSizeLimit[type]!.toInt());
   }
 }
