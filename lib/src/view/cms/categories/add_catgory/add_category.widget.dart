@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/view/cms/add_catgory/add_category.controller.dart';
+import 'package:e_commerce/src/view/cms/categories/add_catgory/add_category.controller.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
