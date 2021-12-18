@@ -14,7 +14,8 @@ class CMSOfferScreenCopntroller extends GetxController {
   Rx<Data<List<ScreenItem>>> screenItems =
       Rx<Data<List<ScreenItem>>>(Data.empty());
 
-  FileUploaderController fileUploaderController = FileUploaderController();
+  FileUploaderController fileUploaderController = FileUploaderController()
+    ..allowedFileTypes.value = MediaType.image;
   Rx<List<String>> errors = Rx([]);
   Rx<ScreenItemActionType> offerActionType = Rx(ScreenItemActionType.Internal);
   Rx<ScreenItemtype> offerType = Rx(ScreenItemtype.Item);
