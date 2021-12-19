@@ -175,13 +175,34 @@ class AddProductForm extends GetView<CMSAddProductController> {
             children: [
               Text("product-sizes".tr),
               IconButton(
-                  onPressed: () => showModalBottomSheet(
-                      context: context,
-                      enableDrag: false,
-                      builder: (context) => const CMSSizesList()),
+                  onPressed: () async {
+                    var sizes = await showModalBottomSheet(
+                        context: context,
+                        enableDrag: false,
+                        builder: (context) => const CMSSizesList());
+                    controller.selectedSizes?.value = sizes;
+                  },
                   icon: const Icon(Icons.add))
             ],
           ),
+          const SizedBox(
+            height: SizeConfig.verticalSpace,
+          ),
+          Obx(() {
+            List<Size> sizes = controller.selectedSizes!.value;
+            return SingleChildScrollView(
+              child: Wrap(
+                direction: Axis.horizontal,
+                runSpacing: SizeConfig.verticalSpace,
+                children: sizes
+                    .map((e) => SizeWidget(
+                          value: e,
+                          isSelected: true,
+                        ))
+                    .toList(),
+              ),
+            );
+          }),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
@@ -196,22 +217,6 @@ class AddProductForm extends GetView<CMSAddProductController> {
                   icon: const Icon(Icons.add))
             ],
           ),
-          const SizedBox(
-            height: SizeConfig.verticalSpace,
-          ),
-          Obx(() {
-            List<Size> colors = controller.selectedSizes!.value;
-            return Wrap(
-              direction: Axis.horizontal,
-              runSpacing: SizeConfig.verticalSpace,
-              children: colors
-                  .map((e) => SizeWidget(
-                        value: e,
-                        isSelected: true,
-                      ))
-                  .toList(),
-            );
-          }),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           FilesUpload(
             title: "product-attachments".tr,
