@@ -3,9 +3,9 @@ import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
-import 'package:e_commerce/src/view/cms/add_product/components/select_slize.dart';
 import 'package:e_commerce/src/view/cms/categories/categories_list.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
+import 'package:e_commerce/src/view/cms/sizes/sizes_list.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
@@ -49,7 +49,8 @@ class AddProductForm extends GetView<CMSAddProductController> {
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
-                      .trParams({"field": "Description"})
+                      .tr
+                      .trParams({"field": "Description".tr})
                   : null;
             },
             onChanged: (value) {
@@ -63,10 +64,12 @@ class AddProductForm extends GetView<CMSAddProductController> {
             inputType: TextInputType.number,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
-                  ? "textField-validation-needed".trParams({"field": "Price"})
+                  ? "textField-validation-needed"
+                      .trParams({"field": "price".tr})
                   : !GetUtils.isNum(value!)
                       ? "textField-validation-not-valid-type"
-                          .trParams({"type": "positive numbers"})
+                          .tr
+                          .trParams({"type": "positive-numbers".tr})
                       : null;
             },
             onChanged: (value) {
@@ -84,13 +87,14 @@ class AddProductForm extends GetView<CMSAddProductController> {
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
-                      .trParams({"field": "Discount"})
+                      .trParams({"field": "discount".tr})
                   : !GetUtils.isNum(value!)
                       ? "textField-validation-not-valid-type"
-                          .trParams({"type": "positive numbers"})
+                          .tr
+                          .trParams({"type": "positive-numbers".tr})
                       : controller.discount.value! > 100
                           ? "textField-validation-not-valid".trParams({
-                              "field": "discount",
+                              "field": "discount".tr,
                               "criteria": "under than 100%"
                             })
                           : null;
@@ -107,6 +111,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
+                      .tr
                       .trParams({"field": "Minimum 1uantity"})
                   : !GetUtils.isNumericOnly(value!)
                       ? "textField-validation-not-valid-type"
@@ -129,6 +134,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
+                      .tr
                       .trParams({"field": "Available 1uantity"})
                   : !GetUtils.isNumericOnly(value!)
                       ? "textField-validation-not-valid-type"
@@ -169,7 +175,10 @@ class AddProductForm extends GetView<CMSAddProductController> {
             children: [
               Text("product-sizes".tr),
               IconButton(
-                  onPressed: () => _showSizesModal(context),
+                  onPressed: () => showModalBottomSheet(
+                      context: context,
+                      enableDrag: false,
+                      builder: (context) => const CMSSizesList()),
                   icon: const Icon(Icons.add))
             ],
           ),
@@ -326,14 +335,4 @@ class AddProductForm extends GetView<CMSAddProductController> {
                     });
               }))
           .toList();
-
-  void _showSizesModal(BuildContext context) {
-    controller.getSizes();
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (context) {
-          return const SelectSizeWidget();
-        });
-  }
 }

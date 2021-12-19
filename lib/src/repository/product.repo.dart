@@ -120,6 +120,46 @@ class ProductRepo {
     }
   }
 
+  ///
+  /// * brief:
+  ///
+  ///     Add new categort to the system the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains the added category, or an exception.
+  ///
+  Future<Data<Size>> postSize(String size) async {
+    try {
+      Data<Size> data = await _apiService
+          .postRequest<Data<Size>>(_sizes, {"sizeValue": size}, (response) {
+        var jsonResponse = jsonDecode(response.bodyString!);
+        return Data.succeed(
+            showSnackbar: true,
+            message:
+                "item-posted-successfully".trParams({"item": "Size $size"}),
+            data: Size().serilizer().fromJson(jsonResponse));
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } on FormatException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } catch (e) {
+      return Data.faild(
+        message: "message-error".tr,
+        showSnackbar: true,
+      );
+    }
+  }
+
   Future<Data<bool>> checkout(int order) async {
     try {
       return await _apiService.putRequest<Data<bool>>(

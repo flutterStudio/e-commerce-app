@@ -134,7 +134,9 @@ Map<String, String> _textFields = {
   "textField-validation-not-valid-type": "You can only enter @type.",
   "textField-validation-general": "@field1 can not be @case @field2.",
   "textField-category-label": "Category title",
-  "textField-category-hint": "Enter Category's title",
+  "textField-category-hint": "Enter size's title",
+  "textField-size-label": "Category title",
+  "textField-size-hint": "Enter size's title",
 };
 
 Map<String, String> _question = {

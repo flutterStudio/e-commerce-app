@@ -13,6 +13,7 @@ import 'package:e_commerce/src/view/cms/categories/categories.controller.dart';
 import 'package:e_commerce/src/view/cms/home/cms.home.controller.dart';
 import 'package:e_commerce/src/view/cms/offers/cms.offers.controller.dart';
 import 'package:e_commerce/src/view/cms/products/cms.products.controller.dart';
+import 'package:e_commerce/src/view/cms/sizes/sizes.controller.dart';
 import 'package:e_commerce/src/view/cms/stories/cms.stories.controller.dart';
 import 'package:get/get.dart';
 
@@ -43,6 +44,7 @@ class AppConfig {
         () async => CMSOfferScreenCopntroller());
     await Get.putAsync<CategoriesController>(
         () async => CategoriesController());
+    await Get.putAsync<CMSSizesController>(() async => CMSSizesController());
   }
 
   Future<void> _initControllers() async {
