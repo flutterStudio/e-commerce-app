@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/dto/add_product.dto.dart';
+import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
@@ -28,6 +29,7 @@ class CMSAddProductController extends GetxController {
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
   Rx<List<Size>>? selectedSizes = Rx([]);
+  Rx<List<Category>>? selectedCategories = Rx([]);
 
   FileUploaderController fileUploaderController = FileUploaderController()
     ..allowedFileTypes.value = MediaType.image;

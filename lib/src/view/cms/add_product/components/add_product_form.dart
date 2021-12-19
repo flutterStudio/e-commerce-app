@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/size.config.dart';
+import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
@@ -9,6 +10,7 @@ import 'package:e_commerce/src/view/cms/sizes/sizes_list.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
+import 'package:e_commerce/src/view/shared/search_field/category_card.widget.dart';
 import 'package:e_commerce/src/view/shared/size.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -208,15 +210,35 @@ class AddProductForm extends GetView<CMSAddProductController> {
             children: [
               Text("product-categories".tr),
               IconButton(
-                  onPressed: () {
-                    showModalBottomSheet(
+                  onPressed: () async {
+                    var categories = await showModalBottomSheet(
                         context: context,
                         enableDrag: false,
                         builder: (context) => const CategoriesList());
+                    controller.selectedCategories!.value = categories;
                   },
                   icon: const Icon(Icons.add))
             ],
           ),
+          const SizedBox(
+            height: SizeConfig.verticalSpace,
+          ),
+          Obx(() {
+            List<Category> categories = controller.selectedCategories!.value;
+            return SingleChildScrollView(
+              child: Wrap(
+                direction: Axis.horizontal,
+                runSpacing: SizeConfig.verticalSpace,
+                children: categories
+                    .map((e) => CategoryCard(
+                          press: () {},
+                          text: e.title,
+                          isActive: true,
+                        ))
+                    .toList(),
+              ),
+            );
+          }),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           FilesUpload(
             title: "product-attachments".tr,
