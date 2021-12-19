@@ -91,12 +91,14 @@ class StoriesRepo {
       Data<Story> data = await _apiService.postRequest<Data<Story>>(
           _story, {"attachmentId": attachmentId}, (response) {
         var jsonStory = jsonDecode(response.bodyString!);
+        Data<Story> data = Data.empty();
         Story story = Story().serilizer().fromJson(jsonStory);
-        return Data.succeed(
+        data = Data.succeed(
             data: story,
             showSnackbar: true,
             message:
                 "item-posted-successfully".trParams({"item": attachmentId}));
+        return data;
       });
 
       return data;

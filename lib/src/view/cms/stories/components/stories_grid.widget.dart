@@ -26,19 +26,21 @@ class StoriesGrid extends GetWidget<CMSStoriesController> {
           controller.getStories();
         },
         onEmpty: Center(
-          child: IconButton(
-              onPressed: () {
-                showAddStoryBottomSheet(context);
-              },
-              icon: Icon(
-                Icons.add_a_photo_rounded,
-                color: Theme.of(context).colorScheme.primary,
-                size: ICONSIZE.lg,
-              )),
+          child: _onEmpty(context),
         ),
       );
     });
   }
+
+  Widget _onEmpty(BuildContext context) => IconButton(
+      onPressed: () {
+        showAddStoryBottomSheet(context);
+      },
+      icon: Icon(
+        Icons.add_a_photo_rounded,
+        color: Theme.of(context).colorScheme.primary,
+        size: ICONSIZE.lg,
+      ));
 
   Widget _onSucess(BuildContext context, List<Story> stories) {
     return GridView.builder(
