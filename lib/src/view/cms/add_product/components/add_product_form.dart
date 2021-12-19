@@ -10,6 +10,7 @@ import 'package:e_commerce/src/view/cms/sizes/sizes_list.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
 import 'package:e_commerce/src/view/shared/request_handler.dart';
+import 'package:e_commerce/src/view/shared/rounded_icon_btn.dart';
 import 'package:e_commerce/src/view/shared/search_field/category_card.widget.dart';
 import 'package:e_commerce/src/view/shared/size.widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -154,16 +155,23 @@ class AddProductForm extends GetView<CMSAddProductController> {
               controller.availableQuntity.value = int.parse(value);
             },
           ),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
-              Text("product-colors".tr),
-              IconButton(
-                  onPressed: () => _showColorsModal(context),
-                  icon: const Icon(Icons.add))
+              Text(
+                "product-colors".tr,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(width: SizeConfig.verticalSpace * 2),
+              RoundedIconBtn(
+                  color: Theme.of(context).colorScheme.primary,
+                  press: () => _showColorsModal(context),
+                  background: Theme.of(context).colorScheme.primaryVariant,
+                  icon: Icons.add)
             ],
           ),
           const SizedBox(
-            height: SizeConfig.verticalSpace,
+            height: SizeConfig.verticalSpace * 2,
           ),
           Obx(() {
             List<ColorModel> colors = controller.selectedColors!.value;
@@ -175,20 +183,27 @@ class AddProductForm extends GetView<CMSAddProductController> {
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
-              Text("product-sizes".tr),
-              IconButton(
-                  onPressed: () async {
-                    var sizes = await showModalBottomSheet(
-                        context: context,
-                        enableDrag: false,
-                        builder: (context) => const CMSSizesList());
-                    controller.selectedSizes?.value = sizes;
-                  },
-                  icon: const Icon(Icons.add))
+              Text(
+                "product-sizes".tr,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(width: SizeConfig.verticalSpace * 2),
+              RoundedIconBtn(
+                color: Theme.of(context).colorScheme.primary,
+                icon: Icons.add,
+                background: Theme.of(context).colorScheme.primaryVariant,
+                press: () async {
+                  var sizes = await showModalBottomSheet(
+                      context: context,
+                      enableDrag: false,
+                      builder: (context) => const CMSSizesList());
+                  controller.selectedSizes?.value = sizes;
+                },
+              )
             ],
           ),
           const SizedBox(
-            height: SizeConfig.verticalSpace,
+            height: SizeConfig.verticalSpace * 2,
           ),
           Obx(() {
             List<Size> sizes = controller.selectedSizes!.value;
@@ -208,16 +223,23 @@ class AddProductForm extends GetView<CMSAddProductController> {
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(
             children: [
-              Text("product-categories".tr),
-              IconButton(
-                  onPressed: () async {
-                    var categories = await showModalBottomSheet(
-                        context: context,
-                        enableDrag: false,
-                        builder: (context) => const CategoriesList());
-                    controller.selectedCategories!.value = categories;
-                  },
-                  icon: const Icon(Icons.add))
+              Text(
+                "product-categories".tr,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(width: SizeConfig.horizontalSpace * 2),
+              RoundedIconBtn(
+                icon: Icons.add,
+                color: Theme.of(context).colorScheme.primary,
+                background: Theme.of(context).colorScheme.primaryVariant,
+                press: () async {
+                  var categories = await showModalBottomSheet(
+                      context: context,
+                      enableDrag: false,
+                      builder: (context) => const CategoriesList());
+                  controller.selectedCategories!.value = categories;
+                },
+              )
             ],
           ),
           const SizedBox(
