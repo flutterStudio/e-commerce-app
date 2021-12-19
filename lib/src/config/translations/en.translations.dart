@@ -80,6 +80,8 @@ Map<String, String> _text = {
   "product-details": "Product details",
   "product-description": "Product description",
   "product-colors": "Product colors",
+  "product-attachments": "Product attachments",
+  "product-categories": "Product categories",
   "add-product": "Add product",
   "select-product-sizes": "Select product sizes",
   "select-product-colors": "Select product colors",
