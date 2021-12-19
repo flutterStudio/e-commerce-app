@@ -4,6 +4,8 @@ import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/view/cms/add_product/cms.add_product.controller.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/files_upload.dart';
 import 'package:e_commerce/src/view/cms/add_product/components/select_slize.dart';
+import 'package:e_commerce/src/view/cms/categories/add_category.widget.dart';
+import 'package:e_commerce/src/view/cms/categories/categories_list.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:e_commerce/src/view/product_details/components/color_dots.dart';
 import 'package:e_commerce/src/view/shared/default_button.dart';
@@ -14,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart' as color_picker;
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddProductForm extends GetView<CMSAddProductController> {
   const AddProductForm({Key? key}) : super(key: key);
@@ -172,6 +175,20 @@ class AddProductForm extends GetView<CMSAddProductController> {
                   icon: const Icon(Icons.add))
             ],
           ),
+          const SizedBox(height: SizeConfig.verticalSpace * 2),
+          Row(
+            children: [
+              Text("product-categories".tr),
+              IconButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        enableDrag: false,
+                        builder: (context) => const CategoriesList());
+                  },
+                  icon: const Icon(Icons.add))
+            ],
+          ),
           const SizedBox(
             height: SizeConfig.verticalSpace,
           ),
@@ -316,7 +333,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
     controller.getSizes();
     showModalBottomSheet(
         context: context,
-        isScrollControlled: false,
+        isScrollControlled: true,
         builder: (context) {
           return const SelectSizeWidget();
         });

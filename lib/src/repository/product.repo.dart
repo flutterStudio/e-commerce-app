@@ -103,11 +103,20 @@ class ProductRepo {
 
       return data;
     } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
     } on FormatException catch (e) {
-      return Data.faild(message: e.message);
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
     } catch (e) {
-      return Data.faild(message: "message-error".tr);
+      return Data.faild(
+        message: "message-error".tr,
+        showSnackbar: true,
+      );
     }
   }
 

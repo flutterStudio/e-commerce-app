@@ -15,7 +15,8 @@ class CMSFromField extends StatelessWidget {
       this.initialValue,
       this.inputFormatters,
       this.enabled,
-      this.suffix})
+      this.suffix,
+      this.edgeInsets})
       : super(key: key);
 
   final void Function(String?)? onSaved;
@@ -28,6 +29,7 @@ class CMSFromField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? inputType;
   final String? initialValue;
+  final EdgeInsets? edgeInsets;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,6 +44,7 @@ class CMSFromField extends StatelessWidget {
           inputFormatters: inputFormatters,
           enabled: enabled,
           decoration: InputDecoration(
+            contentPadding: edgeInsets,
             labelText: label,
             hintText: hint,
             suffix: suffix,

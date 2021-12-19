@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/view/cms/categories/add_catgory/add_category.controller.dart';
+import 'package:e_commerce/src/view/cms/categories/categories.controller.dart';
 import 'package:e_commerce/src/view/cms/shared/cms.form_field.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,29 +8,28 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:get/get.dart';
 
-class AddCategoryWidget extends GetWidget<AddCategoryController> {
+class AddCategoryWidget extends GetWidget<CategoriesController> {
   AddCategoryWidget({Key? key}) : super(key: key);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Row(
-        children: [
-          Obx(() {
+    return Material(
+      child: Form(
+          key: formKey,
+          child: Obx(() {
             return CMSFromField(
-              label: "textField-category-label".tr,
               hint: "textField-category-hint".tr,
               initialValue: controller.category.value,
               inputType: TextInputType.text,
               onChanged: (value) {
                 controller.category.value = value;
               },
+              edgeInsets: EdgeInsets.zero,
               suffix: IconButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      controller.addedCategory();
+                      controller.addCategoy();
                     }
                   },
                   icon: const Icon(Icons.send)),
@@ -41,9 +40,7 @@ class AddCategoryWidget extends GetWidget<AddCategoryController> {
                     : null;
               },
             );
-          })
-        ],
-      ),
+          })),
     );
   }
 }
