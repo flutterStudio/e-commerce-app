@@ -48,7 +48,7 @@ class CMSStoriesController extends GetxController {
       stories.update((val) {
         val?.data?.addAll(addedStory.value.data!.map((e) => e.data!));
       });
-
+      stories.value = stories.value;
       fileUploaderController.clearAll();
     }
   }
