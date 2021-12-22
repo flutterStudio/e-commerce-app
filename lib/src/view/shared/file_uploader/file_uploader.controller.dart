@@ -52,8 +52,6 @@ class FileUploaderController {
     }
     var result = await FilePicker.platform.pickFiles(
       type: fileType,
-
-      /// TODO: withReadStream: true,
     );
 
     if (result != null) {

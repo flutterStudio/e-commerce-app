@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/config/network.config.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class FileUtils {
   static List<String> videoTypes = [
@@ -77,5 +79,32 @@ class FileUtils {
     var allowedSized =
         NetworkConfig.fileUploadSizeLimit[type]!.toInt() * 1024 * 1024;
     return fileSize <= allowedSized;
+  }
+
+  static Future<Image?> getVideoThumbnail({String? url, File? file}) async {
+    if (file != null) {
+      final uint8list = await VideoThumbnail.thumbnailData(
+        video: file.path,
+        imageFormat: ImageFormat.JPEG,
+        maxWidth:
+            128, // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
+        quality: 25,
+      );
+
+      return uint8list == null ? null : Image.memory(uint8list);
+    }
+
+    if (url != null) {
+      String? path = await VideoThumbnail.thumbnailFile(
+        video: url,
+        // thumbnailPath: (await getTemporaryDirectory()).path,
+        imageFormat: ImageFormat.WEBP,
+        maxHeight:
+            64, // specify the height of the thumbnail, let the width auto-scaled to keep the source aspect ratio
+        quality: 75,
+      );
+      File? file = path == null ? null : File(path);
+      return file == null ? null : Image.file(file);
+    }
   }
 }

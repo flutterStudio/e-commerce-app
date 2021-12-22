@@ -7,4 +7,10 @@ void main() async {
   await AppConfig().init();
 
   runApp(const Application());
+
+  /// TODOS:
+  /// TODO: [] Use stream with file pickere
+  /// TODO: [] Use cached network image.
+  /// TODO: [] show video thumbnail.
+  /// TODO: [] implement pagination mixin.
 }

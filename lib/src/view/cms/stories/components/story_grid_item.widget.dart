@@ -1,10 +1,10 @@
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/config/size.config.dart';
 import 'package:e_commerce/src/model/story.model.dart';
+import 'package:e_commerce/src/utils/file.utils.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:video_player/video_player.dart';
 
 class StoryGridItem extends StatelessWidget {
   const StoryGridItem(
@@ -53,9 +53,14 @@ class StoryGridItem extends StatelessWidget {
         }
       case MediaType.video:
         {
-          return VideoPlayer(VideoPlayerController.network(
-            story.attachment ?? "",
-          )..initialize());
+          return FutureBuilder<Image?>(
+              future: FileUtils.getVideoThumbnail(url: story.attachment),
+              builder: (context, image) => image.hasError
+                  ? const Text("Error")
+                  : image.hasData
+                      ? image.data ?? Container()
+                      : const SizedBox.shrink(
+                          child: CircularProgressIndicator()));
         }
       default:
         return Container(
