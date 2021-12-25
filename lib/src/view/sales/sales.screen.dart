@@ -11,10 +11,14 @@ import 'package:e_commerce/src/view/stories/components/stories_list.widget.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SalesScreen extends GetView<OfferScreenCopntroller>
     with RefreshableMixin {
   const SalesScreen({Key? key}) : super(key: key);
+
+  @override
+  RefreshController refreshController() => controller.refreshController;
 
   Widget _salesScreenContentBuilder(BuildContext context) {
     return Center(
