@@ -17,12 +17,19 @@ class ProductListcontroller extends GetxController {
     getOfferProducts(offer);
   }
 
-  Future<void> getProducts() async {
-    products.value = Data.inProgress();
+  Future<void> getProducts({int? page, int? pageSize}) async {
+    if (page == null) {
+      products.value = Data.inProgress();
+    }
     Data<List<Product>> companyProducts =
-        await Get.find<MainRepo>().productRepo.getActiveProducts();
+        await Get.find<MainRepo>().productRepo.getActiveProducts(page: page);
 
-    products.value = companyProducts;
+    if (page == null) {
+      products.value = companyProducts;
+    } else {
+      products.value.copyProperties(companyProducts);
+      products.value.data?.addAll(companyProducts.data ?? []);
+    }
   }
 
   Future<void> getOfferProducts(int offer) async {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_commerce/src/config/network.config.dart';
 import 'package:e_commerce/src/dto/add_category.dto.dart';
 import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/dto/add_product.dto.dart';
@@ -44,7 +45,8 @@ class ProductRepo {
 
   Future<Data<List<Product>>> getActiveProducts(
       {int? page, int? pageSize}) async {
-    Data<List<Product>> data = await _getProducts(_activeProductsUrl);
+    Data<List<Product>> data =
+        await _getProducts(_activeProductsUrl, page: page);
     return data;
   }
 
@@ -328,7 +330,10 @@ class ProductRepo {
         // Get pagination info if exists.
         data.data = _initProductData(response);
         return data;
-      }, query: {"page": "1", "pageSize": pageSize ?? "40"});
+      }, query: {
+        "page": page ?? "1",
+        "pageSize": pageSize ?? NetworkConfig.requestPageSize.toString()
+      });
 
       return data;
     } on NetworkException catch (e) {

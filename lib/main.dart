@@ -13,4 +13,5 @@ void main() async {
   /// TODO: [] implement pagination mixin.
   /// TODO: [] update product.
   /// TODO: [] update offer.
+  /// TODO: [] add color.
 }
