@@ -8,4 +8,5 @@ class NetworkConfig {
     MediaType.image: 3,
     MediaType.any: 10,
   };
+  static const int requestPageSize = 1;
 }

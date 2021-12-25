@@ -132,9 +132,9 @@ class Data<T> {
     _page = t.page;
     _totalPages = t.totalPages;
     _totalResults = t.totalResults;
-    _hasData = _data != null;
-    _hasNext = _page < totalPages;
-    _hasPrevious = _page > 1;
+    _hasData = t.hasData;
+    _hasNext = t.hasNext;
+    _hasPrevious = t.hasPrevious;
   }
 
   void inProgress({String? message}) {
