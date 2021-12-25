@@ -50,10 +50,23 @@ class FileUploaderController {
       default:
         fileType = FileType.media;
     }
-    var result = await FilePicker.platform.pickFiles(
-      type: fileType,
-    );
+    FilePicker.platform
+        .pickFiles(type: fileType, withReadStream: true)
+        .asStream()
+        .listen((event) {
+      handlePickerResult(event);
+    });
+  }
 
+  Future<void> reUploadFaild() async {
+    for (var info in files.value) {
+      if (info.attachment == null && info.status == FileUploadStatus.faild) {
+        uploadFile(info);
+      }
+    }
+  }
+
+  Future<void> handlePickerResult(FilePickerResult? result) async {
     if (result != null) {
       for (var element in result.files) {
         if (element.path != null) {
@@ -63,14 +76,6 @@ class FileUploaderController {
             addFile(FileUploaderInfo(file: file));
           }
         }
-      }
-    }
-  }
-
-  Future<void> reUploadFaild() async {
-    for (var info in files.value) {
-      if (info.attachment == null && info.status == FileUploadStatus.faild) {
-        uploadFile(info);
       }
     }
   }

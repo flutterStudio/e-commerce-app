@@ -4,9 +4,9 @@ import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/componenets/file_uploader_info.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
+import 'package:e_commerce/src/view/shared/video_thumbnail.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 class FileUploaderItem extends StatelessWidget {
   const FileUploaderItem(
@@ -73,19 +73,21 @@ class FileUploaderItem extends StatelessWidget {
     return Container();
   }
 
-  Widget _videoFile({File? file, String? url, String? placeholderAsset}) {
+  Widget _videoFile({File? file, String? url}) {
     if (file != null) {
-      return VideoPlayer(
-        VideoPlayerController.file(file)..initialize(),
+      return CustomVideoThumbnail(
+        video: file,
       );
     }
     if (url != null) {
-      return VideoPlayer(VideoPlayerController.network(url)..initialize());
+      return CustomVideoThumbnail(
+        url: url,
+      );
     }
-    if (placeholderAsset != null) {
-      return VideoPlayer(
-          VideoPlayerController.asset(placeholderAsset)..initialize());
-    }
+    // if (placeholderAsset != null) {
+    // return
+    //  CustomVideoThumbnail(video: Asset,);
+    // }
     return Container();
   }
 }
