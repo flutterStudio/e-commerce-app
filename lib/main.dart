@@ -9,9 +9,7 @@ void main() async {
   runApp(const Application());
 
   /// TODOS:
-  /// TODO: [] Use stream with file pickere
   /// TODO: [] Use cached network image.
-  /// TODO: [] show video thumbnail.
   /// TODO: [] implement pagination mixin.
   /// TODO: [] update product.
   /// TODO: [] update offer.
