@@ -15,6 +15,7 @@ import 'package:e_commerce/src/view/shared/search_field/category_card.widget.dar
 import 'package:e_commerce/src/view/shared/size.widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart' as color_picker;
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/get.dart';
@@ -33,22 +34,24 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-title-label".tr,
             hint: "textField-product-title-hint".tr,
-            initialValue: controller.title.value,
+            // initialValue: controller.title.value,
             inputType: TextInputType.text,
+            controller: controller.titleController,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed".trParams({"field": "Title"})
                   : null;
             },
-            onChanged: (value) {
-              controller.title.value = value;
-            },
+            // onChanged: (value) {
+            //   controller.title.value = value;
+            // },
           ),
           CMSFromField(
             label: "textField-product-description-label".tr,
             hint: "textField-product-description-hint".tr,
             inputType: TextInputType.multiline,
-            initialValue: controller.description.value,
+            // initialValue: controller.description.value,
+            controller: controller.descritionController,
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
@@ -56,15 +59,17 @@ class AddProductForm extends GetView<CMSAddProductController> {
                       .trParams({"field": "Description".tr})
                   : null;
             },
-            onChanged: (value) {
-              controller.description.value = value;
-            },
+            // onChanged: (value) {
+            //   controller.description.value = value;
+            // },
           ),
           CMSFromField(
             label: "textField-product-price-label".tr,
             hint: "textField-product-price-hint".tr,
-            initialValue: controller.price.value?.toString() ?? "",
+            // initialValue: controller.price.value?.toString() ?? "",
+            controller: controller.priceController,
             inputType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
@@ -75,18 +80,20 @@ class AddProductForm extends GetView<CMSAddProductController> {
                           .trParams({"type": "positive-numbers".tr})
                       : null;
             },
-            onChanged: (value) {
-              controller.price.value = double.parse(value);
-            },
+            // onChanged: (value) {
+            //   controller.price.value = double.parse(value);
+            // },
           ),
           CMSFromField(
             label: "textField-product-discount-label".tr,
             hint: "textField-product-discount-hint".tr,
-            initialValue: controller.discount.value?.toString() ?? "",
+            // initialValue: controller.discount.value?.toString() ?? "",
+            controller: controller.discountController,
             inputType: TextInputType.number,
-            onChanged: (value) {
-              controller.discount.value = double.parse(value);
-            },
+            // onChanged: (value) {
+            //   controller.discount.value = double.parse(value);
+            // },
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
@@ -95,7 +102,9 @@ class AddProductForm extends GetView<CMSAddProductController> {
                       ? "textField-validation-not-valid-type"
                           .tr
                           .trParams({"type": "positive-numbers".tr})
-                      : controller.discount.value! > 100
+                      : int.tryParse(
+                                  controller.discountController.value.text)! >
+                              100
                           ? "textField-validation-not-valid".trParams({
                               "field": "discount".tr,
                               "criteria": "under than 100%"
@@ -107,10 +116,12 @@ class AddProductForm extends GetView<CMSAddProductController> {
             label: "textField-product-min-quantity-label".tr,
             hint: "textField-product-min-quantity-hint".tr,
             inputType: TextInputType.number,
-            initialValue: controller.minQuantity.value?.toString() ?? "",
-            onChanged: (value) {
-              controller.minQuantity.value = int.parse(value);
-            },
+            // initialValue: controller.minQuantity.value?.toString() ?? "",
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            controller: controller.minQuantityController,
+            // onChanged: (value) {
+            //   controller.minQuantity.value = int.parse(value);
+            // },
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
@@ -119,8 +130,10 @@ class AddProductForm extends GetView<CMSAddProductController> {
                   : !GetUtils.isNumericOnly(value!)
                       ? "textField-validation-not-valid-type"
                           .trParams({"type": "positive numbers"})
-                      : controller.minQuantity.value! >
-                              controller.availableQuntity.value!
+                      : int.tryParse(controller
+                                  .minQuantityController.value.text)! >
+                              int.tryParse(controller
+                                  .availableQuntityController.value.text)!
                           ? "textField-validation-general".trParams({
                               "field1": "Product's minimum amount",
                               "case": "more than ",
@@ -132,8 +145,10 @@ class AddProductForm extends GetView<CMSAddProductController> {
           CMSFromField(
             label: "textField-product-available-quantity-label".tr,
             hint: "textField-product-available-quantity-hint".tr,
-            initialValue: controller.availableQuntity.value?.toString() ?? "",
+            // initialValue: controller.availableQuntity.value?.toString() ?? "",
             inputType: TextInputType.number,
+            controller: controller.availableQuntityController,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             validator: (value) {
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
@@ -142,8 +157,10 @@ class AddProductForm extends GetView<CMSAddProductController> {
                   : !GetUtils.isNumericOnly(value!)
                       ? "textField-validation-not-valid-type"
                           .trParams({"type": "positive numbers"})
-                      : controller.minQuantity.value! >
-                              controller.availableQuntity.value!
+                      : int.tryParse(controller
+                                  .minQuantityController.value.text)! >
+                              int.tryParse(controller
+                                  .availableQuntityController.value.text)!
                           ? "textField-validation-general".trParams({
                               "field1": "Product's minimum amount",
                               "case": "more than ",
@@ -151,9 +168,9 @@ class AddProductForm extends GetView<CMSAddProductController> {
                             })
                           : null;
             },
-            onChanged: (value) {
-              controller.availableQuntity.value = int.parse(value);
-            },
+            // onChanged: (value) {
+            //   controller.availableQuntity.value = int.parse(value);
+            // },
           ),
           const SizedBox(height: SizeConfig.verticalSpace * 2),
           Row(

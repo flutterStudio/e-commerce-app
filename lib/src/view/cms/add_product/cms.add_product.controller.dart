@@ -13,19 +13,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CMSAddProductController extends GetxController {
+  CMSAddProductController.update(Product product) : updateProduct = true;
+  CMSAddProductController();
+
+  bool updateProduct = false;
+  // fields controllers
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descritionController = TextEditingController();
+  TextEditingController minQuantityController = TextEditingController();
+  TextEditingController availableQuntityController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController discountController = TextEditingController();
+  // Product properties
   Rx<List<String>>? errors = Rx([]);
-  Rx<Data<Product>> loginStatus = Rx(Data.empty());
+  Rx<Data<Product>> product = Rx(Data.empty());
   Rx<Data<List<ColorModel>>> availableColors = Rx(Data.empty());
   Rx<Data<List<Size>>> availableSizes = Rx(Data.empty());
 
-  Rx<String?> title = Rx(null);
-  Rx<String?> description = Rx(null);
-  Rx<int?> minQuantity = Rx(null);
-  Rx<int?> availableQuntity = Rx(null);
-  Rx<double?> price = Rx(null);
-  Rx<double?> discount = Rx(0);
-  Rx<Color?> pickedColor = Rx(null);
-  Rx<Data<Color>?> upoadedColor = Rx(null);
+  // Rx<String?> title = Rx(null);
+  // Rx<String?> description = Rx(null);
+  // Rx<int?> minQuantity = Rx(null);
+  // Rx<int?> availableQuntity = Rx(null);
+  // Rx<double?> price = Rx(null);
+  // Rx<double?> discount = Rx(0);
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
   Rx<List<Size>>? selectedSizes = Rx([]);
@@ -42,6 +53,7 @@ class CMSAddProductController extends GetxController {
     availableColors.value = await _mainRepo.productRepo.getColors();
   }
 
+  Rx<Color?> pickedColor = Rx(null);
   void selectColor(ColorModel color) {
     selectedColors?.update((val) {
       selectedColors?.value.addIf(
@@ -52,8 +64,9 @@ class CMSAddProductController extends GetxController {
     });
   }
 
+  Rx<Data<Color>?> colorToUpload = Rx(null);
   void uploadColor(ColorModel color) {
-    upoadedColor.value = Data.inProgress();
+    colorToUpload.value = Data.inProgress();
     _mainRepo.productRepo.postColor(color);
   }
 
@@ -102,37 +115,37 @@ class CMSAddProductController extends GetxController {
   // files upload.
 
   Future<void> addProduct() async {
-    loginStatus.value = Data.inProgress(showSnackbar: true);
-    loginStatus.value = await _mainRepo.productRepo.postProduct(AddProductDto(
-        availableQuantity: availableQuntity.value,
-        title: title.value,
+    product.value = Data.inProgress(showSnackbar: true);
+    product.value = await _mainRepo.productRepo.postProduct(AddProductDto(
+        availableQuantity: int.tryParse(availableQuntityController.value.text),
+        title: titleController.value.text,
         colors: selectedColors?.value ?? [],
-        description: description.value,
+        description: descritionController.value.text,
         images: await fileUploaderController.getAttachments(),
-        minQuantity: minQuantity.value,
-        price: price.value,
+        minQuantity: int.tryParse(minQuantityController.value.text),
+        price: double.tryParse(priceController.value.text),
         sizes: selectedSizes?.value ?? []));
 
     Get.closeCurrentSnackbar();
-    if (loginStatus.value.isSucceed) {
+    if (product.value.isSucceed) {
       Utils.showSnackBar(
         "message-product-added-successfully".tr,
         background: Get.theme.colorScheme.primaryVariant,
         color: Get.theme.colorScheme.primary,
       );
-      // clearAll();
+      clearAll();
     }
   }
 
   void clearAll() {
     selectedSizes?.value = [];
     selectedColors?.value = [];
-    title.value = null;
-    description.value = null;
-    minQuantity.value = null;
-    discount.value = null;
-    availableQuntity.value = null;
-    price.value = null;
+    // titleController.clear();
+    // descritionController.clear();
+    // minQuantityController.clear();
+    // discountController.clear();
+    // availableQuntityController.clear();
+    // priceController.clear();
     fileUploaderController.clearAll();
   }
 }
