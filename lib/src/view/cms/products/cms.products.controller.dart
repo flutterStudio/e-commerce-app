@@ -5,6 +5,7 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CMSProductsController extends GetxController {
   int? type;
@@ -17,14 +18,27 @@ class CMSProductsController extends GetxController {
     super.onInit();
   }
 
+  RefreshController refreshController = RefreshController();
+
   CMSProductsController({this.type});
 
-  Future<void> getProducts() async {
-    products.value = Data.inProgress();
+  Future<void> getProducts({int? page, int? pageSize}) async {
+    if (page == null) {
+      products.value = Data.inProgress();
+    }
     Data<List<Product>> companyProducts =
-        await Get.find<MainRepo>().productRepo.getActiveProducts();
+        await Get.find<MainRepo>().productRepo.getActiveProducts(page: page);
 
-    products.value = companyProducts;
+    if (page == null) {
+      products.value = companyProducts;
+      refreshController.refreshCompleted();
+    } else {
+      products.value.copyProperties(companyProducts);
+      products.update((val) {
+        val?.data?.addAll(companyProducts.data ?? []);
+      });
+      refreshController.loadComplete();
+    }
   }
 
   Future<void> addProduct() async {

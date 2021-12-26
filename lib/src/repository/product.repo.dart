@@ -39,7 +39,8 @@ class ProductRepo {
 
   Future<Data<List<Product>>> getCompanyProducts(
       {int? page, int? pageSize}) async {
-    Data<List<Product>> data = await _getProducts(_comapnyActiveProductsUrl);
+    Data<List<Product>> data =
+        await _getProducts(_comapnyActiveProductsUrl, page: page);
     return data;
   }
 
@@ -48,135 +49,6 @@ class ProductRepo {
     Data<List<Product>> data =
         await _getProducts(_activeProductsUrl, page: page);
     return data;
-  }
-
-  ///
-  /// * brief:
-  ///
-  ///     Get all available categories in the system.
-  ///
-  /// * return
-  ///
-  ///     Returns a `Data` object that contains either a list of categories, or an exception.
-  ///
-  Future<Data<List<Category>>> getCategories() async {
-    try {
-      Data<List<Category>> data = await _apiService
-          .getRequest<Data<List<Category>>>(_category, (response) {
-        Data<List<Category>> data = Data.empty();
-        List<Category> categories = [];
-        categories = _initCategoriesData(response);
-        if (categories.isNotEmpty) {
-          return Data.succeed(data: categories);
-        }
-        return data;
-      });
-
-      return data;
-    } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
-    } on FormatException catch (e) {
-      return Data.faild(message: e.message);
-    } catch (e) {
-      return Data.faild(message: "message-error".tr);
-    }
-  }
-
-  ///
-  /// * brief:
-  ///
-  ///     Add new categort to the system the system.
-  ///
-  /// * return
-  ///
-  ///     Returns a `Data` object that contains the added category, or an exception.
-  ///
-  Future<Data<Category>> postCategory(AddCategoryDTO dto) async {
-    try {
-      Data<Category> data = await _apiService.postRequest<Data<Category>>(
-          _category, dto.serializer().toJson(), (response) {
-        var jsonResponse = jsonDecode(response.bodyString!);
-        return Data.succeed(
-            showSnackbar: true,
-            message: "item-posted-successfully"
-                .trParams({"item": "Category ${dto.title}"}),
-            data: Category().serilizer().fromJson(jsonResponse));
-      });
-
-      return data;
-    } on NetworkException catch (e) {
-      return Data.faild(
-        message: e.message,
-        showSnackbar: true,
-      );
-    } on FormatException catch (e) {
-      return Data.faild(
-        message: e.message,
-        showSnackbar: true,
-      );
-    } catch (e) {
-      return Data.faild(
-        message: "message-error".tr,
-        showSnackbar: true,
-      );
-    }
-  }
-
-  ///
-  /// * brief:
-  ///
-  ///     Add new categort to the system the system.
-  ///
-  /// * return
-  ///
-  ///     Returns a `Data` object that contains the added category, or an exception.
-  ///
-  Future<Data<Size>> postSize(String size) async {
-    try {
-      Data<Size> data = await _apiService
-          .postRequest<Data<Size>>(_sizes, {"sizeValue": size}, (response) {
-        var jsonResponse = jsonDecode(response.bodyString!);
-        return Data.succeed(
-            showSnackbar: true,
-            message:
-                "item-posted-successfully".trParams({"item": "Size $size"}),
-            data: Size().serilizer().fromJson(jsonResponse));
-      });
-
-      return data;
-    } on NetworkException catch (e) {
-      return Data.faild(
-        message: e.message,
-        showSnackbar: true,
-      );
-    } on FormatException catch (e) {
-      return Data.faild(
-        message: e.message,
-        showSnackbar: true,
-      );
-    } catch (e) {
-      return Data.faild(
-        message: "message-error".tr,
-        showSnackbar: true,
-      );
-    }
-  }
-
-  Future<Data<bool>> checkout(int order) async {
-    try {
-      return await _apiService.putRequest<Data<bool>>(
-          _orderCheckout, {"orderId": order}, (response) {
-        return Data.succeed(data: true);
-      });
-
-      // return data;
-    } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
-    } on FormatException catch (e) {
-      return Data.faild(message: e.message);
-    } catch (e) {
-      return Data.faild(message: "message-error".tr);
-    }
   }
 
   ///
@@ -250,75 +122,8 @@ class ProductRepo {
     }
   }
 
-  Future<Data<Cart>> getMyCart() async {
-    try {
-      Data<Cart> data =
-          await _apiService.getRequest<Data<Cart>>(_cartOrders, (response) {
-        Data<Cart> data = Data.empty();
-
-        Cart cart =
-            Cart().serilizer().fromJson(jsonDecode(response.bodyString!));
-        data = Data.succeed(data: cart);
-        return data;
-      });
-
-      return data;
-    } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
-    } on FormatException catch (e) {
-      return Data.faild(message: e.message);
-    } catch (e) {
-      return Data.faild(message: "message-error".tr);
-    }
-  }
-
-  Future<Data<Cart>> addToCart(AddToCartDTO dto) async {
-    try {
-      Data<Cart> data = await _apiService.postRequest<Data<Cart>>(
-          _addTocart, dto.serializer().toJson(), (response) {
-        Data<Cart> data = Data.empty();
-
-        Cart cart =
-            Cart().serilizer().fromJson(jsonDecode(response.bodyString!));
-        data = Data.succeed(data: cart);
-        return data;
-      });
-      return data;
-    } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
-    } on FormatException catch (e) {
-      return Data.faild(message: e.message);
-    } catch (e) {
-      return Data.faild(message: "message-error".tr);
-    }
-  }
-
-  Future<Data<bool>> deleteProductfromcart(
-    int productOrderId,
-  ) async {
-    try {
-      Data<bool> data = await _apiService.deleteRequest<Data<bool>>(
-          _removeFromTocart + "/" + "$productOrderId", (response) {
-        Data<bool> data = Data.empty();
-
-        data = Data.succeed(data: true);
-        return data;
-      });
-
-      return data;
-    } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
-    } on FormatException catch (e) {
-      return Data.faild(message: e.message);
-    } catch (e) {
-      return Data.faild(message: "message-error".tr);
-    }
-  }
-
   Future<Data<List<Product>>> _getProducts(String url,
-      // ignore: unused_element
-      {int? page,
-      int? pageSize}) async {
+      {int? pageSize, int? page}) async {
     try {
       Data<List<Product>>? data =
           await _apiService.getRequest<Data<List<Product>>>(url, (response) {
@@ -331,7 +136,7 @@ class ProductRepo {
         data.data = _initProductData(response);
         return data;
       }, query: {
-        "page": page ?? "1",
+        "page": page == null ? "1" : page.toString(),
         "pageSize": pageSize ?? NetworkConfig.requestPageSize.toString()
       });
 
@@ -543,6 +348,46 @@ class ProductRepo {
     }
   }
 
+  /// Initalize pagination response.
+  void _initPaginationInfo(Data data, Response response) {
+    var paginationInfo = jsonDecode(response.bodyString!)["paginationInfo"];
+    data.totalPages = paginationInfo["totalPages"];
+    data.totalResults = paginationInfo["totalItems"];
+    data.page = paginationInfo["pageNo"];
+  }
+
+  /// Initalize products response.
+  List<Product> _initProductData(Response response) {
+    List<Product> products = [];
+    var productsData = jsonDecode(response.bodyString!)["products"] as List;
+    for (var product in productsData) {
+      products.add(Product().serilizer().fromJson(product));
+    }
+    return products;
+  }
+
+  /// Initalize valuations response.
+  List<Evaluation> _initEvaluationsData(Response response) {
+    List<Evaluation> evaluations = [];
+    var data = jsonDecode(response.bodyString!)["evaluations"] as List;
+    for (var product in data) {
+      evaluations.add(Evaluation().serilizer().fromJson(product));
+    }
+    return evaluations;
+  }
+
+  // Color
+
+  /// Initalize colors response.
+  List<ColorModel> _initColors(Response response) {
+    List<ColorModel> evaluations = [];
+    var data = jsonDecode(response.bodyString!)["colors"] as List;
+    for (var product in data) {
+      evaluations.add(ColorModel().serilizer().fromJson(product));
+    }
+    return evaluations;
+  }
+
   ///
   /// #### brief
   /// Get all available colors.
@@ -604,6 +449,58 @@ class ProductRepo {
     }
   }
 
+  // Size
+
+  ///
+  /// * brief:
+  ///
+  ///     Add new categort to the system the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains the added category, or an exception.
+  ///
+  Future<Data<Size>> postSize(String size) async {
+    try {
+      Data<Size> data = await _apiService
+          .postRequest<Data<Size>>(_sizes, {"sizeValue": size}, (response) {
+        var jsonResponse = jsonDecode(response.bodyString!);
+        return Data.succeed(
+            showSnackbar: true,
+            message:
+                "item-posted-successfully".trParams({"item": "Size $size"}),
+            data: Size().serilizer().fromJson(jsonResponse));
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } on FormatException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } catch (e) {
+      return Data.faild(
+        message: "message-error".tr,
+        showSnackbar: true,
+      );
+    }
+  }
+
+  /// Initalize sizes response.
+  List<Size> _initSizes(Response response) {
+    List<Size> evaluations = [];
+    var data = jsonDecode(response.bodyString!)["sizes"] as List;
+    for (var product in data) {
+      evaluations.add(Size().serilizer().fromJson(product));
+    }
+    return evaluations;
+  }
+
   ///
   /// #### brief
   /// Get all available sizes.
@@ -635,22 +532,122 @@ class ProductRepo {
     }
   }
 
-  /// Initalize pagination response.
-  void _initPaginationInfo(Data data, Response response) {
-    var paginationInfo = jsonDecode(response.bodyString!)["paginationInfo"];
-    data.totalPages = paginationInfo["totalPages"];
-    data.totalResults = paginationInfo["totalItems"];
-    data.page = paginationInfo["pageNo"];
+  // Cart
+
+  Future<Data<Cart>> getMyCart() async {
+    try {
+      Data<Cart> data =
+          await _apiService.getRequest<Data<Cart>>(_cartOrders, (response) {
+        Data<Cart> data = Data.empty();
+
+        Cart cart =
+            Cart().serilizer().fromJson(jsonDecode(response.bodyString!));
+        data = Data.succeed(data: cart);
+        return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
   }
 
-  /// Initalize products response.
-  List<Product> _initProductData(Response response) {
-    List<Product> products = [];
-    var productsData = jsonDecode(response.bodyString!)["products"] as List;
-    for (var product in productsData) {
-      products.add(Product().serilizer().fromJson(product));
+  Future<Data<Cart>> addToCart(AddToCartDTO dto) async {
+    try {
+      Data<Cart> data = await _apiService.postRequest<Data<Cart>>(
+          _addTocart, dto.serializer().toJson(), (response) {
+        Data<Cart> data = Data.empty();
+
+        Cart cart =
+            Cart().serilizer().fromJson(jsonDecode(response.bodyString!));
+        data = Data.succeed(data: cart);
+        return data;
+      });
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
     }
-    return products;
+  }
+
+  Future<Data<bool>> deleteProductfromcart(
+    int productOrderId,
+  ) async {
+    try {
+      Data<bool> data = await _apiService.deleteRequest<Data<bool>>(
+          _removeFromTocart + "/" + "$productOrderId", (response) {
+        Data<bool> data = Data.empty();
+
+        data = Data.succeed(data: true);
+        return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  Future<Data<bool>> checkout(int order) async {
+    try {
+      return await _apiService.putRequest<Data<bool>>(
+          _orderCheckout, {"orderId": order}, (response) {
+        return Data.succeed(data: true);
+      });
+
+      // return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
+  }
+
+  // Categories
+
+  ///
+  /// * brief:
+  ///
+  ///     Get all available categories in the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains either a list of categories, or an exception.
+  ///
+  Future<Data<List<Category>>> getCategories() async {
+    try {
+      Data<List<Category>> data = await _apiService
+          .getRequest<Data<List<Category>>>(_category, (response) {
+        Data<List<Category>> data = Data.empty();
+        List<Category> categories = [];
+        categories = _initCategoriesData(response);
+        if (categories.isNotEmpty) {
+          return Data.succeed(data: categories);
+        }
+        return data;
+      });
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message);
+    } catch (e) {
+      return Data.faild(message: "message-error".tr);
+    }
   }
 
   /// Initalize categories response.
@@ -663,33 +660,43 @@ class ProductRepo {
     return categories;
   }
 
-  /// Initalize valuations response.
-  List<Evaluation> _initEvaluationsData(Response response) {
-    List<Evaluation> evaluations = [];
-    var data = jsonDecode(response.bodyString!)["evaluations"] as List;
-    for (var product in data) {
-      evaluations.add(Evaluation().serilizer().fromJson(product));
-    }
-    return evaluations;
-  }
+  ///
+  /// * brief:
+  ///
+  ///     Add new categort to the system the system.
+  ///
+  /// * return
+  ///
+  ///     Returns a `Data` object that contains the added category, or an exception.
+  ///
+  Future<Data<Category>> postCategory(AddCategoryDTO dto) async {
+    try {
+      Data<Category> data = await _apiService.postRequest<Data<Category>>(
+          _category, dto.serializer().toJson(), (response) {
+        var jsonResponse = jsonDecode(response.bodyString!);
+        return Data.succeed(
+            showSnackbar: true,
+            message: "item-posted-successfully"
+                .trParams({"item": "Category ${dto.title}"}),
+            data: Category().serilizer().fromJson(jsonResponse));
+      });
 
-  /// Initalize valuations response.
-  List<ColorModel> _initColors(Response response) {
-    List<ColorModel> evaluations = [];
-    var data = jsonDecode(response.bodyString!)["colors"] as List;
-    for (var product in data) {
-      evaluations.add(ColorModel().serilizer().fromJson(product));
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } on FormatException catch (e) {
+      return Data.faild(
+        message: e.message,
+        showSnackbar: true,
+      );
+    } catch (e) {
+      return Data.faild(
+        message: "message-error".tr,
+        showSnackbar: true,
+      );
     }
-    return evaluations;
-  }
-
-  /// Initalize sizes response.
-  List<Size> _initSizes(Response response) {
-    List<Size> evaluations = [];
-    var data = jsonDecode(response.bodyString!)["sizes"] as List;
-    for (var product in data) {
-      evaluations.add(Size().serilizer().fromJson(product));
-    }
-    return evaluations;
   }
 }

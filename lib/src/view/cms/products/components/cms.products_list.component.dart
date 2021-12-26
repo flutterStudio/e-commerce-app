@@ -13,63 +13,60 @@ class CMSProductsList extends GetWidget<CMSProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.secondaryVariant,
-      child: Obx(() {
-        return RequestHandler<List<Product>>(
-          data: controller.products.value,
-          onSuccess: (BuildContext context, List<Product> items) =>
-              ListView.builder(
-                  itemCount: controller.products.value.data!.length,
-                  itemBuilder: (context, index) {
-                    Product product = items[index];
-                    return ExpansionTile(
-                      children: [
-                        Row(children: [
-                          IconButton(
-                              onPressed: product.id == null
-                                  ? null
-                                  : () {
-                                      controller.deleteProduct(product.id!);
-                                    },
-                              icon: const Icon(Icons.delete)),
-                          IconButton(
-                              onPressed: () {}, icon: const Icon(Icons.edit)),
-                        ])
-                      ],
-                      leading: CustomNetworkImage(
-                        url: product.mainImage ?? "",
+    return Obx(() {
+      return RequestHandler<List<Product>>(
+        data: controller.products.value,
+        onSuccess: (BuildContext context, List<Product> items) =>
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: controller.products.value.data!.length,
+                itemBuilder: (context, index) {
+                  Product product = items[index];
+                  return ExpansionTile(
+                    children: [
+                      Row(children: [
+                        IconButton(
+                            onPressed: product.id == null
+                                ? null
+                                : () {
+                                    controller.deleteProduct(product.id!);
+                                  },
+                            icon: const Icon(Icons.delete)),
+                        IconButton(
+                            onPressed: () {}, icon: const Icon(Icons.edit)),
+                      ])
+                    ],
+                    leading: CustomNetworkImage(
+                      url: product.mainImage ?? "",
+                    ),
+                    title: Text(
+                      product.title ?? "",
+                      style: const TextStyle(color: Colors.black, fontSize: 16),
+                      overflow: TextOverflow.clip,
+                      maxLines: 2,
+                    ),
+                    subtitle: Text.rich(
+                      TextSpan(
+                        text: "\$${product.price}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.primary),
+                        children: [
+                          product.discount != null
+                              ? TextSpan(
+                                  text: " disount: ${product.discount}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary))
+                              : const TextSpan(),
+                        ],
                       ),
-                      title: Text(
-                        product.title ?? "",
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
-                        overflow: TextOverflow.clip,
-                        maxLines: 2,
-                      ),
-                      subtitle: Text.rich(
-                        TextSpan(
-                          text: "\$${product.price}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.primary),
-                          children: [
-                            product.discount != null
-                                ? TextSpan(
-                                    text: " disount: ${product.discount}",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary))
-                                : const TextSpan(),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-        );
-      }),
-    );
+                    ),
+                  );
+                }),
+      );
+    });
   }
 }
