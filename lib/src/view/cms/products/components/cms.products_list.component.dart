@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routing/app_paths.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/view/cms/products/cms.products.controller.dart';
 import 'package:e_commerce/src/view/shared/custom_network_image.widget.dart';
@@ -23,7 +24,7 @@ class CMSProductsList extends GetWidget<CMSProductsController> {
               // shrinkWrap: true,
               dragStartBehavior: DragStartBehavior.start,
               physics: const ClampingScrollPhysics(),
-              itemCount: controller.products.value.data!.length,
+              itemCount: items.length,
               itemBuilder: (context, index) {
                 Product product = items[index];
                 return ExpansionTile(
@@ -37,7 +38,11 @@ class CMSProductsList extends GetWidget<CMSProductsController> {
                                 },
                           icon: const Icon(Icons.delete)),
                       IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.edit)),
+                          onPressed: () {
+                            Get.toNamed(AppPaths.admin + AppPaths.updateProduct,
+                                arguments: [product]);
+                          },
+                          icon: const Icon(Icons.edit)),
                     ])
                   ],
                   leading: CustomNetworkImage(

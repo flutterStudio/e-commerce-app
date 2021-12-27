@@ -116,7 +116,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
             label: "textField-product-min-quantity-label".tr,
             hint: "textField-product-min-quantity-hint".tr,
             inputType: TextInputType.number,
-            // initialValue: controller.minQuantity.value?.toString() ?? "",
+            // initialValue: "sdf",
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             controller: controller.minQuantityController,
             // onChanged: (value) {

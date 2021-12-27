@@ -13,10 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CMSAddProductController extends GetxController {
-  CMSAddProductController.update(Product product) : updateProduct = true;
-  CMSAddProductController();
-
-  bool updateProduct = false;
+  Rx<bool> updateProduct = Rx(false);
   // fields controllers
 
   TextEditingController titleController = TextEditingController();
@@ -31,12 +28,17 @@ class CMSAddProductController extends GetxController {
   Rx<Data<List<ColorModel>>> availableColors = Rx(Data.empty());
   Rx<Data<List<Size>>> availableSizes = Rx(Data.empty());
 
-  // Rx<String?> title = Rx(null);
-  // Rx<String?> description = Rx(null);
-  // Rx<int?> minQuantity = Rx(null);
-  // Rx<int?> availableQuntity = Rx(null);
-  // Rx<double?> price = Rx(null);
-  // Rx<double?> discount = Rx(0);
+  void fillfields(Product product) {
+    clearAll();
+    titleController.text = product.title ?? "";
+    descritionController.text = product.description ?? "";
+    discountController.text = product.discount?.toString() ?? "";
+    priceController.text = product.price?.toString() ?? "";
+    availableQuntityController.text =
+        product.availableQuantity?.toString() ?? "";
+    minQuantityController.text = product.minQuantity?.toString() ?? "";
+    selectedColors?.value.addAll(product.colors ?? []);
+  }
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
   Rx<List<Size>>? selectedSizes = Rx([]);
@@ -112,8 +114,6 @@ class CMSAddProductController extends GetxController {
         : true;
   }
 
-  // files upload.
-
   Future<void> addProduct() async {
     product.value = Data.inProgress(showSnackbar: true);
     product.value = await _mainRepo.productRepo.postProduct(AddProductDto(
@@ -140,12 +140,12 @@ class CMSAddProductController extends GetxController {
   void clearAll() {
     selectedSizes?.value = [];
     selectedColors?.value = [];
-    // titleController.clear();
-    // descritionController.clear();
-    // minQuantityController.clear();
-    // discountController.clear();
-    // availableQuntityController.clear();
-    // priceController.clear();
+    titleController.clear();
+    descritionController.clear();
+    minQuantityController.clear();
+    discountController.clear();
+    availableQuntityController.clear();
+    priceController.clear();
     fileUploaderController.clearAll();
   }
 }
