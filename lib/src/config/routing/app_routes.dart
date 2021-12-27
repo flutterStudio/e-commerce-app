@@ -59,10 +59,22 @@ class AppRoutes {
           GetPage(
             name: AppPaths.addProduct,
             page: () => const CMSAddProduct(),
-            participatesInRootNavigator: true,
+            // participatesInRootNavigator: true,
             preventDuplicates: true,
-            binding: BindingsBuilder.put(() {
-              return CMSAddProductController();
+            // binding: BindingsBuilder(() {
+            //    CMSAddProductController();
+            // }),
+          ),
+          GetPage(
+            name: AppPaths.updateProduct,
+            page: () => const CMSAddProduct(),
+            // participatesInRootNavigator: true,
+            preventDuplicates: true,
+            binding: BindingsBuilder(() {
+              var product = Get.arguments[0];
+              if (product != null) {
+                Get.find<CMSAddProductController>().fillfields(product);
+              }
             }),
           ),
           GetPage(
