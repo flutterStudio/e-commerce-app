@@ -38,6 +38,7 @@ class CMSAddProductController extends GetxController {
         product.availableQuantity?.toString() ?? "";
     minQuantityController.text = product.minQuantity?.toString() ?? "";
     selectedColors?.value.addAll(product.colors ?? []);
+    selectedSizes?.value.addAll(product.sizes ?? []);
   }
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
