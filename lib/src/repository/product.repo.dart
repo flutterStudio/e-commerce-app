@@ -5,6 +5,7 @@ import 'package:e_commerce/src/dto/add_evaluation.dto.dart';
 import 'package:e_commerce/src/dto/add_product.dto.dart';
 import 'package:e_commerce/src/dto/add_to_cart.dto.dart';
 import 'package:e_commerce/src/dto/filter_products.dto.dart';
+import 'package:e_commerce/src/dto/update_product.dto.dart';
 import 'package:e_commerce/src/model/cart.model.dart';
 import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/color.model.dart';
@@ -185,7 +186,11 @@ class ProductRepo {
 
           var productJson = jsonDecode(response.bodyString!);
           // Get pagination info if exists.
-          data = Data.succeed(data: Product(id: productJson["productId"]));
+          data = Data.succeed(
+              showSnackbar: true,
+              message:
+                  "item-posted-successfully".trParams({"item": "product".tr}),
+              data: Product(id: productJson["productId"]));
 
           return data;
         },
@@ -193,11 +198,42 @@ class ProductRepo {
 
       return data;
     } on NetworkException catch (e) {
-      return Data.faild(message: e.message);
+      return Data.faild(message: e.message, showSnackbar: true);
     } on FormatException catch (e) {
-      return Data.faild(message: e.message);
+      return Data.faild(message: e.message, showSnackbar: true);
     } catch (e) {
       return Data.faild(message: "message-unknown-error".tr);
+    }
+  }
+
+  Future<Data<Product>> updateProduct(UpdateProductDto product) async {
+    try {
+      Data<Product>? data = await _apiService.putRequest<Data<Product>>(
+        _product,
+        product.serializer().toJson(),
+        (response) {
+          Data<Product> data = Data.empty();
+
+          var productJson = jsonDecode(response.bodyString!);
+          // Get pagination info if exists.
+          data = Data.succeed(
+              showSnackbar: true,
+              message:
+                  "item-updated-successfully".trParams({"item": "product".tr}),
+              data: Product(id: productJson["productId"]));
+
+          return data;
+        },
+      );
+
+      return data;
+    } on NetworkException catch (e) {
+      return Data.faild(message: e.message, showSnackbar: true);
+    } on FormatException catch (e) {
+      return Data.faild(message: e.message, showSnackbar: true);
+    } catch (e) {
+      return Data.faild(
+          message: "message-unknown-error".tr, showSnackbar: true);
     }
   }
 

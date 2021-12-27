@@ -23,7 +23,10 @@ class Product implements Model {
     this.isFavourite = false,
     this.isPopular = false,
     this.title,
+    this.availableQuantity,
     this.price,
+    this.minQuantity,
+    this.sizes,
     this.description,
   });
 

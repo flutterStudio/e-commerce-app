@@ -95,6 +95,8 @@ class AddProductForm extends GetView<CMSAddProductController> {
             // },
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             validator: (value) {
+              int discount =
+                  int.tryParse(controller.discountController.value.text) ?? 0;
               return GetUtils.isNullOrBlank(value)!
                   ? "textField-validation-needed"
                       .trParams({"field": "discount".tr})
@@ -102,9 +104,7 @@ class AddProductForm extends GetView<CMSAddProductController> {
                       ? "textField-validation-not-valid-type"
                           .tr
                           .trParams({"type": "positive-numbers".tr})
-                      : int.tryParse(
-                                  controller.discountController.value.text)! >
-                              100
+                      : discount > 100
                           ? "textField-validation-not-valid".trParams({
                               "field": "discount".tr,
                               "criteria": "under than 100%"
@@ -298,7 +298,11 @@ class AddProductForm extends GetView<CMSAddProductController> {
             press: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-                controller.addProduct();
+                if (controller.productUpdate.value) {
+                  controller.updateProduct();
+                } else {
+                  controller.addProduct();
+                }
               }
             },
           ),

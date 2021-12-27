@@ -1,19 +1,20 @@
 import 'package:e_commerce/src/config/enums.dart';
 import 'package:e_commerce/src/dto/add_product.dto.dart';
+import 'package:e_commerce/src/dto/update_product.dto.dart';
 import 'package:e_commerce/src/model/category.model.dart';
 import 'package:e_commerce/src/model/color.model.dart';
 import 'package:e_commerce/src/model/data.model.dart';
 import 'package:e_commerce/src/model/product.model.dart';
 import 'package:e_commerce/src/model/size.model.dart';
 import 'package:e_commerce/src/repository/main.repo.dart';
-import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/view/shared/file_uploader/file_uploader.controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CMSAddProductController extends GetxController {
-  Rx<bool> updateProduct = Rx(false);
+  Rx<bool> productUpdate = Rx(false);
+  int? productId;
   // fields controllers
 
   TextEditingController titleController = TextEditingController();
@@ -28,17 +29,19 @@ class CMSAddProductController extends GetxController {
   Rx<Data<List<ColorModel>>> availableColors = Rx(Data.empty());
   Rx<Data<List<Size>>> availableSizes = Rx(Data.empty());
 
-  void fillfields(Product product) {
+  void fillfields(Product productToUpdate) {
     clearAll();
-    titleController.text = product.title ?? "";
-    descritionController.text = product.description ?? "";
-    discountController.text = product.discount?.toString() ?? "";
-    priceController.text = product.price?.toString() ?? "";
+    titleController.text = productToUpdate.title ?? "";
+    descritionController.text = productToUpdate.description ?? "";
+    discountController.text = productToUpdate.discount?.toString() ?? "";
+    priceController.text = productToUpdate.price?.toString() ?? "";
     availableQuntityController.text =
-        product.availableQuantity?.toString() ?? "";
-    minQuantityController.text = product.minQuantity?.toString() ?? "";
-    selectedColors?.value.addAll(product.colors ?? []);
-    selectedSizes?.value.addAll(product.sizes ?? []);
+        productToUpdate.availableQuantity?.toString() ?? "";
+    minQuantityController.text = productToUpdate.minQuantity?.toString() ?? "";
+    selectedColors?.value.addAll(productToUpdate.colors ?? []);
+    selectedSizes?.value.addAll(productToUpdate.sizes ?? []);
+    productId = productToUpdate.id;
+    productUpdate.value = true;
   }
 
   Rx<List<ColorModel>>? selectedColors = Rx([]);
@@ -116,24 +119,42 @@ class CMSAddProductController extends GetxController {
   }
 
   Future<void> addProduct() async {
-    product.value = Data.inProgress(showSnackbar: true);
+    product.value = Data.inProgress(
+        showSnackbar: true,
+        message: "posting-item".trParams({"item": "product".tr}));
     product.value = await _mainRepo.productRepo.postProduct(AddProductDto(
         availableQuantity: int.tryParse(availableQuntityController.value.text),
         title: titleController.value.text,
         colors: selectedColors?.value ?? [],
         description: descritionController.value.text,
+        discount: double.tryParse(discountController.value.text),
         images: await fileUploaderController.getAttachments(),
         minQuantity: int.tryParse(minQuantityController.value.text),
         price: double.tryParse(priceController.value.text),
         sizes: selectedSizes?.value ?? []));
 
-    Get.closeCurrentSnackbar();
-    if (product.value.isSucceed) {
-      Utils.showSnackBar(
-        "message-product-added-successfully".tr,
-        background: Get.theme.colorScheme.primaryVariant,
-        color: Get.theme.colorScheme.primary,
-      );
+    clearAll();
+  }
+
+  Future<void> updateProduct() async {
+    if (productId != null) {
+      product.value = Data.inProgress(
+          showSnackbar: true,
+          message: "updating-item".trParams({"item": "product".tr}));
+      product.value = await _mainRepo.productRepo.updateProduct(
+          UpdateProductDto(
+              availableQuantity:
+                  int.tryParse(availableQuntityController.value.text),
+              title: titleController.value.text,
+              id: productId,
+              colors: selectedColors?.value ?? [],
+              discount: double.tryParse(discountController.value.text),
+              description: descritionController.value.text,
+              // images: await fileUploaderController.getAttachments(),
+              minQuantity: int.tryParse(minQuantityController.value.text),
+              price: double.tryParse(priceController.value.text),
+              sizes: selectedSizes?.value ?? []));
+
       clearAll();
     }
   }
@@ -148,5 +169,7 @@ class CMSAddProductController extends GetxController {
     availableQuntityController.clear();
     priceController.clear();
     fileUploaderController.clearAll();
+    product.value = Data.empty();
+    productUpdate.value = false;
   }
 }
