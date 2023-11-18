@@ -1,2 +1,2 @@
 
-# Softavia-e-commerce
+# e-commerce flutter application
